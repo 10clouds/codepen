@@ -1,0 +1,31 @@
+@import './../helpers/variables';
+
+/* Flame images
+-------------------------------------------------------------- */
+.flame-img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  transform: translateX(-50%);
+
+  &--big {
+    &.flame-img--animation-out {
+      animation: fadeBigFire $duration ease-in $fire3-delay 1 normal forwards;
+    }
+  }
+
+  &--medium {
+    &.flame-img--animation-out {
+      animation: fadeMediumFire $duration ease-in $fire2-delay 1 normal forwards;
+    }
+  }
+
+  &--small {
+    &.flame-img--animation-out {
+      animation: fadeSmallFire $duration ease-in $fire1-delay 1 normal forwards;
+    }
+  }
+}

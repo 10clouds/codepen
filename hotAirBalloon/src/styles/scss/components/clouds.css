@@ -1,0 +1,43 @@
+/* Colors
+-------------------------------------------------------------- */
+/* Typography
+-------------------------------------------------------------- */
+/* Borders
+-------------------------------------------------------------- */
+/* Animations
+-------------------------------------------------------------- */
+/* Breakpoints
+-------------------------------------------------------------- */
+/* Media queries
+-------------------------------------------------------------- */
+/* Cloud images
+-------------------------------------------------------------- */
+.cloud-img {
+  position: absolute;
+  transform: translate(0, 0);
+  transition: transform 0.3s linear; }
+  .cloud-img--left {
+    left: -25%;
+    bottom: 0;
+    width: 70%; }
+    .cloud-img--left.cloud-img--animation-in {
+      animation: 1.5s ease-in 2.2s normal forwards fadeFromTop; }
+    .cloud-img--left.cloud-img--animation-reset, .cloud-img--left.cloud-img--animation-out {
+      transition: transform 1s ease-in; }
+  .cloud-img--right {
+    right: -45%;
+    bottom: -25%;
+    width: 95%; }
+    .cloud-img--right.cloud-img--animation-in {
+      animation: 1.9s ease-in 2.2s normal forwards fadeFromTop; }
+    .cloud-img--right.cloud-img--animation-reset, .cloud-img--right.cloud-img--animation-out {
+      transition: transform 1.3s ease-in; }
+  .cloud-img--behind {
+    bottom: 28%;
+    right: 3%;
+    width: 35%;
+    z-index: 1; }
+    .cloud-img--behind.cloud-img--animation-in {
+      animation: 1.7s ease-in 2.2s normal forwards fadeFromTop; }
+    .cloud-img--behind.cloud-img--animation-reset, .cloud-img--behind.cloud-img--animation-out {
+      transition: transform 1.2s ease-in; }

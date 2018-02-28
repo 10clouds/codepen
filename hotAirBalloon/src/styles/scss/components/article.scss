@@ -1,0 +1,120 @@
+@import './../helpers/variables';
+@import './../helpers/mixins';
+
+/* Article
+-------------------------------------------------------------- */
+.article {
+  width: 65%;
+  margin: 40px 0 65px;
+  overflow: hidden;
+
+  @media #{$media-lg}{
+    margin-top: 8%;
+  }
+
+  @media #{$media-lg-xl}{
+    margin: 130px 0 80px;
+  }
+
+  /* Article header
+  -------------------------------------------------------------- */
+  &__header {
+
+    p {
+      width: 0;
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    &--animation-in {
+      p {
+        @for $item from 1 through 3 {
+          &:nth-child(#{$item}) {
+            @if $item == 1 {
+              animation: widthAnimation $duration steps(50, end) $delay 1 normal forwards;
+            } @else if $item == 2 {
+              animation: widthAnimation $duration steps(50, end) ($delay + $duration) 1 normal forwards;
+            } @else {
+              animation: widthAnimation $duration steps(50, end) ($delay + 2*$duration) 1 normal forwards;
+            }
+          }
+        }
+      }
+    }
+
+    &--animation-out {
+      p {
+        opacity: 1;
+        width: 100%;
+      }
+    }
+
+    &--animation-reset {
+      p {
+        width: 100%;
+        animation: $duration linear $delay-end 1 normal forwards widthCloseAnimation;
+      }
+    }
+  }
+
+  /* Article subheader
+  -------------------------------------------------------------- */
+  &__subheader {
+    position: relative;
+    color: $blue;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-size: 1.2rem;
+    font-family: $base-family-bold;
+    opacity: 0;
+
+    @media #{$media-lg-xl}{
+      font-size: 14px;
+      font-size: 1.4rem;
+    }
+
+    &--animation-in {
+      animation: $duration ease-in $delay 1 normal forwards smoothFadeFromTop;
+    }
+
+    &--animation-out {
+      opacity: 1;
+    }
+
+    &--animation-reset {
+      opacity: 1;
+      animation: $duration linear $delay-end 1 normal forwards fadeOut;
+    }
+  }
+
+  /* Article description
+  -------------------------------------------------------------- */
+  &__desc {
+    width: 90%;
+    margin-bottom: 40px;
+    line-height: 2.8rem;
+    position: relative;
+    opacity: 0;
+    max-height: 8.4rem;
+    overflow: hidden;
+
+    @media #{$media-lg-xl}{
+      width: 80%;
+      margin-bottom: 60px;
+    }
+
+    &--animation-in {
+      animation: $duration ease-in ($delay + $duration) 1 normal forwards smoothFadeFromTop;
+    }
+
+    &--animation-out {
+      opacity: 1;
+    }
+
+    &--animation-reset {
+      opacity: 1;
+      animation: $duration linear $delay-end 1 normal forwards fadeOut;
+    }
+  }
+}

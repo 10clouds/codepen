@@ -1,0 +1,19 @@
+/* Navigation
+-------------------------------------------------------------- */
+.navigation {
+  position: relative;
+  height: 100%;
+  padding: 20px 0;
+  /* Navigation hamburger btn
+  -------------------------------------------------------------- */
+  /* Navigation social links
+  -------------------------------------------------------------- */ }
+  .navigation__btn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 0; }
+  .navigation__social-links {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); }

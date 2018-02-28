@@ -1,0 +1,78 @@
+@import './../helpers/variables';
+
+/* Social links
+-------------------------------------------------------------- */
+.social-links {
+  $parent: &;
+
+  &--animation-in {
+    @for $i from 1 through 3 {
+      #{$parent}__item:nth-child(#{$i}) {
+        @if $i == 1 {
+          animation: $duration-fast ease-in $delay 1 normal forwards show;
+        } @else if $i == 2 {
+          animation: $duration-fast ease-in ($delay + $duration-fast) 1 normal forwards show;
+        } @else {
+          animation: $duration-fast ease-in ($delay + $duration-fast*2) 1 normal forwards show;
+        }
+      }
+    }
+  }
+
+  &--animation-out {
+    #{$parent}__item {
+      opacity: 1;
+    }
+  }
+
+  &--animation-reset {
+    #{$parent}__item {
+      opacity: 1;
+      animation: $duration linear $delay-end 1 normal forwards fadeOut;
+    }
+  }
+
+  /* Social links item
+  -------------------------------------------------------------- */
+  &__item {
+    margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: $athens-gray;
+    border-radius: $radius-base;
+    text-align: center;
+    opacity: 0;
+
+    &:hover {
+      i {
+        color: white;
+      }
+    }
+
+    &--facebook {
+      &:hover {
+        background-color: $chambray;
+      }
+    }
+
+    &--twitter {
+      &:hover {
+        background-color: $mailbu;
+      }
+    }
+
+    &--dribble {
+      &:hover {
+        background-color: $rose;
+      }
+    }
+  }
+
+  &__link {
+    display: block;
+
+    i {
+      line-height: 40px;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="467" height="341" viewBox="0 0 467 341">
+    <defs>
+        <filter id="a" width="171%" height="217.3%" x="-35.5%" y="-57.7%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="38"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.00784313725 0 0 0 0 0 0 0 0 0 0.223529412 0 0 0 0.0768229167 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <radialGradient id="b" cx="100%" cy="178.622%" r="176.515%" fx="100%" fy="178.622%">
+            <stop offset="0%" stop-color="#EFEFF4"/>
+            <stop offset="37.319%" stop-color="#DDDDEB"/>
+            <stop offset="100%" stop-color="#FFF"/>
+        </radialGradient>
+        <radialGradient id="c" cx="100%" cy="178.622%" r="176.515%" fx="100%" fy="178.622%" gradientTransform="matrix(-.38596 -.9215 .9157 -.3884 -.25 3.401)">
+            <stop offset="0%" stop-color="#EFEFF4"/>
+            <stop offset="37.319%" stop-color="#DDDDEB"/>
+            <stop offset="100%" stop-color="#FFF"/>
+        </radialGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd" filter="url(#a)" transform="translate(72 71)">
+        <path fill="url(#b)" d="M97 180c36.45 0 66-29.55 66-66s-29.55-66-66-66-66 29.55-66 66 29.55 66 66 66z"/>
+        <circle cx="40.5" cy="119.5" r="40.5" fill="url(#b)"/>
+        <circle cx="297" cy="134" r="27" fill="url(#b)"/>
+        <circle cx="190" cy="166" r="27" fill="url(#b)"/>
+        <ellipse cx="176.5" cy="79" fill="url(#c)" rx="79.5" ry="79"/>
+        <circle cx="235" cy="141" r="55" fill="url(#b)"/>
+    </g>
+</svg>

@@ -1,0 +1,110 @@
+/* Button
+-------------------------------------------------------------- */
+.button {
+  $parent: &;
+  background: none;
+  border-radius: $radius-base/2;
+  border: 0;
+  font-size: 14px;
+  font-size: 1.4rem;
+  font-family: $base-family;
+  text-align: left;
+  cursor: pointer;
+
+  /* Button with gradient
+  -------------------------------------------------------------- */
+  &--gradient {
+    position: relative;
+    padding-left: 10px;
+    width: 200px;
+    height: 50px;
+    overflow: hidden;
+    opacity: 0;
+    @include gradient-horizontal($cerulean-blue, $bay-blue);
+
+    @media #{$media-lg-xl}{
+      width: 220px;
+      height: 60px;
+    }
+
+    &:hover {
+      span {
+        &:after{
+          opacity: 0;
+          transform: translateX(120%);
+        }
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:disabled{
+      opacity: 0.8;
+      cursor: not-allowed;
+
+      span,i{
+        color: $cadet-gray;
+
+        &:after{
+          opacity: 0;
+          transform: translateX(120%);
+        }
+      }
+    }
+
+    span {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 10px 15px;
+      color: #fff;
+      z-index: 1;
+
+      &:after {
+        position: absolute;
+        content: '';
+        width: 60%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: $jackson-blue;
+        overflow: hidden;
+        opacity: 1;
+        transform: translateX(0);
+        transition: all 0.3s ease-in;
+        z-index: -1;
+      }
+    }
+  }
+
+  /* Button with icon
+  -------------------------------------------------------------- */
+  &--icon {
+    position: relative;
+
+    i {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+  }
+
+  &--animation-in {
+    animation: $duration-long ease-in $images-delay 1 normal forwards fadeFromTop;
+  }
+
+  &--animation-out{
+    opacity: 1;
+  }
+
+  &--animation-reset {
+    opacity: 1;
+    animation: $duration linear $delay-end 1 normal forwards fadeOut;
+  }
+}

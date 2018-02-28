@@ -1,0 +1,48 @@
+/* Colors
+-------------------------------------------------------------- */
+/* Typography
+-------------------------------------------------------------- */
+/* Borders
+-------------------------------------------------------------- */
+/* Animations
+-------------------------------------------------------------- */
+/* Breakpoints
+-------------------------------------------------------------- */
+/* Media queries
+-------------------------------------------------------------- */
+/* Social links
+-------------------------------------------------------------- */
+.social-links {
+  /* Social links item
+  -------------------------------------------------------------- */ }
+  .social-links--animation-in .social-links__item:nth-child(1) {
+    animation: 0.3s ease-in 1.3s 1 normal forwards show; }
+  .social-links--animation-in .social-links__item:nth-child(2) {
+    animation: 0.3s ease-in 1.6s 1 normal forwards show; }
+  .social-links--animation-in .social-links__item:nth-child(3) {
+    animation: 0.3s ease-in 1.9s 1 normal forwards show; }
+  .social-links--animation-out .social-links__item {
+    opacity: 1; }
+  .social-links--animation-reset .social-links__item {
+    opacity: 1;
+    animation: 0.5s linear 3.9s 1 normal forwards fadeOut; }
+  .social-links__item {
+    margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #eeeef4;
+    border-radius: 5px;
+    text-align: center;
+    opacity: 0; }
+    .social-links__item:hover i {
+      color: white; }
+    .social-links__item--facebook:hover {
+      background-color: #3b5998; }
+    .social-links__item--twitter:hover {
+      background-color: #6fc1ff; }
+    .social-links__item--dribble:hover {
+      background-color: #ea4c89; }
+  .social-links__link {
+    display: block; }
+    .social-links__link i {
+      line-height: 40px; }

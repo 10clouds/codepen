@@ -1,0 +1,93 @@
+
+/* Colors
+-------------------------------------------------------------- */
+$mailbu:                     #6fc1ff !default;
+$chambray:                   #3b5998 !default;
+$cerulean-blue:              #2642CC !default;
+$blue:                       #273ac4 !default;
+$bay-blue:                   #2e2d92 !default;
+$jackson-blue:               #1A2B80 !default;
+$black-rock:                 #02021e !default;
+$dark-violet:                #1d0a47 !default;
+$stratos:                    #020038 !default;
+$cadet-gray:                 #b0b3c5 !default;
+$mischka-gray:               #d2d2e0 !default;
+$athens-gray:                #eeeef4 !default;
+$rose:                       #ea4c89 !default;
+
+/* Typography
+-------------------------------------------------------------- */
+
+$headers-family:             'circular-black', 'Arial', sans-serif;
+$base-family:                'circular-book', 'Arial', sans-serif;
+$base-family-bold:           'circular-bold', 'Arial', sans-serif;
+$font-color:                  $dark-violet;
+$font-color-light:            $cadet-gray;
+
+
+/* Borders
+-------------------------------------------------------------- */
+$radius-base:                 5px !default;
+
+
+/* Animations
+-------------------------------------------------------------- */
+$duration:                    0.5s;
+$duration-normal:               1s;
+$duration-fast:               0.3s;
+$duration-long:               1.5s;
+$balloon-out-duration:        4.5s;
+
+$delay:                       $duration-normal + $duration-fast;
+$delay-end:                   $delay*3;
+$images-delay:                2.2s;
+$animation-in-end:            $duration-long + $images-delay + $duration-fast;
+
+$cubic-brazier:               cubic-bezier(.500, .250, .310, .955);
+$cubic-ease-in:               cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+$fire1-delay:                 $duration-fast;
+$fire2-delay:                 $fire1-delay+$duration;
+$fire3-delay:                 $fire2-delay+$duration;
+$balloon-out-delay:           $fire3-delay+$duration*2;
+$balloon-out-clouds-delay:    $duration-long;
+
+/* Breakpoints
+-------------------------------------------------------------- */
+// Extra small screen / phone
+$screen-xs:                  480px !default;
+
+// Small screen / tablet
+$screen-sm:                  768px !default;
+
+// Medium screen / desktop
+$screen-md:                  992px !default;
+
+// Large screen / wide desktop
+$screen-lg:                  1200px !default;
+
+// Large screen / wide desktop
+$screen-lg-xl:               1800px !default;
+
+$screen-xs-max:              ($screen-sm - 1) !default;
+$screen-sm-max:              ($screen-md - 1) !default;
+$screen-md-max:              ($screen-lg - 1) !default;
+
+/* Media queries
+-------------------------------------------------------------- */
+$screen:                      "only screen";
+
+$media-lg-xl:                 "#{$screen} and (min-width:#{$screen-lg-xl})";
+$media-lg:                    "#{$screen} and (min-width:#{$screen-lg})";
+
+$media-md-up:                 "#{$screen} and (min-width:#{$screen-md})";
+$media-md:                    "#{$screen} and (min-width:#{$screen-md}) and (max-width:#{$screen-md-max})";
+$media-to-md:                 "#{$screen} and (max-width:#{$screen-md-max})";
+
+$media-sm-up:                 "#{$screen} and (min-width:#{$screen-sm})";
+$media-sm:                    "#{$screen} and (min-width:#{$screen-sm}) and (max-width:#{$screen-sm-max})";
+$media-to-sm:                 "#{$screen} and (max-width:#{$screen-sm-max})";
+
+$media-xs-up:                 "#{$screen} and (min-width:#{$screen-xs})";
+$media-xs:                    "#{$screen} and (max-width:#{$screen-xs-max})";
+$media-xs-small:              "#{$screen} and (max-width:#{$screen-xs})";

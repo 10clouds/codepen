@@ -1,0 +1,89 @@
+/* Colors
+-------------------------------------------------------------- */
+/* Typography
+-------------------------------------------------------------- */
+/* Borders
+-------------------------------------------------------------- */
+/* Animations
+-------------------------------------------------------------- */
+/* Breakpoints
+-------------------------------------------------------------- */
+/* Media queries
+-------------------------------------------------------------- */
+/* Gradient
+-------------------------------------------------------------- */
+/* Retina
+-------------------------------------------------------------- */
+/* Article
+-------------------------------------------------------------- */
+.article {
+  width: 65%;
+  margin: 40px 0 65px;
+  overflow: hidden;
+  /* Article header
+  -------------------------------------------------------------- */
+  /* Article subheader
+  -------------------------------------------------------------- */
+  /* Article description
+  -------------------------------------------------------------- */ }
+  @media only screen and (min-width: 1200px) {
+    .article {
+      margin-top: 8%; } }
+  @media only screen and (min-width: 1800px) {
+    .article {
+      margin: 130px 0 80px; } }
+  .article__header p {
+    width: 0;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap; }
+  .article__header--animation-in p:nth-child(1) {
+    animation: widthAnimation 0.5s steps(50, end) 1.3s 1 normal forwards; }
+  .article__header--animation-in p:nth-child(2) {
+    animation: widthAnimation 0.5s steps(50, end) 1.8s 1 normal forwards; }
+  .article__header--animation-in p:nth-child(3) {
+    animation: widthAnimation 0.5s steps(50, end) 2.3s 1 normal forwards; }
+  .article__header--animation-out p {
+    opacity: 1;
+    width: 100%; }
+  .article__header--animation-reset p {
+    width: 100%;
+    animation: 0.5s linear 3.9s 1 normal forwards widthCloseAnimation; }
+  .article__subheader {
+    position: relative;
+    color: #273ac4;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-size: 1.2rem;
+    font-family: "circular-bold", "Arial", sans-serif;
+    opacity: 0; }
+    @media only screen and (min-width: 1800px) {
+      .article__subheader {
+        font-size: 14px;
+        font-size: 1.4rem; } }
+    .article__subheader--animation-in {
+      animation: 0.5s ease-in 1.3s 1 normal forwards smoothFadeFromTop; }
+    .article__subheader--animation-out {
+      opacity: 1; }
+    .article__subheader--animation-reset {
+      opacity: 1;
+      animation: 0.5s linear 3.9s 1 normal forwards fadeOut; }
+  .article__desc {
+    width: 90%;
+    margin-bottom: 40px;
+    line-height: 2.8rem;
+    position: relative;
+    opacity: 0;
+    max-height: 8.4rem;
+    overflow: hidden; }
+    @media only screen and (min-width: 1800px) {
+      .article__desc {
+        width: 80%;
+        margin-bottom: 60px; } }
+    .article__desc--animation-in {
+      animation: 0.5s ease-in 1.8s 1 normal forwards smoothFadeFromTop; }
+    .article__desc--animation-out {
+      opacity: 1; }
+    .article__desc--animation-reset {
+      opacity: 1;
+      animation: 0.5s linear 3.9s 1 normal forwards fadeOut; }

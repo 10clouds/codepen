@@ -1,0 +1,845 @@
+/* Helpers
+-------------------------------------------------------------- */
+/* Fonts
+-------------------------------------------------------------- */
+@font-face {
+  font-family: 'circular-black';
+  src: url("./../../assets/fonts/circular-black.otf"); }
+
+@font-face {
+  font-family: 'circular-bold';
+  src: url("./../../assets/fonts/circular-bold.otf"); }
+
+@font-face {
+  font-family: 'circular-book';
+  src: url("./../../assets/fonts/circular-book.otf"); }
+
+@font-face {
+  font-family: 'circular-medium';
+  src: url("./../../assets/fonts/circular-medium.otf"); }
+
+/* Colors
+-------------------------------------------------------------- */
+/* Typography
+-------------------------------------------------------------- */
+/* Borders
+-------------------------------------------------------------- */
+/* Animations
+-------------------------------------------------------------- */
+/* Breakpoints
+-------------------------------------------------------------- */
+/* Media queries
+-------------------------------------------------------------- */
+/* Gradient
+-------------------------------------------------------------- */
+/* Retina
+-------------------------------------------------------------- */
+/* Fade in
+-------------------------------------------------------------- */
+@keyframes show {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes fadeFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+
+@keyframes fadeFromTopCenter {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%, -20px); }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0); } }
+
+@keyframes smoothFadeFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px); }
+  60% {
+    opacity: 0.7; }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+
+@keyframes fadeFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px); }
+  100% {
+    opacity: 1;
+    transform: translateX(0); } }
+
+@keyframes fadeFromLeftCenter {
+  0% {
+    opacity: 0;
+    transform: translate(-10px, -50%); }
+  100% {
+    opacity: 1;
+    transform: translate(0, -50%); } }
+
+@keyframes fadeInWidthAnimation {
+  0% {
+    opacity: 0;
+    width: 0; }
+  100% {
+    opacity: 1;
+    width: 100%; } }
+
+/* Fade out
+-------------------------------------------------------------- */
+@keyframes fadeOut {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@keyframes fadeOutToTop {
+  0% {
+    opacity: 1; }
+  95% {
+    opacity: 1; }
+  100% {
+    transform: translate(-50%, -150%);
+    opacity: 0; } }
+
+@keyframes smoothfadeOutToTop {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px); } }
+
+@keyframes fadeOutToRight {
+  0% {
+    opacity: 1; }
+  80% {
+    opacity: 0.4;
+    transform: translateX(100%); }
+  100% {
+    opacity: 0;
+    transform: translateX(120%); } }
+
+@keyframes fadeOutWidthTransform {
+  0% {
+    opacity: 1; }
+  60% {
+    opacity: 0.5;
+    width: 30%; }
+  100% {
+    opacity: 0;
+    width: 0; } }
+
+@keyframes fadeOutToLeft {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0.3; }
+  100% {
+    opacity: 0;
+    right: 100%; } }
+
+@keyframes fadeOutToLeftWidthTransform {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%); } }
+
+/* Other animations
+-------------------------------------------------------------- */
+@keyframes moveDown {
+  0% {
+    transform: translateY(0); }
+  100% {
+    transform: translateY(20px); } }
+
+@keyframes widthAnimation {
+  0% {
+    width: 0; }
+  100% {
+    width: 100%; } }
+
+@keyframes widthCloseAnimation {
+  0% {
+    width: 100%; }
+  100% {
+    width: 0; } }
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: translateY(0); }
+  100% {
+    opacity: 1;
+    transform: translateY(-15px); } }
+
+/* Fire animation
+-------------------------------------------------------------- */
+@keyframes fadeSmallFire {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 0; }
+  100% {
+    height: auto;
+    width: 15px;
+    opacity: 1; } }
+
+@keyframes fadeMediumFire {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 0; }
+  100% {
+    height: auto;
+    width: 22px;
+    opacity: 1; } }
+
+@keyframes fadeBigFire {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 0; }
+  100% {
+    height: auto;
+    width: 30px;
+    opacity: 1; } }
+
+@font-face {
+  font-family: 'icomoon';
+  src: url("./../../assets/fonts/icons/icomoon.eot?syirbp");
+  src: url("./../../assets/fonts/icons/icomoon.eot?syirbp#iefix") format("embedded-opentype"), url("./../../assets/fonts/icons/icomoon.ttf?syirbp") format("truetype"), url("./../../assets/fonts/icons/icomoon.woff?syirbp") format("woff"), url("./../../assets/fonts/icons/icomoon.svg?syirbp#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-arrow-right:before {
+  content: "\e900"; }
+
+.icon-menu:before {
+  content: "\e901"; }
+
+.icon-facebook:before {
+  content: "\e902"; }
+
+.icon-twitter:before {
+  content: "\e903"; }
+
+.icon-dribble:before {
+  content: "\e904"; }
+
+/* Base
+-------------------------------------------------------------- */
+/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in
+ *    IE on Windows Phone and in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+body {
+  margin: 0; }
+
+/**
+ * Add the correct display in IE 9-.
+ */
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in IE.
+ */
+figcaption,
+figure,
+main {
+  /* 1 */
+  display: block; }
+
+/**
+ * Add the correct margin in IE 8.
+ */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */ }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+a {
+  background-color: transparent;
+  /* 1 */
+  -webkit-text-decoration-skip: objects;
+  /* 2 */ }
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+b,
+strong {
+  font-weight: inherit; }
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder; }
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ */
+audio,
+video {
+  display: inline-block; }
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+img {
+  border-style: none; }
+
+/**
+ * Hide the overflow in IE.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */ }
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible; }
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none; }
+
+/**
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *    controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */ }
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0; }
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em; }
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */ }
+
+/**
+ * 1. Add the correct display in IE 9-.
+ * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */ }
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */ }
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ */
+details,
+menu {
+  display: block; }
+
+/* Hidden
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10-.
+ */
+[hidden] {
+  display: none; }
+
+* {
+  box-sizing: border-box; }
+
+body {
+  background-color: #020038;
+  background-image: url("./../../assets/images/kratki.png");
+  background-size: 100% 100%;
+  background-position: center bottom;
+  background-repeat: no-repeat; }
+  @media all and (-webkit-min-device-pixel-ratio: 1.5), all and (-o-min-device-pixel-ratio: 3 / 2), all and (min--moz-device-pixel-ratio: 1.5), all and (min-device-pixel-ratio: 1.5) {
+    body {
+      background-image: url("./../../assets/images/kratki@2x.png"); } }
+  @media only screen and (min-width: 992px) {
+    body {
+      overflow-x: hidden; } }
+
+ul {
+  padding: 0;
+  list-style: none; }
+
+/* Body, html
+-------------------------------------------------------------- */
+html {
+  font-size: 62.5%; }
+
+body {
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 26px;
+  line-height: 2.6rem;
+  font-family: "circular-book", "Arial", sans-serif;
+  color: #b0b3c5; }
+  @media only screen and (min-width: 1800px) {
+    body {
+      font-size: 18px;
+      font-size: 1.8rem; } }
+
+/* Headers
+-------------------------------------------------------------- */
+h1, h2, h3, h4, h5 {
+  font-family: "circular-black", "Arial", sans-serif; }
+
+h1 {
+  margin: 15px 0 25px;
+  font-size: 40px;
+  font-size: 4rem;
+  line-height: 1.2;
+  color: #1d0a47; }
+  @media only screen and (min-width: 1200px) {
+    h1 {
+      font-size: 55px;
+      font-size: 5.5rem; } }
+  @media only screen and (min-width: 1800px) {
+    h1 {
+      font-size: 70px;
+      font-size: 7rem; } }
+
+/* Text, Links
+-------------------------------------------------------------- */
+a {
+  color: #d2d2e0;
+  text-decoration: none; }
+
+/* Layout
+-------------------------------------------------------------- */
+.container {
+  display: flex;
+  padding: 10px;
+  width: 90%;
+  min-width: 850px;
+  min-height: 100vh;
+  margin: 0 auto; }
+  @media only screen and (min-width: 1200px) {
+    .container {
+      width: 1220px; } }
+  @media only screen and (min-width: 1800px) {
+    .container {
+      width: 1450px; } }
+
+/* Main content
+-------------------------------------------------------------- */
+.main-content {
+  position: relative;
+  display: flex;
+  align-self: center;
+  width: 0;
+  max-width: 100%;
+  height: 650px; }
+  @media only screen and (min-width: 1200px) {
+    .main-content {
+      height: 90vh;
+      min-height: 700px;
+      max-height: 800px; } }
+  @media only screen and (min-width: 1800px) {
+    .main-content {
+      height: 955px;
+      max-height: 955px; } }
+  .main-content:before {
+    position: absolute;
+    content: '';
+    width: calc((45% / 2) + 5%);
+    height: 100%;
+    right: 0;
+    top: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    opacity: 0;
+    z-index: 0;
+    background: #2e2d92;
+    background: -moz-linear-gradient(top, #2e2d92 0%, #2642CC 100%);
+    background: -webkit-linear-gradient(top, #2e2d92 0%, #2642CC 100%);
+    background: linear-gradient(to bottom, #2e2d92 0%, #2642CC 100%); }
+  .main-content:after {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    opacity: 0;
+    z-index: -1;
+    background: #eeeef4;
+    background: -moz-linear-gradient(top, #eeeef4 0%, #fff 100%);
+    background: -webkit-linear-gradient(top, #eeeef4 0%, #fff 100%);
+    background: linear-gradient(to bottom, #eeeef4 0%, #fff 100%); }
+  .main-content--animation-in {
+    animation: 1s cubic-bezier(0.5, 0.25, 0.31, 0.955) 0s 1 normal forwards widthAnimation; }
+    .main-content--animation-in:after {
+      animation: 1s cubic-bezier(0.5, 0.25, 0.31, 0.955) 0s 1 normal forwards fadeInWidthAnimation; }
+    .main-content--animation-in:before {
+      animation: 0.5s ease-in 1.3s 1 normal forwards show; }
+  .main-content--animation-out {
+    width: 100%; }
+    .main-content--animation-out:after {
+      width: 100%;
+      opacity: 1; }
+    .main-content--animation-out:before {
+      opacity: 1; }
+  .main-content--animation-reset {
+    width: 100%; }
+    .main-content--animation-reset:after {
+      width: 100%;
+      opacity: 1;
+      animation: 0.5s linear 3.9s 1 normal forwards fadeOutWidthTransform; }
+    .main-content--animation-reset:before {
+      opacity: 1;
+      animation: 0.3s ease-in 3.9s 1 normal forwards fadeOutToLeftWidthTransform; }
+  .main-content__nav {
+    background-color: white;
+    width: 80px;
+    border-right: 1px solid #d2d2e0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    opacity: 0; }
+    .main-content__nav--animation-in {
+      animation: 0.5s ease-in 1.3s 1 normal forwards show; }
+    .main-content__nav--animation-out {
+      opacity: 1; }
+    .main-content__nav--animation-reset {
+      opacity: 1;
+      animation: 0.5s ease-in 3.9s 1 normal forwards fadeOut; }
+  .main-content__article {
+    position: relative;
+    width: calc(70% - 80px);
+    margin: 70px 25px;
+    opacity: 0; }
+    @media only screen and (min-width: 1200px) {
+      .main-content__article {
+        margin: 80px 40px; } }
+    @media only screen and (min-width: 1800px) {
+      .main-content__article {
+        margin: 100px 60px; } }
+    .main-content__article--animation-in {
+      animation: 0.5s ease-in 1.3s 1 normal forwards show; }
+    .main-content__article--animation-out {
+      opacity: 1; }
+    .main-content__article--animation-reset {
+      opacity: 1;
+      overflow-x: hidden;
+      animation: 0.5s ease-in 3.9s 1 normal forwards fadeOutWidthTransform; }
+  .main-content__img {
+    position: relative;
+    height: 20px; }
+    .main-content__img .logo {
+      position: absolute;
+      display: block;
+      bottom: 0;
+      opacity: 0; }
+      .main-content__img .logo--animation-in {
+        animation: 0.3s ease-in 1.3s 1 normal forwards smoothFadeFromTop; }
+      .main-content__img .logo--animation-reset, .main-content__img .logo--animation-out {
+        opacity: 1; }
+  .main-content__aside {
+    opacity: 1; }
+
+/* Components
+-------------------------------------------------------------- */
+/* Button
+-------------------------------------------------------------- */
+.button {
+  background: none;
+  border-radius: 2.5px;
+  border: 0;
+  font-size: 14px;
+  font-size: 1.4rem;
+  font-family: "circular-book", "Arial", sans-serif;
+  text-align: left;
+  cursor: pointer;
+  /* Button with gradient
+  -------------------------------------------------------------- */
+  /* Button with icon
+  -------------------------------------------------------------- */ }
+  .button--gradient {
+    position: relative;
+    padding-left: 10px;
+    width: 200px;
+    height: 50px;
+    overflow: hidden;
+    opacity: 0;
+    background: #2642CC;
+    background: -moz-linear-gradient(right, #2642CC 0%, #2e2d92 100%);
+    background: -webkit-linear-gradient(right, #2642CC 0%, #2e2d92 100%);
+    background: linear-gradient(to right, #2642CC 0%, #2e2d92 100%); }
+    @media only screen and (min-width: 1800px) {
+      .button--gradient {
+        width: 220px;
+        height: 60px; } }
+    .button--gradient:hover span:after {
+      opacity: 0;
+      transform: translateX(120%); }
+    .button--gradient:focus {
+      outline: none; }
+    .button--gradient:disabled {
+      opacity: 0.8;
+      cursor: not-allowed; }
+      .button--gradient:disabled span, .button--gradient:disabled i {
+        color: #b0b3c5; }
+        .button--gradient:disabled span:after, .button--gradient:disabled i:after {
+          opacity: 0;
+          transform: translateX(120%); }
+    .button--gradient span {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 10px 15px;
+      color: #fff;
+      z-index: 1; }
+      .button--gradient span:after {
+        position: absolute;
+        content: '';
+        width: 60%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: #1A2B80;
+        overflow: hidden;
+        opacity: 1;
+        transform: translateX(0);
+        transition: all 0.3s ease-in;
+        z-index: -1; }
+  .button--icon {
+    position: relative; }
+    .button--icon i {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      font-size: 1.2rem;
+      color: #fff; }
+  .button--animation-in {
+    animation: 1.5s ease-in 2.2s 1 normal forwards fadeFromTop; }
+  .button--animation-out {
+    opacity: 1; }
+  .button--animation-reset {
+    opacity: 1;
+    animation: 0.5s linear 3.9s 1 normal forwards fadeOut; }

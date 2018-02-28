@@ -1,0 +1,55 @@
+@import './../helpers/variables';
+
+/* Cloud images
+-------------------------------------------------------------- */
+.cloud-img {
+  position: absolute;
+  transform: translate(0, 0);
+  transition: transform 0.3s linear;
+
+  &--left {
+    left: -25%;
+    bottom: 0;
+    width: 70%;
+
+    &.cloud-img--animation-in {
+      animation: $duration-long ease-in $images-delay normal forwards fadeFromTop
+    }
+
+    &.cloud-img--animation-reset,
+    &.cloud-img--animation-out {
+      transition: transform $duration-normal ease-in;
+    }
+  }
+
+  &--right {
+    right: -45%;
+    bottom: -25%;
+    width: 95%;
+
+    &.cloud-img--animation-in {
+      animation: ($duration-long + 0.4s) ease-in $images-delay normal forwards fadeFromTop
+    }
+
+    &.cloud-img--animation-reset,
+    &.cloud-img--animation-out {
+      transition: transform ($duration-normal + 0.3s) ease-in;
+    }
+  }
+
+  &--behind {
+    bottom: 28%;
+    right: 3%;
+    width: 35%;
+    z-index: 1;
+
+    &.cloud-img--animation-in {
+      animation: ($duration-long + 0.2s) ease-in $images-delay normal forwards fadeFromTop
+    }
+
+    &.cloud-img--animation-reset,
+    &.cloud-img--animation-out {
+      transition: transform ($duration-normal + 0.2s) ease-in;
+    }
+  }
+}
