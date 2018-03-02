@@ -40,7 +40,7 @@ class Cloud extends React.Component {
         console.log(props.animationState)
     }
 
-    setCanStartMouseMoveAnimation = (e) => {
+    setCanStartMouseMoveAnimation = () => {
         if (this.props.animationState === ANIMATION_PHASES.START) {
             this.setState({
                 canStartMouseMoveAnimation: true
