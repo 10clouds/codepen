@@ -33,7 +33,8 @@
     background-color: #eeeef4;
     border-radius: 5px;
     text-align: center;
-    opacity: 0; }
+    opacity: 0;
+    transition: background-color 0.2s linear; }
     .social-links__item:hover i {
       color: white; }
     .social-links__item--facebook:hover {
@@ -42,6 +43,8 @@
       background-color: #6fc1ff; }
     .social-links__item--dribble:hover {
       background-color: #ea4c89; }
+    .social-links__item i {
+      transition: color 0.2s linear; }
   .social-links__link {
     display: block; }
     .social-links__link i {

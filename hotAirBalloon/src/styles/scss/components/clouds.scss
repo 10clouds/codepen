@@ -18,7 +18,7 @@
 
     &.cloud-img--animation-reset,
     &.cloud-img--animation-out {
-      transition: transform $duration-normal ease-in;
+      transition: transform $duration-normal ease-in ($fire3-delay + $duration); //start animation after fire appears
     }
   }
 
@@ -33,7 +33,7 @@
 
     &.cloud-img--animation-reset,
     &.cloud-img--animation-out {
-      transition: transform ($duration-normal + 0.3s) ease-in;
+      transition: transform ($duration-normal + 0.3s) ease-in ($fire3-delay + $duration);
     }
   }
 
@@ -49,7 +49,7 @@
 
     &.cloud-img--animation-reset,
     &.cloud-img--animation-out {
-      transition: transform ($duration-normal + 0.2s) ease-in;
+      transition: transform ($duration-normal + 0.2s) ease-in ($fire3-delay + $duration);
     }
   }
 }

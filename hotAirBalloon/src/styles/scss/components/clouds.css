@@ -23,7 +23,7 @@
     .cloud-img--left.cloud-img--animation-in {
       animation: 1.5s ease-in 2.2s normal forwards fadeFromTop; }
     .cloud-img--left.cloud-img--animation-reset, .cloud-img--left.cloud-img--animation-out {
-      transition: transform 1s ease-in; }
+      transition: transform 1s ease-in 1.8s; }
   .cloud-img--right {
     right: -45%;
     bottom: -25%;
@@ -31,7 +31,7 @@
     .cloud-img--right.cloud-img--animation-in {
       animation: 1.9s ease-in 2.2s normal forwards fadeFromTop; }
     .cloud-img--right.cloud-img--animation-reset, .cloud-img--right.cloud-img--animation-out {
-      transition: transform 1.3s ease-in; }
+      transition: transform 1.3s ease-in 1.8s; }
   .cloud-img--behind {
     bottom: 28%;
     right: 3%;
@@ -40,4 +40,4 @@
     .cloud-img--behind.cloud-img--animation-in {
       animation: 1.7s ease-in 2.2s normal forwards fadeFromTop; }
     .cloud-img--behind.cloud-img--animation-reset, .cloud-img--behind.cloud-img--animation-out {
-      transition: transform 1.2s ease-in; }
+      transition: transform 1.2s ease-in 1.8s; }

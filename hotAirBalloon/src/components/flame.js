@@ -15,6 +15,8 @@ const Flame = (props) => {
 
 Flame.propTypes = {
 	animationState: PropTypes.oneOf(Object.keys(ANIMATION_PHASES)),
+	src: PropTypes.string.isRequired,
+	size: PropTypes.string.isRequired
 };
 
 export default Flame;
