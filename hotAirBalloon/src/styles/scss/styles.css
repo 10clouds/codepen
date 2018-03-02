@@ -570,13 +570,13 @@ menu {
 
 body {
   background-color: #020038;
-  background-image: url("./../../assets/images/kratki.png");
+  background-image: url("./../../assets/images/latice.png");
   background-size: 100% 100%;
   background-position: center bottom;
   background-repeat: no-repeat; }
   @media all and (-webkit-min-device-pixel-ratio: 1.5), all and (-o-min-device-pixel-ratio: 3 / 2), all and (min--moz-device-pixel-ratio: 1.5), all and (min-device-pixel-ratio: 1.5) {
     body {
-      background-image: url("./../../assets/images/kratki@2x.png"); } }
+      background-image: url("./../../assets/images/latice@2x.png"); } }
   @media only screen and (min-width: 992px) {
     body {
       overflow-x: hidden; } }

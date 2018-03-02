@@ -1,28 +1,28 @@
 {
-  "name": "form-app",
+  "name": "codepen-hotAirBalloon",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://10clouds.github.io/codepen/hotAirBalloon",
+  "homepage": "http://10clouds.github.io/codepen/",
   "dependencies": {
-    "classnames": "^2.2.5",
-    "eslint": "^4.18.1",
+    "classnames": "2.2.5",
+    "eslint": "4.18.1",
     "node-sass-chokidar": "0.0.3",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "prop-types": "15.6.0",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
     "react-scripts": "1.1.1"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/styles/scss -o src/styles/scss",
     "watch-css": "npm run build-css && node-sass-chokidar src/styles/scss -o src/styles/scss --watch --recursive",
-    "deploy": "gh-pages -d build",
     "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "gh-pages": "^1.1.0"
+    "gh-pages": "1.1.0"
   }
 }

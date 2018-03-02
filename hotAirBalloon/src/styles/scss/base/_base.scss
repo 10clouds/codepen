@@ -4,7 +4,7 @@
 
 body {
   background-color: $stratos;
-  @include background-2x( './../../assets/images/kratki', 'png', 100%, 100%, center bottom, no-repeat );
+  @include background-2x( './../../assets/images/latice', 'png', 100%, 100%, center bottom, no-repeat );
 
   @media #{$media-md-up}{
     overflow-x: hidden;

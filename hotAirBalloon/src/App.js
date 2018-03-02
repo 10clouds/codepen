@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import MainContent from './components/main-content';
+import ANIMATION_PHASES from './components/constants'
 
 class App extends Component {
-
     state = {
         animationState: null
     };
 
-    setAnimationState = animationState => this.setState({animationState: animationState});
+    setAnimationState = animationState => this.setState({animationState});
 
     componentDidMount() {
-        this.setAnimationState('ANIMATION_START');
+        this.setAnimationState(ANIMATION_PHASES.START);
     }
 
     render() {
@@ -23,4 +23,3 @@ class App extends Component {
 }
 
 export default App;
-

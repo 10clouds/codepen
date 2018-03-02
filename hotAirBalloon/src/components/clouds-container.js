@@ -42,7 +42,7 @@ class CloudsContainer extends Component {
                     facY: (mouseY - middleY) / middleY
                 })
         }
-    }
+    };
 
     render() {
         return this.props.render(this.state);
