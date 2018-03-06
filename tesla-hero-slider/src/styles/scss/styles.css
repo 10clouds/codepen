@@ -18,188 +18,6 @@
 -------------------------------------------------------------- */
 /* Media queries
 -------------------------------------------------------------- */
-/* Gradient
--------------------------------------------------------------- */
-/* Retina
--------------------------------------------------------------- */
-/* Fade in
--------------------------------------------------------------- */
-@keyframes show {
-  0% {
-    opacity: 0; }
-  100% {
-    opacity: 1; } }
-
-@keyframes fadeFromTop {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px); }
-  100% {
-    opacity: 1;
-    transform: translateY(0); } }
-
-@keyframes fadeFromTopCenter {
-  0% {
-    opacity: 0;
-    transform: translateY(-50%, -20px); }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0); } }
-
-@keyframes smoothFadeFromTop {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px); }
-  60% {
-    opacity: 0.7; }
-  100% {
-    opacity: 1;
-    transform: translateY(0); } }
-
-@keyframes fadeFromLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-10px); }
-  100% {
-    opacity: 1;
-    transform: translateX(0); } }
-
-@keyframes fadeFromLeftCenter {
-  0% {
-    opacity: 0;
-    transform: translate(-10px, -50%); }
-  100% {
-    opacity: 1;
-    transform: translate(0, -50%); } }
-
-@keyframes fadeInWidthAnimation {
-  0% {
-    opacity: 0;
-    width: 0; }
-  100% {
-    opacity: 1;
-    width: 100%; } }
-
-/* Fade out
--------------------------------------------------------------- */
-@keyframes fadeOut {
-  0% {
-    opacity: 1; }
-  100% {
-    opacity: 0; } }
-
-@keyframes fadeOutToTop {
-  0% {
-    opacity: 1; }
-  95% {
-    opacity: 1; }
-  100% {
-    transform: translate(-50%, -150%);
-    opacity: 0; } }
-
-@keyframes smoothfadeOutToTop {
-  0% {
-    opacity: 1; }
-  100% {
-    opacity: 0;
-    transform: translateY(-10px); } }
-
-@keyframes fadeOutToRight {
-  0% {
-    opacity: 1; }
-  80% {
-    opacity: 0.4;
-    transform: translateX(100%); }
-  100% {
-    opacity: 0;
-    transform: translateX(120%); } }
-
-@keyframes fadeOutWidthTransform {
-  0% {
-    opacity: 1; }
-  60% {
-    opacity: 0.5;
-    width: 30%; }
-  100% {
-    opacity: 0;
-    width: 0; } }
-
-@keyframes fadeOutToLeft {
-  0% {
-    opacity: 1; }
-  50% {
-    opacity: 0.3; }
-  100% {
-    opacity: 0;
-    right: 100%; } }
-
-@keyframes fadeOutToLeftWidthTransform {
-  0% {
-    opacity: 1; }
-  100% {
-    opacity: 0;
-    transform: translateX(-100%); } }
-
-/* Other animations
--------------------------------------------------------------- */
-@keyframes moveDown {
-  0% {
-    transform: translateY(0); }
-  100% {
-    transform: translateY(20px); } }
-
-@keyframes widthAnimation {
-  0% {
-    width: 0; }
-  100% {
-    width: 100%; } }
-
-@keyframes widthCloseAnimation {
-  0% {
-    width: 100%; }
-  100% {
-    width: 0; } }
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-    transform: translateY(0); }
-  100% {
-    opacity: 1;
-    transform: translateY(-15px); } }
-
-/* Fire animation
--------------------------------------------------------------- */
-@keyframes fadeSmallFire {
-  0% {
-    height: 0;
-    width: 0;
-    opacity: 0; }
-  100% {
-    height: auto;
-    width: 15px;
-    opacity: 1; } }
-
-@keyframes fadeMediumFire {
-  0% {
-    height: 0;
-    width: 0;
-    opacity: 0; }
-  100% {
-    height: auto;
-    width: 22px;
-    opacity: 1; } }
-
-@keyframes fadeBigFire {
-  0% {
-    height: 0;
-    width: 0;
-    opacity: 0; }
-  100% {
-    height: auto;
-    width: 30px;
-    opacity: 1; } }
-
 /* Base
 -------------------------------------------------------------- */
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
@@ -522,10 +340,8 @@ menu {
   box-sizing: border-box; }
 
 body {
-  background-color: black; }
-  @media only screen and (min-width: 992px) {
-    body {
-      overflow-x: hidden; } }
+  background-color: black;
+  overflow-x: hidden; }
 
 ul {
   padding: 0;
@@ -552,10 +368,13 @@ body {
 -------------------------------------------------------------- */
 h1 {
   margin: 0;
-  font-size: 7rem;
+  font-size: 5.5rem;
   line-height: 1;
   font-family: "BebasNeue", "Helvetica", "Arial", sans-serif;
   letter-spacing: 1.5px; }
+  @media only screen and (min-width: 768px) {
+    h1 {
+      font-size: 7rem; } }
   @media only screen and (min-width: 1200px) {
     h1 {
       font-size: 8rem; } }
@@ -573,8 +392,11 @@ a {
 -------------------------------------------------------------- */
 .container {
   max-width: 1550px;
-  padding: 20px;
+  padding: 10px;
   margin: 0 auto; }
+  @media only screen and (min-width: 768px) {
+    .container {
+      padding: 20px; } }
   @media only screen and (min-width: 1200px) {
     .container {
       max-width: 1150px; } }
@@ -587,11 +409,41 @@ a {
 /* Button
 -------------------------------------------------------------- */
 .button {
+  --color: red;
+  position: relative;
   padding: 15px 50px;
   background: none;
   color: #fff;
-  border: 1px solid;
+  border: 1px solid var(--color);
   font-size: 18px;
   font-size: 1.8rem;
   text-align: left;
   cursor: pointer; }
+  .button:focus {
+    outline: none; }
+  .button:hover:after {
+    opacity: 0.5; }
+  .button:hover:before {
+    height: 100%;
+    opacity: 1; }
+  .button:before, .button:after {
+    position: absolute;
+    content: ''; }
+  .button:before {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    background-color: var(--color);
+    transition: all 0.3s;
+    z-index: -1; }
+  .button:after {
+    left: 50%;
+    top: 50%;
+    width: 150%;
+    height: 220%;
+    opacity: 0.3;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center, var(--color) 1%, transparent 80%);
+    z-index: -1; }

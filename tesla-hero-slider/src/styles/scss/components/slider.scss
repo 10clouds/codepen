@@ -3,13 +3,20 @@
 /* Slider
 -------------------------------------------------------------- */
 .tesla-slider {
-  margin-top: 60px;
+  margin-top: 20px;
+
+  @media #{$media-sm-up} {
+    margin-top: 40px;
+  }
+
+  @media #{$media-md-up} {
+    margin-top: 60px;
+  }
 
   @media #{$media-lg} {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 60px;
   }
 
   @media #{$media-lg-xl} {

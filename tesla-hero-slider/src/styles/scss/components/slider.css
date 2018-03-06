@@ -13,15 +13,20 @@
 /* Slider
 -------------------------------------------------------------- */
 .tesla-slider {
-  margin-top: 60px;
+  margin-top: 20px;
   /* Mouse scroll
   -------------------------------------------------------------- */ }
+  @media only screen and (min-width: 768px) {
+    .tesla-slider {
+      margin-top: 40px; } }
+  @media only screen and (min-width: 992px) {
+    .tesla-slider {
+      margin-top: 60px; } }
   @media only screen and (min-width: 1200px) {
     .tesla-slider {
       display: flex;
       justify-content: space-between;
-      flex-wrap: wrap;
-      margin-top: 60px; } }
+      flex-wrap: wrap; } }
   @media only screen and (min-width: 1800px) {
     .tesla-slider {
       margin-top: 150px; } }

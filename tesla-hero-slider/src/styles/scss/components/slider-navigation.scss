@@ -13,9 +13,13 @@
   -------------------------------------------------------------- */
   &__list{
     display: flex;
-    margin: 5px;
+    margin: 0;
     justify-content: space-around;
     text-align: center;
+
+    @media #{$media-sm-up}{
+      margin: 5px;
+    }
 
     @media #{$media-lg}{
       display: block;
@@ -28,10 +32,14 @@
   -------------------------------------------------------------- */
   &__item{
     display: inline-block;
+    padding: 0 5px;
     text-transform: uppercase;
     line-height: 1;
-    font-size: 14px;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+
+    @media #{$media-sm-up}{
+      font-size: 1.4rem;
+    }
 
     @media #{$media-lg}{
       display: block;
@@ -45,8 +53,12 @@
 
   &__link{
     &--active{
-      font-size: 18px;
-      font-size: 1.8rem;
+      font-size: 1.2rem;
+
+      @media #{$media-sm-up}{
+        font-size: 1.8rem;
+      }
+
     }
   }
 }

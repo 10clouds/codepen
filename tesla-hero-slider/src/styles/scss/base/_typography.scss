@@ -27,10 +27,14 @@ h1, h2, h3, h4, h5{
 
 h1{
   margin: 0;
-  font-size: 7rem;
+  font-size: 5.5rem;
   line-height: 1;
   font-family: $headers-family;
   letter-spacing: 1.5px;
+
+  @media #{$media-sm-up}{
+    font-size: 7rem;
+  }
 
   @media #{$media-lg}{
     font-size: 8rem;

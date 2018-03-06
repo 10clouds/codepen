@@ -8,11 +8,6 @@ class SliderNavigation extends Component {
 		setActiveSlide: propTypes.func.isRequired
 	}
 
-
-	componentDidMount(){
-		console.log(this.props);
-	}
-
 	changeActiveSlide(e){
 		e.preventDefault();
 		this.props.setActiveSlide(e.target.getAttribute('data-id'));
@@ -26,8 +21,8 @@ class SliderNavigation extends Component {
 						return (
 							<li key={car.id} className="tesla-slider-navigation__item">
 								<a href="#" onClick={this.changeActiveSlide.bind(this)}
-								   className={`tesla-slider-navigation__link ${this.props.carsNames[this.props.activeSlide] == car ? 'tesla-slider-navigation__link--active' : ''}`}
-								   style={{color: this.props.carsNames[this.props.activeSlide] == car ? car.color : ''}}
+								   className={`tesla-slider-navigation__link ${this.props.carsNames[this.props.activeSlide] === car ? 'tesla-slider-navigation__link--active' : ''}`}
+								   style={{color: this.props.carsNames[this.props.activeSlide] === car ? car.color : ''}}
 								   data-id={this.props.carsNames.indexOf(car)}>
 									{car.name}
 									</a>

@@ -1,16 +1,13 @@
-*{
+* {
   box-sizing: border-box;
 }
 
 body {
   background-color: black;
-
-  @media #{$media-md-up}{
-    overflow-x: hidden;
-  }
+  overflow-x: hidden;
 }
 
-ul{
+ul {
   padding: 0;
   list-style: none;
 }
