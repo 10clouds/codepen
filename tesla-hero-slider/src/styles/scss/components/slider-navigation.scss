@@ -1,0 +1,53 @@
+@import './../helpers/variables';
+
+/* Slider Navigation
+-------------------------------------------------------------- */
+.tesla-slider-navigation {
+
+  @media #{$media-lg}{
+    order: 2;
+    width: 150px;
+  }
+
+  /* Slider Navigation List
+  -------------------------------------------------------------- */
+  &__list{
+    display: flex;
+    margin: 5px;
+    justify-content: space-around;
+    text-align: center;
+
+    @media #{$media-lg}{
+      display: block;
+      order: 2;
+      text-align: right;
+    }
+  }
+
+  /* Slider Navigation List item
+  -------------------------------------------------------------- */
+  &__item{
+    display: inline-block;
+    text-transform: uppercase;
+    line-height: 1;
+    font-size: 14px;
+    font-size: 1.4rem;
+
+    @media #{$media-lg}{
+      display: block;
+      margin-top: 90px;
+    }
+
+    &:first-of-type{
+      margin-top: 0;
+    }
+  }
+
+  &__link{
+    &--active{
+      font-size: 18px;
+      font-size: 1.8rem;
+    }
+  }
+}
+

@@ -1,0 +1,258 @@
+/* Fade in
+-------------------------------------------------------------- */
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeFromTopCenter {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%, -20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes smoothFadeFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  60% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeFromLeftCenter {
+  0% {
+    opacity: 0;
+    transform: translate(-10px, -50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+@keyframes fadeInWidthAnimation {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+/* Fade out
+-------------------------------------------------------------- */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutToTop {
+  0% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -150%);
+    opacity: 0;
+  }
+}
+
+@keyframes smoothfadeOutToTop {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeOutToRight {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.4;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+@keyframes fadeOutWidthTransform {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.5;
+    width: 30%;
+  }
+  100% {
+    opacity: 0;
+    width: 0;
+  }
+}
+
+@keyframes fadeOutToLeft {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    right: 100%;
+  }
+}
+
+@keyframes fadeOutToLeftWidthTransform {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+/* Other animations
+-------------------------------------------------------------- */
+@keyframes moveDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+@keyframes widthAnimation {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes widthCloseAnimation {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: translateY( 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-15px);
+  }
+}
+
+/* Fire animation
+-------------------------------------------------------------- */
+
+@keyframes fadeSmallFire {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+
+  100% {
+    height: auto;
+    width: 15px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeMediumFire {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+
+  100% {
+    height: auto;
+    width: 22px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeBigFire {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+
+  100% {
+    height: auto;
+    width: 30px;
+    opacity: 1;
+  }
+}

@@ -1,0 +1,33 @@
+/* Colors
+-------------------------------------------------------------- */
+/* Typography
+-------------------------------------------------------------- */
+/* Borders
+-------------------------------------------------------------- */
+/* Animations
+-------------------------------------------------------------- */
+/* Breakpoints
+-------------------------------------------------------------- */
+/* Media queries
+-------------------------------------------------------------- */
+/* Slider
+-------------------------------------------------------------- */
+.tesla-slider {
+  margin-top: 60px;
+  /* Mouse scroll
+  -------------------------------------------------------------- */ }
+  @media only screen and (min-width: 1200px) {
+    .tesla-slider {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 60px; } }
+  @media only screen and (min-width: 1800px) {
+    .tesla-slider {
+      margin-top: 150px; } }
+  .tesla-slider__scroll {
+    order: 3;
+    width: 100%; }
+    .tesla-slider__scroll img {
+      display: block;
+      margin: 0 auto; }

@@ -1,0 +1,16 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+
+  @media #{$media-md-up}{
+    overflow-x: hidden;
+  }
+}
+
+ul{
+  padding: 0;
+  list-style: none;
+}

@@ -1,0 +1,63 @@
+
+/* Colors
+-------------------------------------------------------------- */
+$tamarind:                   #2A1214 !default;
+$red:                        #FC0000 !default;
+
+/* Typography
+-------------------------------------------------------------- */
+
+$headers-family:              'BebasNeue','Helvetica', 'Arial', sans-serif;
+$base-font-family:            'Helvetica', 'Arial', sans-serif;
+$font-color:                  #fff;
+//$font-color-light:            $cadet-gray;
+
+
+/* Borders
+-------------------------------------------------------------- */
+$radius-base:                 5px !default;
+
+
+/* Animations
+-------------------------------------------------------------- */
+
+
+/* Breakpoints
+-------------------------------------------------------------- */
+// Extra small screen / phone
+$screen-xs:                  480px !default;
+
+// Small screen / tablet
+$screen-sm:                  768px !default;
+
+// Medium screen / desktop
+$screen-md:                  992px !default;
+
+// Large screen / wide desktop
+$screen-lg:                  1200px !default;
+
+// Large screen / wide desktop
+$screen-lg-xl:               1800px !default;
+
+$screen-xs-max:              ($screen-sm - 1) !default;
+$screen-sm-max:              ($screen-md - 1) !default;
+$screen-md-max:              ($screen-lg - 1) !default;
+
+/* Media queries
+-------------------------------------------------------------- */
+$screen:                      "only screen";
+
+$media-lg-xl:                 "#{$screen} and (min-width:#{$screen-lg-xl})";
+$media-lg:                    "#{$screen} and (min-width:#{$screen-lg})";
+
+$media-md-up:                 "#{$screen} and (min-width:#{$screen-md})";
+$media-md:                    "#{$screen} and (min-width:#{$screen-md}) and (max-width:#{$screen-md-max})";
+$media-to-md:                 "#{$screen} and (max-width:#{$screen-md-max})";
+
+$media-sm-up:                 "#{$screen} and (min-width:#{$screen-sm})";
+$media-sm:                    "#{$screen} and (min-width:#{$screen-sm}) and (max-width:#{$screen-sm-max})";
+$media-to-sm:                 "#{$screen} and (max-width:#{$screen-sm-max})";
+
+$media-xs-up:                 "#{$screen} and (min-width:#{$screen-xs})";
+$media-xs:                    "#{$screen} and (max-width:#{$screen-xs-max})";
+$media-xs-small:              "#{$screen} and (max-width:#{$screen-xs})";

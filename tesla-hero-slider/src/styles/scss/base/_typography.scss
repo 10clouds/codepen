@@ -1,0 +1,50 @@
+
+/* Body, html
+-------------------------------------------------------------- */
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 26px;
+  line-height: 2.6rem;
+  font-family: $base-font-family;
+  color: $font-color;
+
+  @media #{$media-lg-xl}{
+    font-size: 18px;
+    font-size: 1.8rem;
+  }
+}
+
+/* Headers
+-------------------------------------------------------------- */
+h1, h2, h3, h4, h5{
+}
+
+h1{
+  margin: 0;
+  font-size: 7rem;
+  line-height: 1;
+  font-family: $headers-family;
+  letter-spacing: 1.5px;
+
+  @media #{$media-lg}{
+    font-size: 8rem;
+  }
+
+  @media #{$media-lg-xl}{
+    font-size: 9.2rem;
+  }
+}
+
+
+/* Text, Links
+-------------------------------------------------------------- */
+a{
+  text-decoration: none;
+  color: $font-color;
+}

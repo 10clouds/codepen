@@ -1,0 +1,30 @@
+/* Colors
+-------------------------------------------------------------- */
+/* Typography
+-------------------------------------------------------------- */
+/* Borders
+-------------------------------------------------------------- */
+/* Animations
+-------------------------------------------------------------- */
+/* Breakpoints
+-------------------------------------------------------------- */
+/* Media queries
+-------------------------------------------------------------- */
+/* Header
+-------------------------------------------------------------- */
+.tesla-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 0; }
+  @media only screen and (min-width: 1200px) {
+    .tesla-header {
+      padding: 40px 0; } }
+  @media only screen and (min-width: 1800px) {
+    .tesla-header {
+      padding: 65px 0; } }
+  .tesla-header__logo img {
+    height: 12.5px;
+    width: auto; }
+  .tesla-header__nav img {
+    height: 20px;
+    width: auto; }

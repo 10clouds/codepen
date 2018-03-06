@@ -1,0 +1,31 @@
+@import './../helpers/variables';
+
+/* Header
+-------------------------------------------------------------- */
+.tesla-header{
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 0;
+
+  @media #{$media-lg}{
+    padding: 40px 0;
+  }
+
+  @media #{$media-lg-xl}{
+    padding: 65px 0;
+  }
+
+  &__logo{
+    img{
+      height: 12.5px;
+      width: auto;
+    }
+  }
+
+  &__nav{
+    img{
+      height: 20px;
+      width: auto;
+    }
+  }
+}
