@@ -20,7 +20,9 @@ class Slide extends Component {
 							Tesla
 						</span>
 					<TransitionGroup component="span" className="tesla-slide__name">
-						<CSSTransition key={activeCar.name} timeout={500} className="tesla-slide__name-part"
+						<CSSTransition key={activeCar.name}
+						               timeout={{enter: 800, exit: 800}}
+						               className="tesla-slide__name-part"
 						               classNames="tesla-slide__name-part-"
 						               mountOnEnter={true} unmountOnExit={true}>
 							<span> {activeCar.name}</span>
@@ -29,7 +31,8 @@ class Slide extends Component {
 				</h1>
 
 				<TransitionGroup className="tesla-slide__desc">
-					<CSSTransition key={activeCar.desc} timeout={700}
+					<CSSTransition key={activeCar.desc}
+					               timeout={{enter: 400, exit: 500}}
 					               className="tesla-slide__desc-text" classNames="tesla-slide__desc-text-"
 					               mountOnEnter={true} unmountOnExit={true}>
 						<p>{activeCar.desc}</p>
@@ -37,18 +40,58 @@ class Slide extends Component {
 				</TransitionGroup>
 
 				<TransitionGroup className=" tesla-slide__button">
-					<CSSTransition key={activeCar.desc} timeout={700}
+					<CSSTransition key={activeCar.desc} timeout={400}
 					               className="button" classNames="button-"
 					               mountOnEnter={true} unmountOnExit={true}>
 						<button style={{
-							        '--color': activeCar.color
-						        }}>
+							'--color': activeCar.color
+						}}>
 							Reserve now
 						</button>
 					</CSSTransition>
 				</TransitionGroup>
 			</div>
 		)
+	}
+
+	renderParams(activeCar, animationForward) {
+		return (<div className="tesla-slide__params">
+			<ul className="tesla-slide__params-list">
+				<li className="tesla-slide__params-item">
+					<p>
+						<span className="tesla-slide__params-plus">+</span>
+						<AnimateValue
+							valueClass="tesla-slide__params-value"
+							animationForward={animationForward}
+							topSpeed={activeCar.topSpeed}/>
+						<span className="tesla-slide__params-units">Mph</span>
+					</p>
+					<p className="tesla-slide__params-name">Top speed</p>
+				</li>
+
+				<li className="tesla-slide__params-item">
+					<p>
+						<AnimateValue
+							valueClass="tesla-slide__params-value"
+							animationForward={animationForward}
+							mph={activeCar.mph}/>
+						<span className="tesla-slide__params-units">S</span>
+					</p>
+					<p className="tesla-slide__params-name">0-60 mph</p>
+				</li>
+
+				<li className="tesla-slide__params-item">
+					<p>
+						<AnimateValue
+							valueClass="tesla-slide__params-value"
+							animationForward={animationForward}
+							mileRange={activeCar.mileRange}/>
+						<span className="tesla-slide__params-units">mi</span>
+					</p>
+					<p className="tesla-slide__params-name">Mile Range</p>
+				</li>
+			</ul>
+		</div>)
 	}
 
 	render() {
@@ -90,43 +133,8 @@ class Slide extends Component {
 				</TransitionGroup>
 
 
-				<div className="tesla-slide__params">
-					<ul className="tesla-slide__params-list">
-						<li className="tesla-slide__params-item">
-							<p>
-								<span className="tesla-slide__params-plus">+</span>
-								<AnimateValue
-									valueClass="tesla-slide__params-value"
-									animationForward={animationForward}
-									topSpeed={activeCar.topSpeed}/>
-								<span className="tesla-slide__params-units">Mph</span>
-							</p>
-							<p className="tesla-slide__params-name">Top speed</p>
-						</li>
+				{this.renderParams(activeCar, animationForward)}
 
-						<li className="tesla-slide__params-item">
-							<p>
-								<AnimateValue
-									valueClass="tesla-slide__params-value"
-									animationForward={animationForward}
-									mph={activeCar.mph}/>
-								<span className="tesla-slide__params-units">S</span>
-							</p>
-							<p className="tesla-slide__params-name">0-60 mph</p>
-						</li>
-
-						<li className="tesla-slide__params-item">
-							<p>
-								<AnimateValue
-									valueClass="tesla-slide__params-value"
-									animationForward={animationForward}
-									mileRange={activeCar.mileRange}/>
-								<span className="tesla-slide__params-units">mi</span>
-							</p>
-							<p className="tesla-slide__params-name">Mile Range</p>
-						</li>
-					</ul>
-				</div>
 			</div>
 		);
 	}

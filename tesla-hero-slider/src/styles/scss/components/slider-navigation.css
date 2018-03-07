@@ -50,7 +50,11 @@
     .tesla-slider-navigation__item:first-of-type {
       margin-top: 0; }
   .tesla-slider-navigation__link--active {
-    font-size: 1.2rem; }
+    font-size: 1.2rem;
+    transition: font-size 0.3s linear , color 0.2s linear 0.8s; }
     @media only screen and (min-width: 768px) {
+      .tesla-slider-navigation__link--active {
+        font-size: 1.4rem; } }
+    @media only screen and (min-width: 1200px) {
       .tesla-slider-navigation__link--active {
         font-size: 1.8rem; } }

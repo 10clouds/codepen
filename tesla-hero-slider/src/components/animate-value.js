@@ -10,16 +10,16 @@ class AnimateValue extends Component {
 	timeout = '';
 
 	componentWillReceiveProps(props) {
-		var delay = 0, value = 0;
+		var delay = 500, value = 0;
 
 		if (props.topSpeed > 0) {
 			value = props.topSpeed;
-			props.animationForward ? delay = 0 : delay = 500;
+			props.animationForward ? delay : delay += 500;
 		} else if (props.mph > 0) {
-			delay = 250;
+			delay += 250;
 			value = props.mph;
 		} else if (props.mileRange > 0) {
-			props.animationForward ? delay = 500 : delay = 0;
+			props.animationForward ? delay += 500 : delay;
 			value = props.mileRange;
 		}
 

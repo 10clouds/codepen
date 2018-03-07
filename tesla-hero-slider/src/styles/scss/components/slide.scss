@@ -22,7 +22,7 @@
   &__aside {
     text-align: center;
 
-    @media #{$media-lg} {
+    @media #{$media-sm-up} {
       text-align: left;
     }
   }
@@ -53,7 +53,7 @@
       opacity: 1;
       display: block;
       margin-left: 15px;
-      transition: top 0.4s ease-out 0.1s, opacity 0.4s linear;
+      transition: top 0.5s ease-out 0.1s, opacity 0.4s linear;
 
       &--enter {
         left: 0;
@@ -69,6 +69,7 @@
         left: 0;
         top: -100%;
         opacity: 0;
+        transition: top 0.5s ease-out 0.4s, opacity 0.4s linear 0.4s;
 
         .animation-back & {
           top: 100%;
@@ -81,12 +82,12 @@
   -------------------------------------------------------------- */
   &__desc {
     position: relative;
-    margin: 40px auto 0;
-    width: 420px;
+    margin: 10px auto 0;
+    max-width: 420px;
     height: 5rem;
     overflow: hidden;
 
-    @media #{$media-lg} {
+    @media #{$media-sm-up} {
       margin: 40px 0 0;
     }
 
@@ -111,12 +112,12 @@
         .animation-back & {
           top: -100%;
           bottom: auto;
-          line-height: 2.5rem;
+          line-height: 3rem;
         }
       }
 
       &--exit {
-        transition: bottom 0.5s ease-out 0.2s, top 0.5s ease-out 0.2s, opacity 0.4s ease-out 0.2s, line-height 0.3s ease-out;
+        transition: bottom 0.5s ease-out 0.3s, top 0.5s ease-out 0.3s, opacity 0.4s ease-out 0.3s, line-height 0.3s ease-out 0.2s;
         left: 0;
         top: auto;
         bottom: 100%;
@@ -138,20 +139,25 @@
     position: relative;
     overflow: hidden;
     transform: translateX(0) scale(1);
-    transition: opacity 0.4s ease-in-out 0.1s, transform 0.6s ease-in-out 0.1s;
+    transition: opacity 0.2s ease-in-out 0.1s, transform 0.6s ease-in-out 0.1s;
 
-    @media #{$media-to-md} {
+    @media #{$media-xs} {
       width: 100%;
       transform: none;
       overflow: initial;
     }
 
-    @media #{$media-lg} {
+    @media #{$media-sm-up} {
       position: absolute;
       margin-top: 0;
+      top: -5%;
+      right: -50%;
+      z-index: -1;
+    }
+
+    @media #{$media-md-up} {
       top: -35%;
       right: -25%;
-      z-index: -1;
     }
 
     @media #{$media-lg-xl} {
@@ -179,14 +185,14 @@
       }
     }
 
-    &-floor{
+    &-floor {
       position: absolute;
       left: 0;
       top: 0;
       transition: all 0.5s ease-in-out 0.4s;
     }
 
-    &-car{
+    &-car {
       transition: opacity 0.4s ease-in-out 0.1s;
     }
 
@@ -194,29 +200,21 @@
       opacity: 0;
       transform: translateX(-5%) scale(1.1);
 
-      #{$parent}-floor{
+      #{$parent}-floor {
         opacity: 0;
       }
 
-      #{$parent}-car{
+      #{$parent}-car {
         opacity: 0;
       }
 
-      &:before{
+      &:before {
         opacity: 0;
       }
 
       .animation-back & {
         opacity: 0;
         transform: scale(0.8);
-
-        #{$parent}-floor{
-
-        }
-
-        #{$parent}-car{
-
-        }
       }
     }
 
@@ -225,16 +223,13 @@
       opacity: 0;
       transform: scale(0.9);
 
-      #{$parent}-floor{
+      #{$parent}-floor {
         transition: all 0.3s ease-in-out 0.2s;
         opacity: 0;
       }
 
-      #{$parent}-car{
-
-      }
-
-      &:before{
+      &:before {
+        transition: opacity 0.3s ease-in-out;
         opacity: 0;
       }
 
@@ -242,14 +237,18 @@
         transition: opacity 0.3s ease-in-out 0.6s, transform 0.7s ease-in-out 0.1s;
         transform: translateX(-5%) scale(1.1);
 
-        #{$parent}-floor{
+        #{$parent}-floor {
           transition: all 0.3s ease-in-out 0.2s;
           opacity: 0;
         }
 
-        #{$parent}-car{
+        #{$parent}-car {
           transition: opacity 0.4s ease-in-out 0.5s;
           opacity: 0;
+        }
+
+        &:before {
+          transition: opacity 0.3s ease-in 0.3s;
         }
       }
     }
@@ -261,17 +260,14 @@
       margin-left: 40%;
 
       @media #{$media-sm-up} {
-        min-width: 800px;
+        max-width: 85%;
         transform: none;
         margin-left: 0;
-        margin-top: -80px;
+        margin-top: -40px;
       }
 
       @media #{$media-md-up} {
-        margin-top: -140px;
-      }
-
-      @media #{$media-lg} {
+        min-width: 800px;
         margin-top: 0;
         max-width: 1300px;
       }
@@ -298,17 +294,21 @@
       bottom: 30%;
     }
 
-    @media #{$media-md-up} {
-      right: 10%;
+    @media #{$media-sm-up} {
       width: 300px;
-      height: calc(var(--bckg-height) / 2);
+      height: calc(var(--bckg-height) / 1.8);
+      bottom: 40%;
+      right: 0;
+    }
+
+    @media #{$media-md-up} {
+      width: 400px;
+      height: calc(var(--bckg-height) / 1.5);
+      right: -2%;
     }
 
     @media #{$media-lg} {
-      width: 400px;
-      height: calc(var(--bckg-height) / 1.5);
       bottom: 55%;
-      right: -2%;
     }
 
     @media #{$media-lg-xl} {
@@ -321,26 +321,37 @@
     &:before, &:after {
       position: absolute;
       content: '';
-      transition: all 0.6s ease-in;
+      transition: all 0.6s ease-in-out 0.3s;
     }
 
     &:after {
-      width: calc(var(--bckg-height) * 3.5);
-      height: calc(var(--bckg-height) * 2.2);
+      width: calc(var(--bckg-height) * 2);
+      height: calc(var(--bckg-height) * 1.5);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       opacity: 0.5;
       background: radial-gradient(ellipse at center, var(--bckg-color) 25%, transparent 65%);
+
+      @media #{$media-lg-xl} {
+        width: calc(var(--bckg-height) * 3.5);
+        height: calc(var(--bckg-height) * 2.2);
+      }
     }
 
     &:before {
-      width: calc(var(--bckg-height) * 4.5);
+      width: calc(var(--bckg-height) * 3.5);
       height: var(--bckg-height);
       top: 100%;
       left: -80%;
       opacity: var(--shadow-opacity);
       background: radial-gradient(ellipse at center, var(--bckg-color) 10%, transparent 65%);
+
+      @media #{$media-lg-xl} {
+        width: calc(var(--bckg-height) * 4.5);
+        height: var(--bckg-height);
+        left: -80%;
+      }
     }
 
     &-fill {
@@ -352,7 +363,7 @@
       width: 100%;
       opacity: 0.8;
       background: var(--bckg-color);
-      transition: all 0.5s ease-in 0.4s, transform 0.6s ease-in-out 0.1s;
+      transition: all 0.5s ease-in 0.3s, transform 0.6s ease-in-out;
     }
 
     &--enter {
@@ -361,7 +372,8 @@
         top: 0;
         bottom: 100%;
         opacity: 0.3;
-        transform: translateY(-20px)  scale(1.1);
+        transform: translateY(-20px) scale(1.1);
+        transition: all 0.5s ease-in 0.4s, transform 0.6s ease-in-out 0.1s;
       }
 
       &:before, &:after {
@@ -372,7 +384,7 @@
         #{$parent}-fill {
           bottom: 0;
           top: 100%;
-          transform: translateY(10px)  scale(0.9);
+          transform: translateY(10px) scale(0.9);
         }
       }
     }
@@ -385,6 +397,10 @@
         bottom: 0;
         opacity: 0.2;
         transform: translateY(10px) scale(0.9);
+      }
+
+      &:before {
+        transition: all 0.4s ease-in-out 0.2s;
       }
 
       &:before, &:after {
@@ -406,36 +422,41 @@
   &__button {
     position: relative;
     height: 50px;
-    margin-top: 10px;
+    margin-top: 25px;
 
     @media #{$media-sm-up} {
       margin-top: 50px;
     }
 
-    .button{
+    .button {
       position: absolute;
       top: 0;
-      left: 0;
+      left: 50%;
+      transform: translateX(-50%);
       transition: all 0.4s ease-in-out;
 
-      &:after{
-        opacity: 0;
-        transition: opacity 0.4s;
+      @media #{$media-sm-up} {
+        left: 0;
+        transform: none;
       }
 
-      &--enter{
+      &:after {
+        transition: opacity 0.5s;
+      }
+
+      &--enter {
         border: 1px solid transparent;
 
-        &:after{
-          opacity: 0;
+        &:after {
+          opacity: 0.2;
         }
       }
 
-      &--exit{
+      &--exit {
         border: 1px solid transparent;
 
-        &:after{
-          opacity: 0;
+        &:after {
+          opacity: 0.2;
         }
       }
     }
@@ -447,14 +468,10 @@
     margin: -50px 0 30px;
 
     @media #{$media-sm-up} {
-      margin: -80px 0 30px;
+      margin: 130px 0 30px;
     }
 
     @media #{$media-md-up} {
-      margin: -120px 0 30px;
-    }
-
-    @media #{$media-lg} {
       margin: 170px 0 20px;
     }
 

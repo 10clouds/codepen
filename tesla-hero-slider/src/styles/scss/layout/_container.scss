@@ -1,5 +1,5 @@
 .container {
-  max-width: 1550px;
+  max-width: 780px;
   padding: 10px;
   margin: 0 auto;
 
@@ -7,8 +7,12 @@
     padding: 20px;
   }
 
+  @media #{$media-md}{
+    max-width: 1000px;
+  }
+
   @media #{$media-lg}{
-    max-width: 1150px;
+    max-width: 1200px;
   }
 
   @media #{$media-lg-xl}{
