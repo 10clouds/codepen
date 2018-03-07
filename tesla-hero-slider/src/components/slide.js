@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import propTypes from 'prop-types';
 import AnimateValue from './animate-value';
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
 import './../styles/scss/components/slide.css';
 
 class Slide extends Component {
@@ -10,42 +11,85 @@ class Slide extends Component {
 		animationForward: propTypes.bool.isRequired
 	}
 
-	componentWillReceiveProps(props) {
-		console.log(props)
+	renderAside(activeCar) {
+		return (
+			<div className="tesla-slide__aside">
+
+				<h1 className="tesla-slide__wholename">
+						<span>
+							Tesla
+						</span>
+					<TransitionGroup component="span" className="tesla-slide__name">
+						<CSSTransition key={activeCar.name} timeout={500} className="tesla-slide__name-part"
+						               classNames="tesla-slide__name-part-"
+						               mountOnEnter={true} unmountOnExit={true}>
+							<span> {activeCar.name}</span>
+						</CSSTransition>
+					</TransitionGroup>
+				</h1>
+
+				<TransitionGroup className="tesla-slide__desc">
+					<CSSTransition key={activeCar.desc} timeout={700}
+					               className="tesla-slide__desc-text" classNames="tesla-slide__desc-text-"
+					               mountOnEnter={true} unmountOnExit={true}>
+						<p>{activeCar.desc}</p>
+					</CSSTransition>
+				</TransitionGroup>
+
+				<TransitionGroup className=" tesla-slide__button">
+					<CSSTransition key={activeCar.desc} timeout={700}
+					               className="button" classNames="button-"
+					               mountOnEnter={true} unmountOnExit={true}>
+						<button style={{
+							        '--color': activeCar.color
+						        }}>
+							Reserve now
+						</button>
+					</CSSTransition>
+				</TransitionGroup>
+			</div>
+		)
 	}
 
 	render() {
 		const activeCar = this.props.activeSlide,
 			animationForward = this.props.animationForward;
 		return (
-			<div className="tesla-slide" style={this.props.transitionStyle}>
-				<div className="tesla-slide__desc">
+			<div className={`tesla-slide ${animationForward ? 'animation-forward' : 'animation-back'}`}
+			     style={this.props.transitionStyle}>
 
-					<h1>
-						Tesla<span> {activeCar.name}</span>
-					</h1>
-					<p>{activeCar.desc}</p>
+				{this.renderAside(activeCar)}
 
-					<button className="button tesla-slide__button"
-					        style={{
-						        '--color': activeCar.color
-					        }}>
-						Reserve now
-					</button>
-				</div>
-				<div className="tesla-slide__bckg"
-				     style={{
-					     '--bckg-color': activeCar.color,
-					     '--bckg-height': activeCar.bckgHeight + 'px',
-					     '--shadow-opacity': activeCar.shadowOpacity
-				     }}></div>
-				<div className="tesla-slide__img"
-				     style={{
-					     '--bckg-color': activeCar.color,
-					     '--car-shadow-height': activeCar.carShadowHeight + 'px'
-				     }}>
-					<img src={activeCar.imgUrl} alt=""/>
-				</div>
+				<TransitionGroup>
+					<CSSTransition key={activeCar.name} timeout={{enter: 700, exit: 1200}}
+					               className="tesla-slide__bckg" classNames="tesla-slide__bckg-"
+					               mountOnEnter={true} unmountOnExit={true}>
+						<div style={{
+							'--bckg-color': activeCar.color,
+							'--bckg-height': activeCar.bckgHeight + 'px',
+							'--shadow-opacity': activeCar.shadowOpacity
+						}}>
+							<div className="tesla-slide__bckg-fill"></div>
+						</div>
+					</CSSTransition>
+				</TransitionGroup>
+
+				<TransitionGroup>
+					<CSSTransition key={activeCar.name} timeout={{enter: 700, exit: 1200}}
+					               className="tesla-slide__img" classNames="tesla-slide__img-"
+					               mountOnEnter={true} unmountOnExit={true}>
+						<div className="tesla-slide__img"
+						     style={{
+							     '--bckg-color': activeCar.color,
+							     '--car-shadow-height': activeCar.carShadowHeight + 'px'
+						     }}>
+							<img className="tesla-slide__img-floor" src={activeCar.imgFloorUrl} alt=""/>
+							<img className="tesla-slide__img-car" src={activeCar.imgUrl} alt=""/>
+						</div>
+					</CSSTransition>
+				</TransitionGroup>
+
+
 				<div className="tesla-slide__params">
 					<ul className="tesla-slide__params-list">
 						<li className="tesla-slide__params-item">

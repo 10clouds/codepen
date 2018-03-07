@@ -17,18 +17,116 @@
     width: calc(100% - 150px);
   }
 
-  /* Slide Item Description
+  /* Slide Item Aside
   -------------------------------------------------------------- */
-  &__desc {
+  &__aside {
     text-align: center;
 
     @media #{$media-lg} {
       text-align: left;
     }
+  }
 
-    p {
-      @media #{$media-lg} {
-        max-width: 420px;
+  /* Slide Item Whole name
+  -------------------------------------------------------------- */
+  &__wholename {
+    height: 75px;
+
+    > span {
+      height: 75px;
+      vertical-align: top;
+    }
+  }
+
+  /* Slide Item Name
+  -------------------------------------------------------------- */
+  &__name {
+    position: relative;
+    display: inline-block;
+    width: 40%;
+    overflow: hidden;
+
+    &-part {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 1;
+      display: block;
+      margin-left: 15px;
+      transition: top 0.4s ease-out 0.1s, opacity 0.4s linear;
+
+      &--enter {
+        left: 0;
+        top: 100%;
+        opacity: 0;
+
+        .animation-back & {
+          top: -100%;
+        }
+      }
+
+      &--exit {
+        left: 0;
+        top: -100%;
+        opacity: 0;
+
+        .animation-back & {
+          top: 100%;
+        }
+      }
+    }
+  }
+
+  /* Slide Item Description
+  -------------------------------------------------------------- */
+  &__desc {
+    position: relative;
+    margin: 40px auto 0;
+    width: 420px;
+    height: 5rem;
+    overflow: hidden;
+
+    @media #{$media-lg} {
+      margin: 40px 0 0;
+    }
+
+    &-text {
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: 0;
+      line-height: 2.5rem;
+      opacity: 1;
+      transition: top 0.4s ease-out 0.2s, bottom 0.4s ease-out 0.2s, opacity 0.4s ease-out 0.3s, line-height 0.3s ease-out 0.5s;
+
+      &--enter {
+        left: 0;
+        top: 100%;
+        bottom: 0;
+        opacity: 0;
+        line-height: 4rem;
+
+        .animation-back & {
+          top: -100%;
+          bottom: auto;
+          line-height: 2.5rem;
+        }
+      }
+
+      &--exit {
+        transition: bottom 0.5s ease-out 0.2s, top 0.5s ease-out 0.2s, opacity 0.4s ease-out 0.2s, line-height 0.3s ease-out;
+        left: 0;
+        top: auto;
+        bottom: 100%;
+        opacity: 0;
+        line-height: 4rem;
+
+        .animation-back & {
+          top: 100%;
+          bottom: auto;
+        }
       }
     }
   }
@@ -36,8 +134,11 @@
   /* Slide Item Img
   -------------------------------------------------------------- */
   &__img {
+    $parent: &;
     position: relative;
     overflow: hidden;
+    transform: translateX(0) scale(1);
+    transition: opacity 0.4s ease-in-out 0.1s, transform 0.6s ease-in-out 0.1s;
 
     @media #{$media-to-md} {
       width: 100%;
@@ -48,7 +149,7 @@
     @media #{$media-lg} {
       position: absolute;
       margin-top: 0;
-      top: -40%;
+      top: -35%;
       right: -25%;
       z-index: -1;
     }
@@ -68,11 +169,88 @@
       transform: translate(-50%, -50%);
       opacity: 0.35;
       background: radial-gradient(ellipse at center, var(--bckg-color) 10%, transparent 75%);
+      transition: opacity 0.3s ease-in 0.3s;
+      z-index: 9;
 
       @media #{$media-md-up} {
         width: calc(var(--car-shadow-height) * 2);
         height: calc(var(--car-shadow-height) * 1.8);
         opacity: 0.4;
+      }
+    }
+
+    &-floor{
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: all 0.5s ease-in-out 0.4s;
+    }
+
+    &-car{
+      transition: opacity 0.4s ease-in-out 0.1s;
+    }
+
+    &--enter {
+      opacity: 0;
+      transform: translateX(-5%) scale(1.1);
+
+      #{$parent}-floor{
+        opacity: 0;
+      }
+
+      #{$parent}-car{
+        opacity: 0;
+      }
+
+      &:before{
+        opacity: 0;
+      }
+
+      .animation-back & {
+        opacity: 0;
+        transform: scale(0.8);
+
+        #{$parent}-floor{
+
+        }
+
+        #{$parent}-car{
+
+        }
+      }
+    }
+
+    &--exit {
+      transition: opacity 0.3s ease-in-out 0.5s, transform 0.6s ease-in-out 0.3s;
+      opacity: 0;
+      transform: scale(0.9);
+
+      #{$parent}-floor{
+        transition: all 0.3s ease-in-out 0.2s;
+        opacity: 0;
+      }
+
+      #{$parent}-car{
+
+      }
+
+      &:before{
+        opacity: 0;
+      }
+
+      .animation-back & {
+        transition: opacity 0.3s ease-in-out 0.6s, transform 0.7s ease-in-out 0.1s;
+        transform: translateX(-5%) scale(1.1);
+
+        #{$parent}-floor{
+          transition: all 0.3s ease-in-out 0.2s;
+          opacity: 0;
+        }
+
+        #{$parent}-car{
+          transition: opacity 0.4s ease-in-out 0.5s;
+          opacity: 0;
+        }
       }
     }
 
@@ -107,12 +285,12 @@
   /* Slide Item Img
   -------------------------------------------------------------- */
   &__bckg {
+    $parent: &;
     position: absolute;
     right: 15%;
     bottom: 35%;
     width: 250px;
     height: calc(var(--bckg-height) / 2.5);
-    background: var(--bckg-color);
     z-index: -1;
 
     @media #{$media-xs-small} {
@@ -143,11 +321,12 @@
     &:before, &:after {
       position: absolute;
       content: '';
+      transition: all 0.6s ease-in;
     }
 
     &:after {
-      width: 220%;
-      height: 220%;
+      width: calc(var(--bckg-height) * 3.5);
+      height: calc(var(--bckg-height) * 2.2);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -156,22 +335,109 @@
     }
 
     &:before {
-      width: calc(350% - var(--bckg-height));
-      height: calc(150% - var(--bckg-height));
+      width: calc(var(--bckg-height) * 4.5);
+      height: var(--bckg-height);
       top: 100%;
       left: -80%;
       opacity: var(--shadow-opacity);
       background: radial-gradient(ellipse at center, var(--bckg-color) 10%, transparent 65%);
+    }
+
+    &-fill {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0.8;
+      background: var(--bckg-color);
+      transition: all 0.5s ease-in 0.4s, transform 0.6s ease-in-out 0.1s;
+    }
+
+    &--enter {
+      #{$parent}-fill {
+        height: 0;
+        top: 0;
+        bottom: 100%;
+        opacity: 0.3;
+        transform: translateY(-20px)  scale(1.1);
+      }
+
+      &:before, &:after {
+        opacity: 0;
+      }
+
+      .animation-back & {
+        #{$parent}-fill {
+          bottom: 0;
+          top: 100%;
+          transform: translateY(10px)  scale(0.9);
+        }
+      }
+    }
+
+    &--exit {
+      #{$parent}-fill {
+        transition: all 0.5s ease-in 0.2s;
+        height: 0;
+        top: 100%;
+        bottom: 0;
+        opacity: 0.2;
+        transform: translateY(10px) scale(0.9);
+      }
+
+      &:before, &:after {
+        opacity: 0;
+      }
+
+      .animation-back & {
+        #{$parent}-fill {
+          top: 0;
+          bottom: 100%;
+          transform: translateY(-20px) scale(1.1);
+        }
+      }
     }
   }
 
   /* Slide Button
   -------------------------------------------------------------- */
   &__button {
+    position: relative;
+    height: 50px;
     margin-top: 10px;
 
     @media #{$media-sm-up} {
-      margin-top: 40px;
+      margin-top: 50px;
+    }
+
+    .button{
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 0.4s ease-in-out;
+
+      &:after{
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+
+      &--enter{
+        border: 1px solid transparent;
+
+        &:after{
+          opacity: 0;
+        }
+      }
+
+      &--exit{
+        border: 1px solid transparent;
+
+        &:after{
+          opacity: 0;
+        }
+      }
     }
   }
 
@@ -189,7 +455,7 @@
     }
 
     @media #{$media-lg} {
-      margin: 180px 0 30px;
+      margin: 170px 0 20px;
     }
 
     @media #{$media-lg-xl} {

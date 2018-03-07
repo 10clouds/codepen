@@ -1,6 +1,7 @@
-
-import roadsterImg from './../assets/images/roadster.png';
-import truckImg from './../assets/images/truck.png';
+import roadsterFloorImg from './../assets/images/roadster-floor.png';
+import roadsterImg from './../assets/images/roadster-car.png';
+import truckFloorImg from './../assets/images/truck-floor.png';
+import truckImg from '../assets/images/truck-car.png';
 
 const slides = [
 	{
@@ -8,6 +9,7 @@ const slides = [
 		name: 'Model S',
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ',
 		color: '#0047fd',
+		imgFloorUrl: truckFloorImg,
 		imgUrl: truckImg,
 		topSpeed: 65,
 		mph: 5,
@@ -21,6 +23,7 @@ const slides = [
 		name: 'Model X',
 		desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
 		color: '#ee0101',
+		imgFloorUrl: roadsterFloorImg,
 		imgUrl: roadsterImg,
 		topSpeed: 250,
 		mph: 1.9,
@@ -34,6 +37,7 @@ const slides = [
 		name: 'Model 3',
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ',
 		color: '#0047fd',
+		imgFloorUrl: truckFloorImg,
 		imgUrl: truckImg,
 		topSpeed: 65,
 		mph: 5,
@@ -47,6 +51,7 @@ const slides = [
 		name: 'Roadster',
 		desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
 		color: '#ee0101',
+		imgFloorUrl: roadsterFloorImg,
 		imgUrl: roadsterImg,
 		topSpeed: 250,
 		mph: 1.9,
@@ -60,6 +65,7 @@ const slides = [
 		name: 'Semi truck',
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ',
 		color: '#0047fd',
+		imgFloorUrl: truckFloorImg,
 		imgUrl: truckImg,
 		topSpeed: 65,
 		mph: 5,

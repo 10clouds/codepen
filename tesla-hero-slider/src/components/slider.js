@@ -9,7 +9,7 @@ import './../styles/scss/components/slider.css';
 class Slider extends Component {
 
 	state = {
-		activeSlide: 3,
+		activeSlide: 0,
 		animationForward: true,
 	};
 
@@ -22,9 +22,10 @@ class Slider extends Component {
 	setActiveSlide(slideId) {
 		var animationForward = '';
 		this.state.activeSlide < slideId ? animationForward = true : animationForward = false;
+
 		this.setState({
 			activeSlide: slideId,
-			animationForward: animationForward
+			animationForward
 		})
 	}
 

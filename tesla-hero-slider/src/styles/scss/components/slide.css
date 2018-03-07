@@ -17,6 +17,12 @@
   margin-top: 50px;
   width: 100%;
   order: 1;
+  /* Slide Item Aside
+  -------------------------------------------------------------- */
+  /* Slide Item Whole name
+  -------------------------------------------------------------- */
+  /* Slide Item Name
+  -------------------------------------------------------------- */
   /* Slide Item Description
   -------------------------------------------------------------- */
   /* Slide Item Img
@@ -34,17 +40,85 @@
     .tesla-slide {
       margin-top: 0;
       width: calc(100% - 150px); } }
-  .tesla-slide__desc {
+  .tesla-slide__aside {
     text-align: center; }
     @media only screen and (min-width: 1200px) {
-      .tesla-slide__desc {
+      .tesla-slide__aside {
         text-align: left; } }
+  .tesla-slide__wholename {
+    height: 75px; }
+    .tesla-slide__wholename > span {
+      height: 75px;
+      vertical-align: top; }
+  .tesla-slide__name {
+    position: relative;
+    display: inline-block;
+    width: 40%;
+    overflow: hidden; }
+    .tesla-slide__name-part {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 1;
+      display: block;
+      margin-left: 15px;
+      transition: top 0.4s ease-out 0.1s, opacity 0.4s linear; }
+      .tesla-slide__name-part--enter {
+        left: 0;
+        top: 100%;
+        opacity: 0; }
+        .animation-back .tesla-slide__name-part--enter {
+          top: -100%; }
+      .tesla-slide__name-part--exit {
+        left: 0;
+        top: -100%;
+        opacity: 0; }
+        .animation-back .tesla-slide__name-part--exit {
+          top: 100%; }
+  .tesla-slide__desc {
+    position: relative;
+    margin: 40px auto 0;
+    width: 420px;
+    height: 5rem;
+    overflow: hidden; }
     @media only screen and (min-width: 1200px) {
-      .tesla-slide__desc p {
-        max-width: 420px; } }
+      .tesla-slide__desc {
+        margin: 40px 0 0; } }
+    .tesla-slide__desc-text {
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: 0;
+      line-height: 2.5rem;
+      opacity: 1;
+      transition: top 0.4s ease-out 0.2s, bottom 0.4s ease-out 0.2s, opacity 0.4s ease-out 0.3s, line-height 0.3s ease-out 0.5s; }
+      .tesla-slide__desc-text--enter {
+        left: 0;
+        top: 100%;
+        bottom: 0;
+        opacity: 0;
+        line-height: 4rem; }
+        .animation-back .tesla-slide__desc-text--enter {
+          top: -100%;
+          bottom: auto;
+          line-height: 2.5rem; }
+      .tesla-slide__desc-text--exit {
+        transition: bottom 0.5s ease-out 0.2s, top 0.5s ease-out 0.2s, opacity 0.4s ease-out 0.2s, line-height 0.3s ease-out;
+        left: 0;
+        top: auto;
+        bottom: 100%;
+        opacity: 0;
+        line-height: 4rem; }
+        .animation-back .tesla-slide__desc-text--exit {
+          top: 100%;
+          bottom: auto; }
   .tesla-slide__img {
     position: relative;
-    overflow: hidden; }
+    overflow: hidden;
+    transform: translateX(0) scale(1);
+    transition: opacity 0.4s ease-in-out 0.1s, transform 0.6s ease-in-out 0.1s; }
     @media only screen and (max-width: 1199px) {
       .tesla-slide__img {
         width: 100%;
@@ -54,7 +128,7 @@
       .tesla-slide__img {
         position: absolute;
         margin-top: 0;
-        top: -40%;
+        top: -35%;
         right: -25%;
         z-index: -1; } }
     @media only screen and (min-width: 1800px) {
@@ -70,12 +144,51 @@
       left: 60%;
       transform: translate(-50%, -50%);
       opacity: 0.35;
-      background: radial-gradient(ellipse at center, var(--bckg-color) 10%, transparent 75%); }
+      background: radial-gradient(ellipse at center, var(--bckg-color) 10%, transparent 75%);
+      transition: opacity 0.3s ease-in 0.3s;
+      z-index: 9; }
       @media only screen and (min-width: 992px) {
         .tesla-slide__img:before {
           width: calc(var(--car-shadow-height) * 2);
           height: calc(var(--car-shadow-height) * 1.8);
           opacity: 0.4; } }
+    .tesla-slide__img-floor {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: all 0.5s ease-in-out 0.4s; }
+    .tesla-slide__img-car {
+      transition: opacity 0.4s ease-in-out 0.1s; }
+    .tesla-slide__img--enter {
+      opacity: 0;
+      transform: translateX(-5%) scale(1.1); }
+      .tesla-slide__img--enter .tesla-slide__img-floor {
+        opacity: 0; }
+      .tesla-slide__img--enter .tesla-slide__img-car {
+        opacity: 0; }
+      .tesla-slide__img--enter:before {
+        opacity: 0; }
+      .animation-back .tesla-slide__img--enter {
+        opacity: 0;
+        transform: scale(0.8); }
+    .tesla-slide__img--exit {
+      transition: opacity 0.3s ease-in-out 0.5s, transform 0.6s ease-in-out 0.3s;
+      opacity: 0;
+      transform: scale(0.9); }
+      .tesla-slide__img--exit .tesla-slide__img-floor {
+        transition: all 0.3s ease-in-out 0.2s;
+        opacity: 0; }
+      .tesla-slide__img--exit:before {
+        opacity: 0; }
+      .animation-back .tesla-slide__img--exit {
+        transition: opacity 0.3s ease-in-out 0.6s, transform 0.7s ease-in-out 0.1s;
+        transform: translateX(-5%) scale(1.1); }
+        .animation-back .tesla-slide__img--exit .tesla-slide__img-floor {
+          transition: all 0.3s ease-in-out 0.2s;
+          opacity: 0; }
+        .animation-back .tesla-slide__img--exit .tesla-slide__img-car {
+          transition: opacity 0.4s ease-in-out 0.5s;
+          opacity: 0; }
     .tesla-slide__img img {
       max-width: 100%;
       min-width: 600px;
@@ -103,7 +216,6 @@
     bottom: 35%;
     width: 250px;
     height: calc(var(--bckg-height) / 2.5);
-    background: var(--bckg-color);
     z-index: -1; }
     @media only screen and (max-width: 480px) {
       .tesla-slide__bckg {
@@ -128,27 +240,81 @@
         right: 2%; } }
     .tesla-slide__bckg:before, .tesla-slide__bckg:after {
       position: absolute;
-      content: ''; }
+      content: '';
+      transition: all 0.6s ease-in; }
     .tesla-slide__bckg:after {
-      width: 220%;
-      height: 220%;
+      width: calc(var(--bckg-height) * 3.5);
+      height: calc(var(--bckg-height) * 2.2);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       opacity: 0.5;
       background: radial-gradient(ellipse at center, var(--bckg-color) 25%, transparent 65%); }
     .tesla-slide__bckg:before {
-      width: calc(350% - var(--bckg-height));
-      height: calc(150% - var(--bckg-height));
+      width: calc(var(--bckg-height) * 4.5);
+      height: var(--bckg-height);
       top: 100%;
       left: -80%;
       opacity: var(--shadow-opacity);
       background: radial-gradient(ellipse at center, var(--bckg-color) 10%, transparent 65%); }
+    .tesla-slide__bckg-fill {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0.8;
+      background: var(--bckg-color);
+      transition: all 0.5s ease-in 0.4s, transform 0.6s ease-in-out 0.1s; }
+    .tesla-slide__bckg--enter .tesla-slide__bckg-fill {
+      height: 0;
+      top: 0;
+      bottom: 100%;
+      opacity: 0.3;
+      transform: translateY(-20px) scale(1.1); }
+    .tesla-slide__bckg--enter:before, .tesla-slide__bckg--enter:after {
+      opacity: 0; }
+    .animation-back .tesla-slide__bckg--enter .tesla-slide__bckg-fill {
+      bottom: 0;
+      top: 100%;
+      transform: translateY(10px) scale(0.9); }
+    .tesla-slide__bckg--exit .tesla-slide__bckg-fill {
+      transition: all 0.5s ease-in 0.2s;
+      height: 0;
+      top: 100%;
+      bottom: 0;
+      opacity: 0.2;
+      transform: translateY(10px) scale(0.9); }
+    .tesla-slide__bckg--exit:before, .tesla-slide__bckg--exit:after {
+      opacity: 0; }
+    .animation-back .tesla-slide__bckg--exit .tesla-slide__bckg-fill {
+      top: 0;
+      bottom: 100%;
+      transform: translateY(-20px) scale(1.1); }
   .tesla-slide__button {
+    position: relative;
+    height: 50px;
     margin-top: 10px; }
     @media only screen and (min-width: 768px) {
       .tesla-slide__button {
-        margin-top: 40px; } }
+        margin-top: 50px; } }
+    .tesla-slide__button .button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 0.4s ease-in-out; }
+      .tesla-slide__button .button:after {
+        opacity: 0;
+        transition: opacity 0.4s; }
+      .tesla-slide__button .button--enter {
+        border: 1px solid transparent; }
+        .tesla-slide__button .button--enter:after {
+          opacity: 0; }
+      .tesla-slide__button .button--exit {
+        border: 1px solid transparent; }
+        .tesla-slide__button .button--exit:after {
+          opacity: 0; }
   .tesla-slide__params {
     margin: -50px 0 30px; }
     @media only screen and (min-width: 768px) {
@@ -159,7 +325,7 @@
         margin: -120px 0 30px; } }
     @media only screen and (min-width: 1200px) {
       .tesla-slide__params {
-        margin: 180px 0 30px; } }
+        margin: 170px 0 20px; } }
     @media only screen and (min-width: 1800px) {
       .tesla-slide__params {
         margin: 200px 0 100px; } }
