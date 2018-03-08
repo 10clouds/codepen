@@ -1,31 +1,31 @@
 import React, {Component} from 'react';
+import propTypes from 'prop-types';
 import AnimatedNumber from 'react-animated-number';
 
 class AnimateValue extends Component {
 
+	static propTypes = {
+		valueClass: propTypes.string,
+		value: propTypes.number.isRequired,
+		delay: propTypes.number
+	};
+
 	state = {
 		value: 0
-	}
+	};
 
 	timeout = '';
 
 	componentWillReceiveProps(props) {
-		var delay = 500, value = 0;
+		let delay = 0;
 
-		if (props.topSpeed > 0) {
-			value = props.topSpeed;
-			props.animationForward ? delay : delay += 500;
-		} else if (props.mph > 0) {
-			delay += 250;
-			value = props.mph;
-		} else if (props.mileRange > 0) {
-			props.animationForward ? delay += 500 : delay;
-			value = props.mileRange;
+		if (props.delay > 0) {
+			delay = props.delay
 		}
 
 		this.timeout = setTimeout(() => {
-			this.setState({value});
-		}, delay)
+			this.setState({value: props.value});
+		}, delay);
 	}
 
 	componentWillUnmount() {
@@ -48,7 +48,7 @@ class AnimateValue extends Component {
 				stepPrecision={0}
 				duration={400}
 				value={this.state.value}
-				component="span"/>
+				component='span'/>
 		);
 	}
 }

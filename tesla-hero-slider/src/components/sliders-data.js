@@ -56,7 +56,7 @@ const slides = [
 		topSpeed: 250,
 		mph: 1.9,
 		mileRange: 620,
-		bckgHeight: 360,
+		bckgHeight: 340,
 		carShadowHeight: 150,
 		shadowOpacity: 0.5
 	},

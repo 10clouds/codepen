@@ -37,7 +37,8 @@ h1{
   font-size: 5.5rem;
   line-height: 1;
   font-family: $headers-family;
-  letter-spacing: 1.5px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 
   @media #{$media-sm-up}{
     font-size: 7rem;

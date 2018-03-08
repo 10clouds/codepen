@@ -1,0 +1,140 @@
+@import './../helpers/variables';
+
+/* Slide Item Aside
+-------------------------------------------------------------- */
+.tesla-slide-aside {
+  text-align: left;
+
+  @media #{$media-xs} {
+    padding-left: 20px;
+  }
+
+  @media #{$media-xs-small} {
+    padding-left: 10px;
+  }
+
+  /* Slide Item Whole name
+  -------------------------------------------------------------- */
+  &__wholename {
+    height: 55px;
+
+    @media #{$media-sm-up} {
+      height: 75px;
+    }
+
+    > span {
+      height: 55px;
+      vertical-align: top;
+
+      @media #{$media-sm-up} {
+        height: 75px;
+      }
+    }
+  }
+
+  /* Slide Item Name
+  -------------------------------------------------------------- */
+  &__name {
+    position: relative;
+    display: inline-block;
+    width: 40%;
+    overflow: hidden;
+
+    &-part {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 1;
+      display: block;
+      margin-left: 15px;
+      transition: top 0.5s ease-out 0.1s, opacity 0.4s linear;
+
+      &--enter {
+        left: 0;
+        top: 100%;
+        opacity: 0;
+
+        .animation-back & {
+          top: -100%;
+        }
+      }
+
+      &--exit {
+        left: 0;
+        top: -100%;
+        opacity: 0;
+        transition: top 0.5s ease-out 0.4s, opacity 0.4s linear 0.4s;
+
+        .animation-back & {
+          top: 100%;
+        }
+      }
+    }
+  }
+
+  /* Slide Item Description
+  -------------------------------------------------------------- */
+  &__desc {
+    position: relative;
+    margin: 10px 0 0;
+    max-width: 420px;
+    height: 5rem;
+    overflow: hidden;
+
+    @media #{$media-sm-up} {
+      margin-top: 40px;
+    }
+
+    &-text {
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: 0;
+      line-height: 2.5rem;
+      opacity: 1;
+      transition: top 0.4s ease-out 0.2s, bottom 0.4s ease-out 0.2s, opacity 0.4s ease-out 0.3s, line-height 0.3s ease-out 0.5s;
+
+      &--enter {
+        left: 0;
+        top: 100%;
+        bottom: 0;
+        opacity: 0;
+        line-height: 4rem;
+
+        .animation-back & {
+          top: -100%;
+          bottom: auto;
+          line-height: 3rem;
+        }
+      }
+
+      &--exit {
+        transition: bottom 0.5s ease-out 0.3s, top 0.5s ease-out 0.3s, opacity 0.4s ease-out 0.3s, line-height 0.3s ease-out 0.2s;
+        left: 0;
+        top: auto;
+        bottom: 100%;
+        opacity: 0;
+        line-height: 4rem;
+
+        .animation-back & {
+          top: 100%;
+          bottom: auto;
+        }
+      }
+    }
+  }
+
+  /* Slide Button
+  -------------------------------------------------------------- */
+  &__button {
+    position: relative;
+    height: 50px;
+    margin-top: 25px;
+
+    @media #{$media-sm-up} {
+      margin-top: 50px;
+    }
+  }
+}

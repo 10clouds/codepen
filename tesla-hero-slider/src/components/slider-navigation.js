@@ -15,12 +15,12 @@ class SliderNavigation extends Component {
 
 	render() {
 		return (
-			<div className="tesla-slider-navigation">
-				<ul className="tesla-slider-navigation__list">
+			<div className='tesla-slider-navigation'>
+				<ul className='tesla-slider-navigation__list'>
 					{this.props.carsNames.map((car) => {
 						return (
-							<li key={car.id} className="tesla-slider-navigation__item">
-								<a href="#" onClick={this.changeActiveSlide.bind(this)}
+							<li key={car.id} className='tesla-slider-navigation__item'>
+								<a href='#' onClick={this.changeActiveSlide.bind(this)}
 								   className={`tesla-slider-navigation__link ${this.props.carsNames[this.props.activeSlide] === car ? 'tesla-slider-navigation__link--active' : ''}`}
 								   style={{color: this.props.carsNames[this.props.activeSlide] === car ? car.color : ''}}
 								   data-id={this.props.carsNames.indexOf(car)}>
