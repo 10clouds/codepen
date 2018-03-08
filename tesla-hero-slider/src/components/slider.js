@@ -19,16 +19,21 @@ class Slider extends Component {
 		animationState: null
 	};
 
-	setAnimationState = animationState => this.setState({animationState});
+	slider = {
+		header: '',
+		content: ''
+	};
+
 
 	componentDidMount() {
 		this.setState({
 			activeSlide: 3
 		});
 		this.setAnimationState(ANIMATION_PHASES.PENDING);
-	}
 
-	componentWillMount() {
+		this.slider.header = document.querySelector('.tesla-header');
+		this.slider.content = document.querySelector('.tesla-slider')
+
 		document.body.addEventListener('wheel', this.handleScroll.bind(this));
 	}
 
@@ -36,21 +41,23 @@ class Slider extends Component {
 		document.body.removeEventListener('wheel', this.handleScroll);
 	}
 
-	setActiveSlide(slideId) {
-		var animationForward = '';
-		this.state.activeSlide < slideId ? animationForward = true : animationForward = false;
+	setAnimationState = animationState => this.setState({animationState});
 
+	setActiveSlide(slideId) {
 		this.setState({
 			activeSlide: slideId,
-			animationForward
+			animationForward: this.state.activeSlide < slideId ? true : false
 		});
 
 		this.setAnimationState(ANIMATION_PHASES.PENDING);
 	}
 
 	handleScroll(e) {
-		if (window.innerWidth < 1200) {
-			return;
+		let sliderHeight = this.slider.content.clientHeight,
+			headerHeight = this.slider.header.clientHeight;
+
+		if (window.innerHeight < (sliderHeight + headerHeight)) {
+			return; // do not handle scroll effect when window height is smaller than slider plus header height
 		}
 
 		e.preventDefault();
@@ -59,18 +66,10 @@ class Slider extends Component {
 			return;
 		}
 		if (e.deltaY < 0 && this.state.activeSlide !== 0) {
-			this.setAnimationState(ANIMATION_PHASES.PENDING);
-
-			this.setState((prevState) => {
-				return {activeSlide: prevState.activeSlide - 1}
-			});
+			this.setActiveSlide(this.state.activeSlide - 1);
 		}
 		if (e.deltaY > 0 && this.state.activeSlide !== this.state.slidesCount - 1) {
-			this.setAnimationState(ANIMATION_PHASES.PENDING);
-
-			this.setState((prevState) => {
-				return {activeSlide: prevState.activeSlide + 1}
-			})
+			this.setActiveSlide(this.state.activeSlide + 1)
 		}
 	}
 

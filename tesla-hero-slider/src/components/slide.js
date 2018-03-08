@@ -13,18 +13,19 @@ class Slide extends Component {
 		animationForward: propTypes.bool.isRequired
 	};
 
-	transitionend(e){
-		setTimeout(()=>{
+	transitionend(e) {
+		//checking both elements if they do not have classes -enter/-exit
+		if (e.currentTarget.className === 'tesla-slide__img'
+			&& e.target.className === 'tesla-slide__img-floor') {
 			this.props.setAnimationState(this.props.animatonPhases.STOP)
-		}, 1500)
+		}
 	}
 
 	render() {
 		const activeCar = this.props.activeSlide,
 			animationForward = this.props.animationForward;
 		return (
-			<div className={`tesla-slide ${animationForward ? 'animation-forward' : 'animation-back'}`}
-			     style={this.props.transitionStyle} >
+			<div className={`tesla-slide ${animationForward ? 'animation-forward' : 'animation-back'}`}>
 
 				<SlideAside activeCar={activeCar}/>
 
@@ -45,14 +46,15 @@ class Slide extends Component {
 				<TransitionGroup>
 					<CSSTransition key={activeCar.name} timeout={{enter: 700, exit: 1200}}
 					               className='tesla-slide__img' classNames='tesla-slide__img-'
-					               mountOnEnter={true} unmountOnExit={true}>
+					               mountOnEnter={true} unmountOnExit={true}
+					               onTransitionEnd={this.transitionend.bind(this)}>
 						<div
-						     className='tesla-slide__img'
-						     style={{
-							     '--bckg-color': activeCar.color,
-							     '--car-shadow-height': activeCar.carShadowHeight + 'px'
-						     }}>
-							<img className='tesla-slide__img-floor' src={activeCar.imgFloorUrl} alt='' onTransitionEnd={this.transitionend.bind(this)}/>
+							className='tesla-slide__img'
+							style={{
+								'--bckg-color': activeCar.color,
+								'--car-shadow-height': activeCar.carShadowHeight + 'px'
+							}}>
+							<img className='tesla-slide__img-floor' src={activeCar.imgFloorUrl} alt=''/>
 							<img className='tesla-slide__img-car' src={activeCar.imgUrl} alt=''/>
 						</div>
 					</CSSTransition>

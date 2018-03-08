@@ -11,23 +11,21 @@
 /* Slider
 -------------------------------------------------------------- */
 .tesla-slider {
-  margin-top: 20px;
+  padding-top: 20px;
   /* Mouse scroll
   -------------------------------------------------------------- */ }
-  @media only screen and (min-width: 768px) {
-    .tesla-slider {
-      margin-top: 40px; } }
   @media only screen and (min-width: 992px) {
     .tesla-slider {
-      margin-top: 60px; } }
+      padding-top: 40px; } }
   @media only screen and (min-width: 1200px) {
     .tesla-slider {
       display: flex;
       justify-content: space-between;
-      flex-wrap: wrap; } }
+      flex-wrap: wrap;
+      padding-top: 0; } }
   @media only screen and (min-width: 1800px) {
     .tesla-slider {
-      margin-top: 150px; } }
+      padding-top: 135px; } }
   .tesla-slider__scroll {
     order: 3;
     width: 100%; }

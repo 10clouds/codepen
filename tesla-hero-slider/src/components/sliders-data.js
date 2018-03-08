@@ -63,7 +63,7 @@ const slides = [
 	{
 		id: 5,
 		name: 'Semi truck',
-		desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et ',
+		desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore',
 		color: '#0047fd',
 		imgFloorUrl: truckFloorImg,
 		imgUrl: truckImg,

@@ -25,9 +25,9 @@
       padding-left: 20px; } }
   @media only screen and (max-width: 480px) {
     .tesla-slide-aside {
-      padding-left: 10px; } }
+      padding-left: 0; } }
   .tesla-slide-aside__wholename {
-    height: 55px; }
+    height: auto; }
     @media only screen and (min-width: 768px) {
       .tesla-slide-aside__wholename {
         height: 75px; } }
@@ -42,13 +42,19 @@
     display: inline-block;
     width: 40%;
     overflow: hidden; }
+    @media only screen and (max-width: 767px) {
+      .tesla-slide-aside__name {
+        width: 65%; } }
+    @media only screen and (max-width: 480px) {
+      .tesla-slide-aside__name {
+        width: 230px; } }
     .tesla-slide-aside__name-part {
       position: absolute;
       left: 0;
       top: 0;
       opacity: 1;
       display: block;
-      margin-left: 15px;
+      margin-left: 5px;
       transition: top 0.5s ease-out 0.1s, opacity 0.4s linear; }
       .tesla-slide-aside__name-part--enter {
         left: 0;
@@ -109,3 +115,5 @@
     @media only screen and (min-width: 768px) {
       .tesla-slide-aside__button {
         margin-top: 50px; } }
+    .tesla-slide-aside__button button {
+      z-index: 1; }

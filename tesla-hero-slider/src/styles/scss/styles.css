@@ -375,8 +375,8 @@ h1 {
   font-size: 5.5rem;
   line-height: 1;
   font-family: "BebasNeue", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.5px; }
+  letter-spacing: 0.9px;
+  font-weight: 500; }
   @media only screen and (min-width: 768px) {
     h1 {
       font-size: 7rem; } }
@@ -401,7 +401,7 @@ a {
   margin: 0 auto; }
   @media only screen and (min-width: 768px) {
     .container {
-      padding: 20px; } }
+      padding: 0 20px; } }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .container {
       max-width: 1000px; } }

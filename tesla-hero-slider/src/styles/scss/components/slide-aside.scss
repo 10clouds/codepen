@@ -10,13 +10,13 @@
   }
 
   @media #{$media-xs-small} {
-    padding-left: 10px;
+    padding-left: 0;
   }
 
   /* Slide Item Whole name
   -------------------------------------------------------------- */
   &__wholename {
-    height: 55px;
+    height: auto;
 
     @media #{$media-sm-up} {
       height: 75px;
@@ -40,13 +40,22 @@
     width: 40%;
     overflow: hidden;
 
+    @media #{$media-xs} {
+      width: 65%;
+    }
+
+    @media #{$media-xs-small} {
+      width: 230px;
+    }
+
+
     &-part {
       position: absolute;
       left: 0;
       top: 0;
       opacity: 1;
       display: block;
-      margin-left: 15px;
+      margin-left: 5px;
       transition: top 0.5s ease-out 0.1s, opacity 0.4s linear;
 
       &--enter {
@@ -135,6 +144,10 @@
 
     @media #{$media-sm-up} {
       margin-top: 50px;
+    }
+
+    button{
+      z-index: 1;
     }
   }
 }

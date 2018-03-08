@@ -45,6 +45,9 @@
       .tesla-slider-navigation__item {
         display: block;
         margin-top: 90px; } }
+    @media only screen and (min-width: 1800px) {
+      .tesla-slider-navigation__item {
+        margin-top: 95px; } }
     .tesla-slider-navigation__item:first-of-type {
       margin-top: 0; }
   .tesla-slider-navigation__link--active {

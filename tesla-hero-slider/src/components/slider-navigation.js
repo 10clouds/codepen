@@ -8,7 +8,7 @@ class SliderNavigation extends Component {
 		setActiveSlide: propTypes.func.isRequired
 	}
 
-	changeActiveSlide(e){
+	changeActiveSlide(e) {
 		e.preventDefault();
 		this.props.setActiveSlide(e.target.getAttribute('data-id'));
 	}
@@ -25,7 +25,7 @@ class SliderNavigation extends Component {
 								   style={{color: this.props.carsNames[this.props.activeSlide] === car ? car.color : ''}}
 								   data-id={this.props.carsNames.indexOf(car)}>
 									{car.name}
-									</a>
+								</a>
 							</li>
 						)
 					})}

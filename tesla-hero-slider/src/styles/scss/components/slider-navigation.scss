@@ -46,6 +46,10 @@
       margin-top: 90px;
     }
 
+    @media #{$media-lg-xl}{
+      margin-top: 95px;
+    }
+
     &:first-of-type{
       margin-top: 0;
     }

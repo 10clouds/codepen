@@ -3,24 +3,21 @@
 /* Slider
 -------------------------------------------------------------- */
 .tesla-slider {
-  margin-top: 20px;
-
-  @media #{$media-sm-up} {
-    margin-top: 40px;
-  }
+  padding-top: 20px;
 
   @media #{$media-md-up} {
-    margin-top: 60px;
+    padding-top: 40px;
   }
 
   @media #{$media-lg} {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    padding-top: 0;
   }
 
   @media #{$media-lg-xl} {
-    margin-top: 150px;
+    padding-top: 135px;
   }
 
   /* Mouse scroll
