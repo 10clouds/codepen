@@ -45,7 +45,7 @@ class SlideParams extends Component {
 						<p>
 							<span className='tesla-slide-params__plus'>+</span>
 							<AnimateValue
-								valueClass='tesla-slide-params__value'
+								className='tesla-slide-params__value'
 								animationForward={animationForward}
 								value={activeCar.topSpeed}
 								delay={this.state.delayTopSpeed}/>
@@ -57,7 +57,7 @@ class SlideParams extends Component {
 					<li className='tesla-slide-params__item'>
 						<p>
 							<AnimateValue
-								valueClass='tesla-slide-params__value'
+								className='tesla-slide-params__value'
 								animationForward={animationForward}
 								value={activeCar.mph}
 								delay={this.state.delayMph}/>
@@ -69,7 +69,7 @@ class SlideParams extends Component {
 					<li className='tesla-slide-params__item'>
 						<p>
 							<AnimateValue
-								valueClass='tesla-slide-params__value'
+								className='tesla-slide-params__value'
 								animationForward={animationForward}
 								value={activeCar.mileRange}
 								delay={this.state.delayMileRange}/>

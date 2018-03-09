@@ -48,14 +48,13 @@
       width: 230px;
     }
 
-
     &-part {
       position: absolute;
       left: 0;
       top: 0;
       opacity: 1;
       display: block;
-      margin-left: 5px;
+      margin-left: 15px;
       transition: top 0.5s ease-out 0.1s, opacity 0.4s linear;
 
       &--enter {

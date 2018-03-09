@@ -5,38 +5,36 @@ import AnimatedNumber from 'react-animated-number';
 class AnimateValue extends Component {
 
 	static propTypes = {
-		valueClass: propTypes.string,
+		className: propTypes.string,
 		value: propTypes.number.isRequired,
 		delay: propTypes.number
+	};
+
+	static defaultProps = {
+		delay: 0
 	};
 
 	state = {
 		value: 0
 	};
 
-	timeout = '';
+	timeout = null;
 
 	componentWillReceiveProps(props) {
-		let delay = 0;
-
-		if (props.delay > 0) {
-			delay = props.delay
-		}
-
 		this.timeout = setTimeout(() => {
 			this.setState({value: props.value});
-		}, delay);
+		}, props.delay);
 	}
 
 	componentWillUnmount() {
 		clearTimeout(this.timeout);
-		this.timeout = '';
+		this.timeout = null;
 	}
 
 	render() {
 		return (
 			<AnimatedNumber
-				className={this.props.valueClass}
+				className={this.props.className}
 				style={{
 					transition: '0.8s ease-out',
 					transitionProperty:

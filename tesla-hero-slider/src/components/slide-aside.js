@@ -9,7 +9,7 @@ function SlideAside(props) {
 	return (
 		<div className='tesla-slide-aside'>
 			<h1 className='tesla-slide-aside__wholename'>
-				<span> Tesla </span>
+				<span>Tesla</span>
 				<TransitionGroup component='span' className='tesla-slide-aside__name'>
 					<CSSTransition key={activeCar.name} timeout={{enter: 800, exit: 800}}
 					               className='tesla-slide-aside__name-part' classNames='tesla-slide-aside__name-part-'
