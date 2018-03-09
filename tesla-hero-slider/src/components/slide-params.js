@@ -19,13 +19,13 @@ class SlideParams extends Component {
 
 	componentWillReceiveProps(props) {
 		let delay = 500,
-			delayTopSpeed = delay + 500,
+			delayTopSpeed = delay,
 			delayMph = delay + 250,
-			delayMileRange = delay;
-
-		if (props.animationForward) {
-			delayTopSpeed = delay;
 			delayMileRange = delay + 500;
+
+		if (!props.animationForward) {
+			delayTopSpeed = delay + 500;
+			delayMileRange = delay;
 		}
 
 		this.setState({

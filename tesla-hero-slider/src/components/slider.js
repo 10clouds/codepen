@@ -24,7 +24,6 @@ class Slider extends Component {
 		content: ''
 	};
 
-
 	componentDidMount() {
 		this.setState({
 			activeSlide: 3
@@ -92,7 +91,7 @@ class Slider extends Component {
 					activeSlide={slides[this.state.activeSlide]}
 					animationState={this.state.animationState}
 					setAnimationState={this.setAnimationState}
-					animatonPhases={ANIMATION_PHASES}/>
+					ANIMATION_PHASES={ANIMATION_PHASES}/>
 
 				<div className='tesla-slider__scroll'>
 					<img src={mouseImg} alt=''/>

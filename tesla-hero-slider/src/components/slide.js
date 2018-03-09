@@ -10,14 +10,16 @@ class Slide extends Component {
 
 	static propTypes = {
 		activeSlide: propTypes.object.isRequired,
-		animationForward: propTypes.bool.isRequired
+		animationForward: propTypes.bool.isRequired,
+		setAnimationState: propTypes.func.isRequired,
+		ANIMATION_PHASES: propTypes.object.isRequired
 	};
 
-	transitionend(e) {
+	handleTransitionEnd(e) {
 		//checking both elements if they do not have classes -enter/-exit
 		if (e.currentTarget.className === 'tesla-slide__img'
 			&& e.target.className === 'tesla-slide__img-floor') {
-			this.props.setAnimationState(this.props.animatonPhases.STOP)
+			this.props.setAnimationState(this.props.ANIMATION_PHASES.STOP)
 		}
 	}
 
@@ -47,7 +49,7 @@ class Slide extends Component {
 					<CSSTransition key={activeCar.name} timeout={{enter: 700, exit: 1200}}
 					               className='tesla-slide__img' classNames='tesla-slide__img-'
 					               mountOnEnter={true} unmountOnExit={true}
-					               onTransitionEnd={this.transitionend.bind(this)}>
+					               onTransitionEnd={this.handleTransitionEnd.bind(this)}>
 						<div
 							className='tesla-slide__img'
 							style={{

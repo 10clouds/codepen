@@ -5,7 +5,8 @@ import './../styles/scss/components/slider-navigation.css';
 class SliderNavigation extends Component {
 
 	static propTypes = {
-		setActiveSlide: propTypes.func.isRequired
+		setActiveSlide: propTypes.func.isRequired,
+		carsNames: propTypes.array.isRequired
 	}
 
 	changeActiveSlide(e) {
