@@ -16,31 +16,29 @@ class Slide extends Component {
 		ANIMATION_PHASES: propTypes.object.isRequired
 	};
 
-	handleTransitionEnd(e) {
-		//checking both elements if they do not have classes -enter/-exit
-		if (e.currentTarget.className === 'tesla-slide__img'
-			&& e.target.className === 'tesla-slide__img-floor') {
-			this.props.setAnimationState(this.props.ANIMATION_PHASES.STOP)
-		}
+
+	handleEnter= (e) =>{
+		this.props.setAnimationState(this.props.ANIMATION_PHASES.STOP);
 	}
 
+
 	render() {
-		const activeCar = this.props.activeSlide,
-			animationForward = this.props.animationForward;
+		const { activeSlide, animationForward } = this.props;
+
 		return (
 			<div className={`tesla-slide ${animationForward ? 'animation-forward' : 'animation-back'}`}>
 
-				<SlideAside activeCar={activeCar}/>
+				<SlideAside activeCar={activeSlide}/>
 
 				<TransitionGroup>
-					<CSSTransition key={activeCar.name} timeout={{enter: 700, exit: 1200}}
+					<CSSTransition key={activeSlide.name} timeout={{enter: 700, exit: 1200}}
 					               classNames='tesla-slide__bckg-'
 					               mountOnEnter={true} unmountOnExit={true}>
 						<SetCSSVariables cssVariables={{
-							'--car-color': activeCar.color,
-							'--bckg-height': activeCar.bckgHeight + 'px',
-							'--shadow-opacity': activeCar.shadowOpacity,
-							'--car-shadow-height': activeCar.carShadowHeight + 'px'
+							'--car-color': activeSlide.color,
+							'--bckg-height': activeSlide.bckgHeight + 'px',
+							'--shadow-opacity': activeSlide.shadowOpacity,
+							'--car-shadow-height': activeSlide.carShadowHeight + 'px'
 						}}>
 							<div className='tesla-slide__bckg'>
 								<div className='tesla-slide__bckg-fill'></div>
@@ -50,18 +48,18 @@ class Slide extends Component {
 				</TransitionGroup>
 
 				<TransitionGroup>
-					<CSSTransition key={activeCar.name} timeout={{enter: 700, exit: 1200}}
+					<CSSTransition key={activeSlide.name} timeout={{enter: 700, exit: 1200}}
 					               classNames='tesla-slide__img-'
 					               mountOnEnter={true} unmountOnExit={true}
-					               onTransitionEnd={this.handleTransitionEnd.bind(this)}>
+					               onEntered={this.handleEnter}>
 						<div className='tesla-slide__img' >
-							<img className='tesla-slide__img-floor' src={activeCar.imgFloorUrl} alt=''/>
-							<img className='tesla-slide__img-car' src={activeCar.imgUrl} alt=''/>
+							<img className='tesla-slide__img-floor' src={activeSlide.imgFloorUrl} alt=''/>
+							<img className='tesla-slide__img-car' src={activeSlide.imgUrl} alt=''/>
 						</div>
 					</CSSTransition>
 				</TransitionGroup>
 
-				<SlideParams activeCar={activeCar} animationForward={animationForward}/>
+				<SlideParams activeCar={activeSlide} animationForward={animationForward}/>
 			</div>
 		);
 	}

@@ -15,7 +15,7 @@ function SlideAside(props) {
 					<CSSTransition key={activeCar.name} timeout={{enter: 800, exit: 800}}
 					               className='tesla-slide-aside__name-part' classNames='tesla-slide-aside__name-part-'
 					               mountOnEnter={true} unmountOnExit={true}>
-						<span> {activeCar.name}</span>
+						<span>{activeCar.name}</span>
 					</CSSTransition>
 				</TransitionGroup>
 			</h1>

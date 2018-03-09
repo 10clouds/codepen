@@ -21,9 +21,13 @@ class AnimateValue extends Component {
 	timeout = null;
 
 	componentWillReceiveProps(props) {
-		this.timeout = setTimeout(() => {
-			this.setState({value: props.value});
-		}, props.delay);
+
+		if (this.props.value !== props.value) {
+			this.timeout = setTimeout(() => {
+				this.setState({value: props.value});
+			}, props.delay);
+		}
+
 	}
 
 	componentWillUnmount() {

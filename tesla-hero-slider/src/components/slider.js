@@ -33,25 +33,23 @@ class Slider extends Component {
 		this.slider.header = document.querySelector('.tesla-header');
 		this.slider.content = document.querySelector('.tesla-slider')
 
-		document.body.addEventListener('wheel', this.handleScroll.bind(this));
-	}
-
-	componentWillUnmount() {
-		document.body.removeEventListener('wheel', this.handleScroll);
+		document.body.addEventListener('wheel', this.handleScroll);
 	}
 
 	setAnimationState = animationState => this.setState({animationState});
 
-	setActiveSlide(slideId) {
+	setActiveSlide = (slideId) => {
 		this.setState({
 			activeSlide: slideId,
 			animationForward: this.state.activeSlide < slideId ? true : false
 		});
 
 		this.setAnimationState(ANIMATION_PHASES.PENDING);
-	}
+	};
 
-	handleScroll(e) {
+	timeout = null;
+
+	handleScroll = (e) => {
 		let sliderHeight = this.slider.content.clientHeight,
 			headerHeight = this.slider.header.clientHeight;
 
@@ -61,15 +59,22 @@ class Slider extends Component {
 
 		e.preventDefault();
 
-		if (this.state.animationState === ANIMATION_PHASES.PENDING) {
-			return;
-		}
-		if (e.deltaY < 0 && this.state.activeSlide !== 0) {
-			this.setActiveSlide(this.state.activeSlide - 1);
-		}
-		if (e.deltaY > 0 && this.state.activeSlide !== this.state.slidesCount - 1) {
-			this.setActiveSlide(this.state.activeSlide + 1)
-		}
+		window.clearTimeout(this.timeout);
+
+		this.timeout = setTimeout(() => {
+			if (e.deltaY < 0 && this.state.activeSlide !== 0) {
+				this.setActiveSlide(this.state.activeSlide - 1);
+			}
+			if (e.deltaY > 0 && this.state.activeSlide !== (this.state.slidesCount - 1)) {
+				this.setActiveSlide(this.state.activeSlide + 1)
+			}
+		}, 100);
+	};
+
+	componentWillUnmount() {
+		document.body.removeEventListener('wheel', this.handleScroll);
+		window.clearTimeout(this.timeout);
+		this.timeout = null;
 	}
 
 	render() {
@@ -77,14 +82,12 @@ class Slider extends Component {
 			<div className='tesla-slider'>
 
 				<SliderNavigation activeSlide={this.state.activeSlide}
-				                  setActiveSlide={this.setActiveSlide.bind(this)}
-				                  carsNames={slides.map(slide => {
-					                  return {
-						                  id: slide.id,
-						                  name: slide.name,
-						                  color: slide.color
-					                  }
-				                  })}/>
+				                  setActiveSlide={this.setActiveSlide}
+				                  carsNames={slides.map(slide => ({
+					                  id: slide.id,
+					                  name: slide.name,
+					                  color: slide.color
+				                  }))}/>
 
 				<Slide
 					animationForward={this.state.animationForward}

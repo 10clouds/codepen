@@ -3,6 +3,9 @@ import propTypes from 'prop-types';
 import AnimateValue from './animate-value';
 import './../styles/scss/components/slide-params.css';
 
+let DELAY_TOP_SPEED = 500,
+	DELAY_MPH = 750,
+	DELAY_MILE_RANG = 1000;
 
 class SlideParams extends Component {
 
@@ -11,33 +14,16 @@ class SlideParams extends Component {
 		animationForward: propTypes.bool.isRequired
 	};
 
-	state = {
-		delayTopSpeed: 0,
-		delayMph: 0,
-		delayMileRange: 0
-	};
-
 	componentWillReceiveProps(props) {
-		let delay = 500,
-			delayTopSpeed = delay,
-			delayMph = delay + 250,
-			delayMileRange = delay + 500;
-
 		if (!props.animationForward) {
-			delayTopSpeed = delay + 500;
-			delayMileRange = delay;
+			DELAY_TOP_SPEED = 1000;
+			DELAY_MILE_RANG = 500;
 		}
-
-		this.setState({
-			delayTopSpeed,
-			delayMph,
-			delayMileRange
-		})
 	}
 
 	render() {
-		let activeCar = this.props.activeCar,
-			animationForward = this.props.animationForward;
+		const { activeCar, animationForward } = this.props;
+
 		return (
 			<div className='tesla-slide-params'>
 				<ul className='tesla-slide-params__list'>
@@ -45,10 +31,11 @@ class SlideParams extends Component {
 						<p>
 							<span className='tesla-slide-params__plus'>+</span>
 							<AnimateValue
+								test
 								className='tesla-slide-params__value'
 								animationForward={animationForward}
 								value={activeCar.topSpeed}
-								delay={this.state.delayTopSpeed}/>
+								delay={DELAY_TOP_SPEED}/>
 							<span className='tesla-slide-params__units'>Mph</span>
 						</p>
 						<p className='tesla-slide-params__name'>Top speed</p>
@@ -60,7 +47,7 @@ class SlideParams extends Component {
 								className='tesla-slide-params__value'
 								animationForward={animationForward}
 								value={activeCar.mph}
-								delay={this.state.delayMph}/>
+								delay={DELAY_MPH}/>
 							<span className='tesla-slide-params__units'>S</span>
 						</p>
 						<p className='tesla-slide-params__name'>0-60 mph</p>
@@ -72,7 +59,7 @@ class SlideParams extends Component {
 								className='tesla-slide-params__value'
 								animationForward={animationForward}
 								value={activeCar.mileRange}
-								delay={this.state.delayMileRange}/>
+								delay={DELAY_MILE_RANG}/>
 							<span className='tesla-slide-params__units'>mi</span>
 						</p>
 						<p className='tesla-slide-params__name'>Mile Range</p>
