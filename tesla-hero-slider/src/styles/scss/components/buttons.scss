@@ -3,7 +3,6 @@
 /* Button
 -------------------------------------------------------------- */
 .button {
-  --color: red;
   position: relative;
   height: 55px;
   width: 180px;
@@ -40,7 +39,7 @@
     width: 100%;
     height: 0;
     opacity: 0;
-    background-color: var(--color);
+    background-color: var(--btn-color);
     transition: all 0.3s;
     z-index: -1;
   }
@@ -51,7 +50,7 @@
     left: 0;
     height: 55px;
     width: 180px;
-    border: 1px solid var(--color);
+    border: 1px solid var(--btn-color);
     transition: all 0.6s ease-in-out;
 
     &:after {
@@ -63,23 +62,20 @@
       height: 220%;
       opacity: 0.3;
       transform: translate(-50%, -50%);
-      background: radial-gradient(ellipse at center, var(--color) 1%, transparent 80%);
+      background: radial-gradient(ellipse at center, var(--car-color) 1%, transparent 80%);
       z-index: -1;
+      transition: opacity 0.6s ease-in-out, background 0.6s linear 0.5s;
     }
 
     @media #{$media-md-up} {
       width: 210px;
     }
 
-    &:after {
-      transition: opacity 0.5s;
-    }
-
     &--enter {
       border: 1px solid transparent;
 
       &:after {
-        opacity: 0.2;
+        opacity: 0;
       }
     }
 

@@ -4,6 +4,7 @@ import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import SlideParams from './slide-params';
 import SlideAside from './slide-aside';
 import './../styles/scss/components/slide.css';
+import SetCSSVariables from "./css-varibles";
 
 
 class Slide extends Component {
@@ -33,29 +34,27 @@ class Slide extends Component {
 
 				<TransitionGroup>
 					<CSSTransition key={activeCar.name} timeout={{enter: 700, exit: 1200}}
-					               className='tesla-slide__bckg' classNames='tesla-slide__bckg-'
+					               classNames='tesla-slide__bckg-'
 					               mountOnEnter={true} unmountOnExit={true}>
-						<div style={{
-							'--bckg-color': activeCar.color,
+						<SetCSSVariables cssVariables={{
+							'--car-color': activeCar.color,
 							'--bckg-height': activeCar.bckgHeight + 'px',
-							'--shadow-opacity': activeCar.shadowOpacity
+							'--shadow-opacity': activeCar.shadowOpacity,
+							'--car-shadow-height': activeCar.carShadowHeight + 'px'
 						}}>
-							<div className='tesla-slide__bckg-fill'></div>
-						</div>
+							<div className='tesla-slide__bckg'>
+								<div className='tesla-slide__bckg-fill'></div>
+							</div>
+						</SetCSSVariables>
 					</CSSTransition>
 				</TransitionGroup>
 
 				<TransitionGroup>
 					<CSSTransition key={activeCar.name} timeout={{enter: 700, exit: 1200}}
-					               className='tesla-slide__img' classNames='tesla-slide__img-'
+					               classNames='tesla-slide__img-'
 					               mountOnEnter={true} unmountOnExit={true}
 					               onTransitionEnd={this.handleTransitionEnd.bind(this)}>
-						<div
-							className='tesla-slide__img'
-							style={{
-								'--bckg-color': activeCar.color,
-								'--car-shadow-height': activeCar.carShadowHeight + 'px'
-							}}>
+						<div className='tesla-slide__img' >
 							<img className='tesla-slide__img-floor' src={activeCar.imgFloorUrl} alt=''/>
 							<img className='tesla-slide__img-car' src={activeCar.imgUrl} alt=''/>
 						</div>

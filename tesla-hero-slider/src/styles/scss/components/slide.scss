@@ -24,7 +24,7 @@
     position: absolute;
     overflow: hidden;
     transform: translateX(0) scale(1);
-    transition: opacity 0.5s ease-in-out 0.05s, transform 0.6s ease-in-out 0.1s;
+    transition: opacity 0.6s ease-in-out 0.05s, transform 0.6s ease-in-out 0.1s;
 
     @media #{$media-xs} {
       width: 100%;
@@ -58,7 +58,7 @@
       left: 60%;
       transform: translate(-50%, -50%);
       opacity: 0.35;
-      background: radial-gradient(ellipse at center, var(--bckg-color) 10%, transparent 75%);
+      background: radial-gradient(ellipse at center, var(--car-color) 10%, transparent 75%);
       transition: opacity 0.3s ease-in 0.3s;
       z-index: 9;
 
@@ -219,7 +219,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       opacity: 0.5;
-      background: radial-gradient(ellipse at center, var(--bckg-color) 25%, transparent 65%);
+      background: radial-gradient(ellipse at center, var(--car-color) 25%, transparent 65%);
 
       @media #{$media-sm-up} {
         width: calc(var(--bckg-height) * 2);
@@ -238,7 +238,7 @@
       top: 70%;
       left: -40%;
       opacity: var(--shadow-opacity);
-      background: radial-gradient(ellipse at center, var(--bckg-color) 10%, transparent 65%);
+      background: radial-gradient(ellipse at center, var(--car-color) 10%, transparent 65%);
 
       @media #{$media-sm-up} {
         width: calc(var(--bckg-height) * 3.5);
@@ -260,8 +260,8 @@
       height: 100%;
       width: 100%;
       opacity: 0.8;
-      background: var(--bckg-color);
-      transition: all 0.5s ease-in 0.3s, transform 0.6s ease-in-out;
+      background: var(--car-color);
+      transition: all 0.6s ease-in 0.3s, transform 0.6s ease-in-out, background 0s;
     }
 
     &--enter {
@@ -271,7 +271,7 @@
         bottom: 100%;
         opacity: 0.3;
         transform: translateY(-20px) scale(1.1);
-        transition: all 0.5s ease-in 0.4s, transform 0.6s ease-in-out 0.1s;
+        transition: all 0.5s ease-in 0.5s, transform 0.6s ease-in-out 0.1s, background 0s;
       }
 
       &:before, &:after {
@@ -289,7 +289,7 @@
 
     &--exit {
       #{$parent}-fill {
-        transition: all 0.5s ease-in 0.2s;
+        transition: all 0.4s ease-in 0.1s, background 0s;
         height: 0;
         top: 100%;
         bottom: 0;

@@ -2,6 +2,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --btn-color: white;
+  --car-color: white;
+  --bckg-height: 300px;
+  --shadow-opacity: 0.2;
+  --car-shadow-height: 300px;
+}
+
 body {
   background-color: black;
   overflow-x: hidden;
