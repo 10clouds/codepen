@@ -3,7 +3,7 @@
 /* Slide Params
   -------------------------------------------------------------- */
 .tesla-slide-params {
-  : &;
+  $parent: &;
   margin: 250px 0 30px;
 
   @media #{$media-xs-small} {
