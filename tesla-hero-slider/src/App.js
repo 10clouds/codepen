@@ -4,7 +4,7 @@ import Slider from './components/slider';
 import './styles/scss/styles.css';
 
 const App = () => (
-  <div className="container">
+  <div className='container'>
     <Header />
     <Slider />
   </div>

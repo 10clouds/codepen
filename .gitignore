@@ -10,4 +10,5 @@
 #Files
 package-lock.json
 **/*.css
-**/registerServiceWorker.js
+tesla-hero-slider/src/registerServiceWorker.js
+*.test.js

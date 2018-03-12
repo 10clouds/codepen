@@ -19,7 +19,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "prettier": "prettier --write --tab-width 2 \"src/**/*.js\"",
+    "precommit": "npm run prettier"
   },
   "devDependencies": {
     "ajv": "6.2.1",
@@ -30,6 +32,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "7.7.0",
+    "husky": "^0.15.0-rc.8",
     "lodash": "^4.17.5",
     "postcss-loader": "^2.1.1",
     "prettier": "^1.11.1",

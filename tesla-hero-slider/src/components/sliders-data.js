@@ -52,7 +52,8 @@ const slides = [
   {
     id: 4,
     name: 'Roadster',
-    desc: 'The quickest car in the world, with record setting acceleration, range and performance.',
+    desc:
+      'The quickest car in the world, with record setting acceleration, range and performance.',
     color: '#ee0101',
     imgFloorUrl: roadsterFloorImg,
     imgUrl: roadsterImg,

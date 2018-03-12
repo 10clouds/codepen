@@ -1,7 +1,7 @@
-import React from "react";
-import raf from "raf";
-import bezierEasing from "bezier-easing";
-import lodash from "lodash";
+import React from 'react';
+import raf from 'raf';
+import bezierEasing from 'bezier-easing';
+import lodash from 'lodash';
 
 function animate(render, duration, easing, interval, next = () => null) {
   const start = Date.now();
@@ -83,12 +83,11 @@ class AnimValue extends React.Component {
   }
 
   render() {
-    return <span className={this.props.className} children="0" ref={node => (this.node = node)}/>;
+    return <span className={this.props.className} children='0' ref={node => (this.node = node)}/>;
   }
 }
 
 class AnimateValue extends React.Component {
-
   render() {
     return (
       <AnimValue

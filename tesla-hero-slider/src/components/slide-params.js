@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import AnimateValue from './animate-value';
 import './../styles/scss/components/slide-params.css';
@@ -8,7 +8,6 @@ let DELAY_TOP_SPEED = 200,
   DELAY_MILE_RANG = 1200;
 
 class SlideParams extends Component {
-
   static propTypes = {
     activeCar: propTypes.object.isRequired,
     animationForward: propTypes.bool.isRequired
@@ -29,12 +28,12 @@ class SlideParams extends Component {
         <ul className='tesla-slide-params__list'>
           <li className='tesla-slide-params__item'>
             <div className='tesla-slide-params__wrapper'>
-              <span className="tesla-slide-params__prefix">+</span>
+              <span className='tesla-slide-params__prefix'>+</span>
               <AnimateValue
                 className='tesla-slide-params__value'
                 value={activeCar.topSpeed}
                 delay={DELAY_TOP_SPEED}/>
-              <span className="tesla-slide-params__sufix">mph</span>
+              <span className='tesla-slide-params__sufix'>mph</span>
             </div>
 
             <p className='tesla-slide-params__name'>Top speed</p>
@@ -46,7 +45,7 @@ class SlideParams extends Component {
                 className='tesla-slide-params__value'
                 value={activeCar.mph}
                 delay={DELAY_MPH}/>
-              <span className="tesla-slide-params__sufix">s</span>
+              <span className='tesla-slide-params__sufix'>s</span>
             </div>
             <p className='tesla-slide-params__name'>0-60 mph</p>
           </li>
@@ -57,7 +56,7 @@ class SlideParams extends Component {
                 className='tesla-slide-params__value'
                 value={activeCar.mileRange}
                 delay={DELAY_MILE_RANG}/>
-              <span className="tesla-slide-params__sufix">mi</span>
+              <span className='tesla-slide-params__sufix'>mi</span>
             </div>
             <p className='tesla-slide-params__name'>Mile Range</p>
           </li>
