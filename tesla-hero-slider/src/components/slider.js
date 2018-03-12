@@ -68,7 +68,7 @@ class Slider extends Component {
 			if (e.deltaY > 0 && this.state.activeSlide !== (this.state.slidesCount - 1)) {
 				this.setActiveSlide(this.state.activeSlide + 1)
 			}
-		}, 100);
+		}, 50);
 	};
 
 	componentWillUnmount() {

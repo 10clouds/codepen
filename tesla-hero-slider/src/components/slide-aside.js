@@ -12,7 +12,7 @@ function SlideAside(props) {
 			<h1 className='tesla-slide-aside__wholename'>
 				<span>Tesla</span>
 				<TransitionGroup component='span' className='tesla-slide-aside__name'>
-					<CSSTransition key={activeCar.name} timeout={{enter: 800, exit: 800}}
+					<CSSTransition key={activeCar.name} timeout={{enter: 800, exit: 1000}}
 					               className='tesla-slide-aside__name-part' classNames='tesla-slide-aside__name-part-'
 					               mountOnEnter={true} unmountOnExit={true}>
 						<span>{activeCar.name}</span>
@@ -21,7 +21,7 @@ function SlideAside(props) {
 			</h1>
 
 			<TransitionGroup className='tesla-slide-aside__desc'>
-				<CSSTransition key={activeCar.desc} timeout={{enter: 400, exit: 500}}
+				<CSSTransition key={activeCar.desc} timeout={{enter: 900, exit: 1200}}
 				               className='tesla-slide-aside__desc-text'
 				               classNames='tesla-slide-aside__desc-text-' mountOnEnter={true} unmountOnExit={true}>
 					<p>{activeCar.desc}</p>
@@ -34,7 +34,7 @@ function SlideAside(props) {
 				</button>
 
 				<TransitionGroup>
-					<CSSTransition key={activeCar.color} timeout={400} mountOnEnter={true}
+					<CSSTransition key={activeCar.color} timeout={{enter: 800, exit: 1000}} mountOnEnter={true}
 					               unmountOnExit={true} classNames='button__border-'>
 
 						<SetCSSVariables cssVariables={{'--btn-color': activeCar.color}}>

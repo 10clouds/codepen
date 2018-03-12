@@ -16,11 +16,9 @@ class Slide extends Component {
 		ANIMATION_PHASES: propTypes.object.isRequired
 	};
 
-
 	handleEnter= (e) =>{
 		this.props.setAnimationState(this.props.ANIMATION_PHASES.STOP);
-	}
-
+	};
 
 	render() {
 		const { activeSlide, animationForward } = this.props;
@@ -31,7 +29,7 @@ class Slide extends Component {
 				<SlideAside activeCar={activeSlide}/>
 
 				<TransitionGroup>
-					<CSSTransition key={activeSlide.name} timeout={{enter: 700, exit: 1200}}
+					<CSSTransition key={activeSlide.name} timeout={{enter: 800, exit: 1000}}
 					               classNames='tesla-slide__bckg-'
 					               mountOnEnter={true} unmountOnExit={true}>
 						<SetCSSVariables cssVariables={{

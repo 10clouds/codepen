@@ -24,7 +24,7 @@
     position: absolute;
     overflow: hidden;
     transform: translateX(0) scale(1);
-    transition: opacity 0.6s ease-in-out 0.05s, transform 0.6s ease-in-out 0.1s;
+    transition: opacity 0.8s ease-in-out 0.05s, transform 0.8s ease-in-out 0.1s;
 
     @media #{$media-xs} {
       width: 100%;
@@ -59,7 +59,7 @@
       transform: translate(-50%, -50%);
       opacity: 0.35;
       background: radial-gradient(ellipse at center, var(--car-color) 10%, transparent 75%);
-      transition: opacity 0.3s ease-in 0.3s;
+      transition: opacity 0.5s ease-in 0.3s;
       z-index: 9;
 
       @media #{$media-md-up} {
@@ -73,11 +73,11 @@
       position: absolute;
       left: 0;
       top: 0;
-      transition: all 0.5s ease-in-out 0.4s;
+      transition: all 0.7s ease-in-out 0.4s;
     }
 
     &-car {
-      transition: opacity 0.4s ease-in-out 0.1s;
+      transition: opacity 0.6s ease-in-out 0.1s;
     }
 
     &--enter {
@@ -103,36 +103,36 @@
     }
 
     &--exit {
-      transition: opacity 0.3s ease-in-out 0.4s, transform 0.6s ease-in-out 0.3s;
+      transition: opacity 0.5s ease-in-out 0.4s, transform 0.8s ease-in-out 0.3s;
       opacity: 0;
       transform: scale(0.9);
 
       #{$parent}-floor {
-        transition: all 0.3s ease-in-out 0.2s;
+        transition: all 0.5s ease-in-out 0.2s;
         opacity: 0;
       }
 
       &:before {
-        transition: opacity 0.3s ease-in-out;
+        transition: opacity 0.5s ease-in-out;
         opacity: 0;
       }
 
       .animation-back & {
-        transition: opacity 0.3s ease-in-out 0.6s, transform 0.7s ease-in-out 0.1s;
+        transition: opacity 0.5s ease-in-out 0.6s, transform 0.9s ease-in-out 0.1s;
         transform: translateX(-5%) scale(1.1);
 
         #{$parent}-floor {
-          transition: all 0.3s ease-in-out 0.2s;
+          transition: all 0.5s ease-in-out 0.2s;
           opacity: 0;
         }
 
         #{$parent}-car {
-          transition: opacity 0.4s ease-in-out 0.5s;
+          transition: opacity 0.6s ease-in-out 0.5s;
           opacity: 0;
         }
 
         &:before {
-          transition: opacity 0.3s ease-in 0.3s;
+          transition: opacity 0.5s ease-in 0.3s;
         }
       }
     }
@@ -209,7 +209,7 @@
     &:before, &:after {
       position: absolute;
       content: '';
-      transition: all 0.6s ease-in-out 0.3s;
+      transition: all 0.8s ease-in-out 0.3s;
     }
 
     &:after {
@@ -261,7 +261,7 @@
       width: 100%;
       opacity: 0.8;
       background: var(--car-color);
-      transition: all 0.6s ease-in 0.3s, transform 0.6s ease-in-out, background 0s;
+      transition: all 0.8s ease-in 0.3s, transform 0.8s ease-in-out, background 0s;
     }
 
     &--enter {
@@ -271,7 +271,7 @@
         bottom: 100%;
         opacity: 0.3;
         transform: translateY(-20px) scale(1.1);
-        transition: all 0.5s ease-in 0.5s, transform 0.6s ease-in-out 0.1s, background 0s;
+        transition: all 0.7s ease-in 0.5s, transform 0.8s ease-in-out 0.1s, background 0s;
       }
 
       &:before, &:after {
@@ -289,7 +289,7 @@
 
     &--exit {
       #{$parent}-fill {
-        transition: all 0.4s ease-in 0.1s, background 0s;
+        transition: all 0.6s ease-in 0.1s, background 0s;
         height: 0;
         top: 100%;
         bottom: 0;
@@ -298,7 +298,7 @@
       }
 
       &:before {
-        transition: all 0.4s ease-in-out 0.2s;
+        transition: all 0.6s ease-in-out 0.2s;
       }
 
       &:before, &:after {
