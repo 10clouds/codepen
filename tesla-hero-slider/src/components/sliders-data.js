@@ -49,7 +49,7 @@ const slides = [
 	{
 		id: 4,
 		name: 'Roadster',
-		desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+		desc: 'The quickest car in the world, with record setting acceleration, range and performance.',
 		color: '#ee0101',
 		imgFloorUrl: roadsterFloorImg,
 		imgUrl: roadsterImg,
@@ -63,7 +63,7 @@ const slides = [
 	{
 		id: 5,
 		name: 'Semi truck',
-		desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore',
+		desc: 'The quickest truck in the world, with record setting acceleration, range and performance.',
 		color: '#0047fd',
 		imgFloorUrl: truckFloorImg,
 		imgUrl: truckImg,

@@ -196,13 +196,12 @@
     }
 
     @media #{$media-lg} {
-      bottom: 55%;
+      bottom: 56%;
     }
 
     @media #{$media-lg-xl} {
       height: var(--bckg-height);
       width: 570px;
-      bottom: 58%;
       right: 2%;
     }
 
