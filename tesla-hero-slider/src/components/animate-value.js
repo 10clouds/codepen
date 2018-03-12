@@ -1,93 +1,106 @@
-import React, {Component} from 'react';
-import propTypes from 'prop-types';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
+import React from "react";
+import raf from "raf";
+import bezierEasing from "bezier-easing";
+import lodash from "lodash";
 
-class AnimateValue extends Component {
+function animate(render, duration, easing, interval, next = () => null) {
+  const start = Date.now();
 
-	static propTypes = {
-		className: propTypes.string,
-		value: propTypes.number.isRequired,
-		delay: propTypes.number,
-		duration: propTypes.number,
-		interval: propTypes.number,
-		minRandom: propTypes.number,
-		maxRandom: propTypes.number
-	};
+  (function loop() {
+    const step = (Date.now() - start) / duration;
 
-	static defaultProps = {
-		delay: 0,
-		duration: 600,
-		interval: 100,
-		prefix: '',
-		sufix: '',
-		minRandom: 1,
-		maxRandom: 999
-	};
+    lodash.debounce(() => {
+      if (step > 1) {
+        render(1);
+        next();
+      } else {
+        raf(loop);
+        render(easing(step * 2));
+      }
+    }, interval)();
+  })();
+}
 
-	state = {
-		value: 0
-	};
+export const myEasing = bezierEasing(.4, -0.7, .1, 1.8);
 
-	timeout = null;
-	timer = null;
+class AnimValue extends React.Component {
+  static defaultProps = {
+    delay: 0,
+    duration: 800,
+    interval: 80,
+    transformFn: value => Math.floor(value)
+  };
 
-	componentWillReceiveProps(props) {
-		if (this.props.value !== props.value) {
-			this.timeout = setTimeout(() => {
-				this.animateValue(props.value, props.duration, props.interval);
-			}, props.delay);
-		}
-	}
+  node = null;
 
-	animateValue(value, duration, interval) {
-		let spentTime = 0;
+  animate(previousValue, newValue, applyFn, interval) {
+    const diff = newValue - previousValue;
 
-		this.timer = setInterval(() => {
-			spentTime += interval;
+    animate(
+      step =>
+        applyFn(this.props.transformFn(previousValue + diff * step, step), step),
+      this.props.duration,
+      myEasing,
+      interval
+    );
+  }
 
-			this.setState({
-				value: this.getRandomInteger(this.props.minRandom, this.props.maxRandom)
-			});
+  setValue = (value, step) => {
+    if (step === 1) {
+      this.node.style.opacity = 1;
+    } else {
+      this.node.style.opacity = 0.7;
+    }
 
-			if (spentTime >= duration) {
-				this.setState({value});
-				clearInterval(this.timer);
-			}
-		}, interval);
-	}
+    if (!this.node) {
+      return;
+    }
+    this.node.innerHTML = value;
+  };
 
-	getRandomInteger(min, max) {
-		min = Math.ceil(min);
-		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min)) + min;
-	}
+  timeout = null;
 
-	componentWillUnmount() {
-		clearTimeout(this.timeout);
-		clearTimeout(this.timer);
-		this.timeout = this.timer = null;
-	}
+  componentDidMount() {
+    this.timeout = setTimeout(() => {
+      this.animate(0, this.props.value, this.setValue, this.props.interval);
+    }, this.props.delay);
+  }
 
-	render() {
-		return (
-			<div>
-				{this.props.prefix !== '' ?
-					<span className='tesla-slide-params__prefix'>{this.props.prefix}</span> : ''}
-				<TransitionGroup component='div' className='tesla-slide-params__wrapper'>
-					<CSSTransition key={this.state.value} timeout={0}
-					               classNames={`${this.props.className}-`}
-					               className={this.props.className}
-					               mountOnEnter={true} unmountOnExit={true}
-					               onEntered={this.handleEnter}>
-						<span> {this.state.value}
-							{this.props.sufix !== '' ?
-								<span className='tesla-slide-params__sufix'>{this.props.sufix}</span> : ''}</span>
-					</CSSTransition>
-				</TransitionGroup>
-			</div>
+  componentWillReceiveProps(props) {
+    let previousValue = this.props.value;
 
-		);
-	}
+    if (previousValue !== props.value) {
+      window.clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        this.animate(previousValue, props.value, this.setValue, this.props.interval);
+      }, props.delay);
+    }
+  }
+
+  componentWillUnmount() {
+    window.clearTimeout(this.timeout);
+    this.timeout = null;
+  }
+
+  render() {
+    return <span className={this.props.className} children="0" ref={node => (this.node = node)}/>;
+  }
+}
+
+class AnimateValue extends React.Component {
+
+  render() {
+    return (
+      <AnimValue
+        className={this.props.className}
+        delay={this.props.delay}
+        value={this.props.value}
+        transformFn={(value, step) =>
+          step === 1 ? (value % 1 != 0 ? value.toFixed(1) : value) : Math.abs(Math.floor(value))
+        }
+      />
+    );
+  }
 }
 
 export default AnimateValue;

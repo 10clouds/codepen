@@ -1,17 +1,13 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Header from './components/header';
 import Slider from './components/slider';
 import './styles/scss/styles.css';
 
-class App extends Component {
-	render() {
-		return (
-			<div className="container">
-				<Header></Header>
-				<Slider></Slider>
-			</div>
-		);
-	}
-}
+const App = () => (
+  <div className="container">
+    <Header />
+    <Slider />
+  </div>
+);
 
 export default App;

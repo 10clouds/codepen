@@ -4,7 +4,8 @@ module.exports = {
 		"es6": true
 	},
 	"extends": [
-		"eslint:recommended",
+		'prettier',
+		'prettier/react',
 		"plugin:react/recommended"
 	],
 	"parserOptions": {
@@ -15,13 +16,10 @@ module.exports = {
 		"sourceType": "module"
 	},
 	"plugins": [
-		"react"
+		"react",
+		"prettier"
 	],
 	"rules": {
-		"indent": [
-			"error",
-			"tab"
-		],
 		"linebreak-style": [
 			"error",
 			"unix"
@@ -36,7 +34,8 @@ module.exports = {
 		],
 		"react/jsx-uses-react": "error",
 		"react/jsx-uses-vars": "error",
-		"react/react-in-jsx-scope":"error"
+		"react/react-in-jsx-scope":"error",
+		'prettier/prettier': ['error', { singleQuote: true, parser: 'flow' }],
 	},
 	"settings": {
 		"react": {
