@@ -21,7 +21,7 @@ body{
     line-height: 2.6rem;
   }
 
-  @media #{$media-lg-xl}{
+  @media #{$media-lg-xl} {
     font-size: 18px;
     font-size: 1.8rem;
   }
@@ -29,7 +29,6 @@ body{
 
 /* Headers
 -------------------------------------------------------------- */
-
 h1{
   margin: 0;
   font-size: 5.5rem;
@@ -38,15 +37,15 @@ h1{
   letter-spacing: 0.9px;
   font-weight: 500;
 
-  @media #{$media-sm-up}{
+  @media #{$media-sm-up} {
     font-size: 7rem;
   }
 
-  @media #{$media-lg}{
+  @media #{$media-lg} {
     font-size: 8rem;
   }
 
-  @media #{$media-lg-xl}{
+  @media #{$media-lg-xl} {
     font-size: 9.2rem;
   }
 }

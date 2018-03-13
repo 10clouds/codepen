@@ -3,19 +3,19 @@
   padding: 10px;
   margin: 0 auto;
 
-  @media #{$media-sm-up}{
+  @media #{$media-sm-up} {
     padding: 0 20px;
   }
 
-  @media #{$media-md}{
+  @media #{$media-md} {
     max-width: 1000px;
   }
 
-  @media #{$media-lg}{
+  @media #{$media-lg} {
     max-width: 1200px;
   }
 
-  @media #{$media-lg-xl}{
+  @media #{$media-lg-xl} {
     max-width: 1550px;
   }
 }

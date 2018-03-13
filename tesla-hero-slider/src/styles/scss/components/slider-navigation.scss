@@ -4,7 +4,7 @@
 -------------------------------------------------------------- */
 .tesla-slider-navigation {
 
-  @media #{$media-lg}{
+  @media #{$media-lg} {
     order: 2;
     width: 150px;
   }
@@ -17,11 +17,11 @@
     justify-content: space-around;
     text-align: center;
 
-    @media #{$media-sm-up}{
+    @media #{$media-sm-up} {
       margin: 5px;
     }
 
-    @media #{$media-lg}{
+    @media #{$media-lg} {
       display: block;
       order: 2;
       text-align: right;
@@ -37,17 +37,17 @@
     line-height: 1;
     font-size: 1.2rem;
 
-    @media #{$media-sm-up}{
+    @media #{$media-sm-up} {
       font-size: 1.5rem;
       letter-spacing: 0.6px;
     }
 
-    @media #{$media-lg}{
+    @media #{$media-lg} {
       display: block;
       margin-top: 90px;
     }
 
-    @media #{$media-lg-xl}{
+    @media #{$media-lg-xl} {
       margin-top: 95px;
     }
 
@@ -61,11 +61,11 @@
       font-size: 1.2rem;
       transition: font-size 0.3s linear , color 0.2s linear 0.8s;
 
-      @media #{$media-sm-up}{
+      @media #{$media-sm-up} {
         font-size: 1.4rem;
       }
 
-      @media #{$media-lg}{
+      @media #{$media-lg} {
         font-size: 1.8rem;
       }
     }

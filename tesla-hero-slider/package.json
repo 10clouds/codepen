@@ -21,7 +21,8 @@
     "eject": "react-scripts eject",
     "eslint": "eslint .",
     "prettier": "prettier --write --tab-width 2 \"src/**/*.js\"",
-    "precommit": "npm run prettier"
+    "precommit": "npm run prettier",
+    "sass-lint": "sass-lint \"src/styles/scss/**/*.scss\" --verbose --no-exit"
   },
   "devDependencies": {
     "ajv": "6.2.1",

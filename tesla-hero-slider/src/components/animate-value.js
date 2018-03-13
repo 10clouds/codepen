@@ -3,31 +3,38 @@ import raf from 'raf';
 import bezierEasing from 'bezier-easing';
 import lodash from 'lodash';
 
-function animate(render, duration, easing, interval, next = () => null) {
+function animate(render, duration, easing, interval, delay, next = () => null) {
   const start = Date.now();
 
   (function loop() {
-    const step = (Date.now() - start) / duration;
+    const current = Date.now(),
+      delta = current - start,
+      step = delta / (duration + delay);
 
-    lodash.debounce(() => {
-      if (step > 1) {
-        render(1);
-        next();
-      } else {
-        raf(loop);
-        render(easing(step * 2));
-      }
-    }, interval)();
+    if (delta >= delay) {
+      lodash.debounce(() => {
+        if (step > 1) {
+          render(1);
+          next();
+        } else {
+          raf(loop);
+          render(easing(step * 2));
+        }
+      }, interval)();
+    } else {
+      raf(loop);
+    }
+
   })();
 }
 
-export const myEasing = bezierEasing(.4, -0.7, .1, 1.8);
+export const myEasing = bezierEasing(.4, -0.7, .1, 1.5);
 
 class AnimValue extends React.Component {
   static defaultProps = {
     delay: 0,
-    duration: 800,
-    interval: 80,
+    duration: 1000,
+    interval: 100,
     transformFn: value => Math.floor(value)
   };
 
@@ -41,7 +48,8 @@ class AnimValue extends React.Component {
         applyFn(this.props.transformFn(previousValue + diff * step, step), step),
       this.props.duration,
       myEasing,
-      interval
+      interval,
+      this.props.delay
     );
   }
 
@@ -58,28 +66,16 @@ class AnimValue extends React.Component {
     this.node.innerHTML = value;
   };
 
-  timeout = null;
-
   componentDidMount() {
-    this.timeout = setTimeout(() => {
-      this.animate(0, this.props.value, this.setValue, this.props.interval);
-    }, this.props.delay);
+    this.animate(0, this.props.value, this.setValue, this.props.interval);
   }
 
   componentWillReceiveProps(props) {
     let previousValue = this.props.value;
 
     if (previousValue !== props.value) {
-      window.clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        this.animate(previousValue, props.value, this.setValue, this.props.interval);
-      }, props.delay);
+      this.animate(previousValue, props.value, this.setValue, this.props.interval);
     }
-  }
-
-  componentWillUnmount() {
-    window.clearTimeout(this.timeout);
-    this.timeout = null;
   }
 
   render() {
