@@ -218,7 +218,7 @@
     opacity: 0; }
   100% {
     height: 75%;
-    opacity: 1; } }
+    opacity: 0.5; } }
 
 @keyframes fireInsideSmall {
   0% {
@@ -226,7 +226,7 @@
     opacity: 0; }
   100% {
     height: 50%;
-    opacity: 1; } }
+    opacity: 0.3; } }
 
 @font-face {
   font-family: 'icomoon';

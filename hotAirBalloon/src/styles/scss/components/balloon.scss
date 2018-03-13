@@ -79,7 +79,9 @@
     /* Balloon image
     -------------------------------------------------------------- */
     &--balloon {
-      z-index: 2;
+      position: relative;
+      left: 1.5%;
+      z-index: 3;
       width: 100%;
     }
 
@@ -104,7 +106,7 @@
         z-index: 2;
 
         &--animation-out {
-          animation: show $duration-fast ease-in $fire3-delay 1 normal forwards;
+          animation: show $duration-fast ease-in ($fire3-delay + $duration-fast) 1 normal forwards;
         }
       }
     }
@@ -176,11 +178,11 @@
     &--animation-out {
       img{
         &:nth-child(1){
-          animation: fireInsideBig ($duration + 0.2s) ease-in $fire2-delay 1 normal forwards;
+          animation: fireInsideBig ($duration + 0.3s) ease-in-out ($fire3-delay + $duration-fast*1.5) 1 normal forwards;
         }
 
         &:nth-child(2){
-          animation: fireInsideSmall $duration ease-in ($fire2-delay + 0.3s) 1 normal forwards;
+          animation: fireInsideSmall $duration ease-in-out ($fire3-delay + $duration-fast*1.5) 1 normal forwards;
         }
       }
     }
@@ -205,7 +207,7 @@
   &__fire {
     position: absolute;
     left: 50%;
-    bottom: 23%;
+    bottom: 22.5%;
     width: 10%;
     height: 7%;
     transform: translateX(-50%);

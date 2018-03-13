@@ -49,7 +49,7 @@ $cubic-ease-in:               cubic-bezier(0.55, 0.055, 0.675, 0.19);
 $fire1-delay:                 $duration-fast;
 $fire2-delay:                 $fire1-delay+$duration;
 $fire3-delay:                 $fire2-delay+$duration;
-$balloon-out-delay:           $fire3-delay+$duration*2;
+$balloon-out-delay:           $fire3-delay+($duration*3);
 $balloon-out-clouds-delay:    $duration-long;
 
 /* Breakpoints

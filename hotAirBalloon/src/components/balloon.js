@@ -5,7 +5,7 @@ import Cloud from './cloud';
 import CloudsContainer from './clouds-container';
 import PropTypes from 'prop-types';
 import ANIMATION_PHASES, {returnAnimationClassesNames} from './constants';
-import balloonImg from './../assets/images/balloon.png';
+import balloonImg from './../assets/images/balloon/balloon-corp.svg';
 import fireBig from './../assets/images/fire-big.svg';
 import fireMedium from './../assets/images/fire-medium.svg';
 import fireSmall from './../assets/images/fire-small.svg';
@@ -49,14 +49,6 @@ class Balloon extends React.Component {
 				<div
 					className={classNames(`${classPrefix}__img-container`, returnAnimationClassesNames(`${classPrefix}__img-container`)[this.props.animationState])}>
 
-					<img src={balloonImg} alt=''
-					     className={classNames(`${classPrefix}__img ${classPrefix}__img--balloon`,
-						     returnAnimationClassesNames(`${classPrefix}__img`)[this.props.animationState])}/>
-
-					{/*<img src={balloonCorps} alt=''*/}
-					{/*className={classNames(`${classPrefix}__img ${classPrefix}__img--corps`,*/}
-					{/*returnAnimationClassesNames(`${classPrefix}__img`)[this.props.animationState])}/>*/}
-
 					<img src={balloonStateNormal} alt=''
 					     className={classNames(`${classPrefix}__img ${classPrefix}__img--state ${classPrefix}__img--state-normal`,
 						     returnAnimationClassesNames(`${classPrefix}__img--state-normal`)[this.props.animationState])}/>
@@ -64,6 +56,9 @@ class Balloon extends React.Component {
 					     className={classNames(`${classPrefix}__img ${classPrefix}__img--state ${classPrefix}__img--state-out`,
 						     returnAnimationClassesNames(`${classPrefix}__img--state-out`)[this.props.animationState])}/>
 
+          <img src={balloonImg} alt=''
+               className={classNames(`${classPrefix}__img ${classPrefix}__img--balloon`,
+                 returnAnimationClassesNames(`${classPrefix}__img`)[this.props.animationState])}/>
 
 					<div className={classNames(`${classPrefix}__balloon-fire`,
 						returnAnimationClassesNames(`${classPrefix}__balloon-fire`)[this.props.animationState])}>
