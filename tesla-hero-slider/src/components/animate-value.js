@@ -54,15 +54,16 @@ class AnimValue extends React.Component {
   }
 
   setValue = (value, step) => {
+    if (!this.node) {
+      return;
+    }
+
     if (step === 1) {
       this.node.style.opacity = 1;
     } else {
       this.node.style.opacity = 0.7;
     }
 
-    if (!this.node) {
-      return;
-    }
     this.node.innerHTML = value;
   };
 
