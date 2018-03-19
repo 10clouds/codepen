@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import propTypes from 'prop-types';
 import AnimateValue from './animate-value';
 import './../styles/scss/components/slide-params.css';
@@ -17,6 +17,9 @@ class SlideParams extends Component {
     if (!props.animationForward) {
       DELAY_TOP_SPEED = 1200;
       DELAY_MILE_RANG = 200;
+    } else {
+      DELAY_TOP_SPEED = 200;
+      DELAY_MILE_RANG = 1200;
     }
   }
 

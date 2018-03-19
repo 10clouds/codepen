@@ -3,28 +3,21 @@ import raf from 'raf';
 import bezierEasing from 'bezier-easing';
 import lodash from 'lodash';
 
-function animate(render, duration, easing, interval, delay, next = () => null) {
+function animate(render, duration, easing, next = () => null) {
   const start = Date.now();
 
   (function loop() {
     const current = Date.now(),
       delta = current - start,
-      step = delta / (duration + delay);
+      step = delta / duration;
 
-    if (delta >= delay) {
-      lodash.debounce(() => {
-        if (step > 1) {
-          render(1);
-          next();
-        } else {
-          raf(loop);
-          render(easing(step * 2));
-        }
-      }, interval)();
+    if (step > 1) {
+      render(1);
+      next();
     } else {
       raf(loop);
+      render(easing(step * 2));
     }
-
   })();
 }
 
@@ -34,18 +27,25 @@ class AnimValue extends React.Component {
   static defaultProps = {
     delay: 0,
     duration: 1000,
-    interval: 100,
     transformFn: value => Math.floor(value)
   };
 
   node = null;
+  timeout = null;
 
   animate(previousValue, newValue, applyFn, interval) {
+    window.clearTimeout(this.timeout);
+    
     const diff = newValue - previousValue;
+    const renderFunction = (step) =>
+    {
+      this.timeout = setTimeout(() => {
+        applyFn(this.props.transformFn(previousValue + diff * step, step), step);
+      }, this.props.delay);
+    };
 
     animate(
-      step =>
-        applyFn(this.props.transformFn(previousValue + diff * step, step), step),
+      renderFunction,
       this.props.duration,
       myEasing,
       interval,
@@ -77,6 +77,11 @@ class AnimValue extends React.Component {
     if (previousValue !== props.value) {
       this.animate(previousValue, props.value, this.setValue, this.props.interval);
     }
+  }
+
+  componentWillUnmount(){
+    window.clearTimeout(this.timeout);
+    this.timeout = null;
   }
 
   render() {
