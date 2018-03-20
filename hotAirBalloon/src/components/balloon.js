@@ -5,10 +5,13 @@ import Cloud from './cloud';
 import CloudsContainer from './clouds-container';
 import PropTypes from 'prop-types';
 import ANIMATION_PHASES, {returnAnimationClassesNames} from './constants';
-import balloonImg from './../assets/images/balloon.png';
-import fireBig from './../assets/images/fire-big.png';
-import fireMedium from './../assets/images/fire-medium.png';
-import fireSmall from './../assets/images/fire-small.png';
+import balloonImg from './../assets/images/balloon/balloon-corp.svg';
+import fireBig from './../assets/images/fire-big.svg';
+import fireMedium from './../assets/images/fire-medium.svg';
+import fireSmall from './../assets/images/fire-small.svg';
+// import balloonCorps from './../assets/images/balloon/balloon-corps';
+import balloonStateNormal from './../assets/images/balloon/balloon-state-normal.svg';
+import balloonStateOut from './../assets/images/balloon/balloon-state-out.svg';
 import '../styles/scss/components/balloon.css';
 
 class Balloon extends React.Component {
@@ -37,15 +40,34 @@ class Balloon extends React.Component {
 
 	renderBalloon(classPrefix) {
 		return <div
-			className={classNames('balloon__wrapper', returnAnimationClassesNames('balloon__wrapper')[this.props.animationState])}
+			className={classNames(`${classPrefix}__wrapper`, returnAnimationClassesNames(`${classPrefix}__wrapper`)[this.props.animationState])}
 			onAnimationEnd={this.closeContainerAnimation}>
 
 			<div
-				className={classNames('balloon__wrapper-pulse', returnAnimationClassesNames('balloon__wrapper-pulse')[this.props.animationState])}>
+				className={classNames(`${classPrefix}__wrapper-pulse`, returnAnimationClassesNames(`${classPrefix}__wrapper-pulse`)[this.props.animationState])}>
 
-				<img src={balloonImg} alt=''
-				     className={classNames(`${classPrefix} ${classPrefix}--balloon`,
-					     returnAnimationClassesNames(classPrefix)[this.props.animationState])}/>
+				<div
+					className={classNames(`${classPrefix}__img-container`, returnAnimationClassesNames(`${classPrefix}__img-container`)[this.props.animationState])}>
+
+					<img src={balloonStateNormal} alt=''
+					     className={classNames(`${classPrefix}__img ${classPrefix}__img--state ${classPrefix}__img--state-normal`,
+						     returnAnimationClassesNames(`${classPrefix}__img--state-normal`)[this.props.animationState])}/>
+					<img src={balloonStateOut} alt=''
+					     className={classNames(`${classPrefix}__img ${classPrefix}__img--state ${classPrefix}__img--state-out`,
+						     returnAnimationClassesNames(`${classPrefix}__img--state-out`)[this.props.animationState])}/>
+
+          <img src={balloonImg} alt=''
+               className={classNames(`${classPrefix}__img ${classPrefix}__img--balloon`,
+                 returnAnimationClassesNames(`${classPrefix}__img`)[this.props.animationState])}/>
+
+					<div className={classNames(`${classPrefix}__balloon-fire`,
+						returnAnimationClassesNames(`${classPrefix}__balloon-fire`)[this.props.animationState])}>
+						<img src={fireBig} alt=''
+						     className={`${classPrefix}__img ${classPrefix}__img--fire ${classPrefix}__img--fire-behind`}/>
+						<img src={fireBig} alt=''
+						     className={`${classPrefix}__img ${classPrefix}__img--fire ${classPrefix}__img--fire-front`}/>
+					</div>
+				</div>
 
 				<div className='balloon__fire'>
 					<Flame src={fireBig} size='big' animationState={this.props.animationState}/>
@@ -81,7 +103,7 @@ class Balloon extends React.Component {
 
 		return (
 			<div className={classNames('balloon', returnAnimationClassesNames('balloon')[this.props.animationState])}>
-				{this.renderBalloon('balloon__img')}
+				{this.renderBalloon('balloon')}
 				{this.renderClouds('balloon__clouds')}
 
 				<div className='balloon__bckg-img'></div>

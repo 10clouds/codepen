@@ -188,8 +188,8 @@
     width: 0;
     opacity: 0; }
   100% {
-    height: auto;
-    width: 15px;
+    height: 40%;
+    width: auto;
     opacity: 1; } }
 
 @keyframes fadeMediumFire {
@@ -198,8 +198,8 @@
     width: 0;
     opacity: 0; }
   100% {
-    height: auto;
-    width: 22px;
+    height: 55%;
+    width: auto;
     opacity: 1; } }
 
 @keyframes fadeBigFire {
@@ -208,9 +208,25 @@
     width: 0;
     opacity: 0; }
   100% {
-    height: auto;
-    width: 30px;
+    height: 80%;
+    width: auto;
     opacity: 1; } }
+
+@keyframes fireInsideBig {
+  0% {
+    height: 0;
+    opacity: 0; }
+  100% {
+    height: 75%;
+    opacity: 0.5; } }
+
+@keyframes fireInsideSmall {
+  0% {
+    height: 0;
+    opacity: 0; }
+  100% {
+    height: 50%;
+    opacity: 0.3; } }
 
 @font-face {
   font-family: 'icomoon';
