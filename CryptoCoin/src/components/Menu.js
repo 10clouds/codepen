@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import MenuItemContainer from './MenuItem';
 import * as icons from './../assets/icons.js';
 
@@ -36,7 +36,7 @@ const MenuItem = styled.li`
   cursor: pointer;
 
   &:hover {
-    box-shadow: -21px -6px 52px 0 rgba(0, 0, 0, .42);
+    box-shadow: -21px -6px 52px 0 rgba(0, 0, 0, .42)
   }
 
   img {
@@ -53,11 +53,9 @@ class MenuContainer extends React.Component {
             <img src={ item.icon } />
             { item.item }
           </MenuItem>
-          )
-        )
-        }
+        ))}
       </React.Fragment>
-    )
+    );
   }
 
   render() {

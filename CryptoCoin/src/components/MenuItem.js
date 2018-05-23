@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const MenuItem = styled.li`
   height: 70px;
@@ -18,10 +18,7 @@ const MenuItem = styled.li`
   }
 `;
 
-
-
 class MenuItemContainer extends React.Component {
-
   renderItems() {
     return (
       <React.Fragment>
@@ -30,17 +27,16 @@ class MenuItemContainer extends React.Component {
             <img src={ e.icon } />
             { e.item }
           </MenuItem>
-          )
-        )
+        ))
         }
       </React.Fragment>
-    )
+    );
   }
 
   render() {
     return (
       <ul>
-      { this.renderItems() }
+        { this.renderItems() }
       </ul>
     );
   }

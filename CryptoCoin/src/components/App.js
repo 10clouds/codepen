@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import NavbarContainer from './Navbar';
-
 import baseStyles from '../base-styles';
 
 class App extends React.Component {
@@ -16,12 +15,12 @@ class App extends React.Component {
     const navStyle = {
       border: '1px solid blue',
       display: 'inline-block'
-    }
+    };
 
     const tableStyle = {
       border: '1px solid magenta',
       display: 'inline-block',
-    }
+    };
 
     baseStyles();
     return (
