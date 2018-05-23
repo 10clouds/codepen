@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="182" height="28" viewBox="0 0 182 28">
+    <defs>
+        <linearGradient id="a" x1="80.934%" x2="16.295%" y1="0%" y2="128.621%">
+            <stop offset="0%" stop-color="#E274E5"/>
+            <stop offset="58.761%" stop-color="#5368FB"/>
+            <stop offset="100%" stop-color="#36E3F8"/>
+        </linearGradient>
+        <filter id="b" width="438.8%" height="438.8%" x="-169.4%" y="-169.4%" filterUnits="objectBoundingBox">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4.517"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="translate(10 2)">
+        <circle cx="4" cy="12" r="4" fill="url(#a)" filter="url(#b)"/>
+        <circle cx="4" cy="12" r="4" fill="url(#a)"/>
+        <text fill="#FFF" font-family="Helvetica-Bold, Helvetica" font-size="20" font-weight="bold" letter-spacing=".453">
+            <tspan x="60.296" y="19">CryptoCoin</tspan>
+        </text>
+    </g>
+</svg>
