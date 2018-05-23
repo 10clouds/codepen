@@ -1,5 +1,4 @@
 import * as React from 'react';
-import aaa from './../assets/aaa.png';
 import styled from 'styled-components';
 import NavbarContainer from './Navbar';
 
