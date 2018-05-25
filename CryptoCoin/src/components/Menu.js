@@ -1,60 +1,73 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import MenuItemContainer from './MenuItem';
-import * as icons from './../assets/icons.js';
+import * as icons from './icons/icons.js';
+import { ThemeContext } from './../theme-context';
 
 const menuItems = [
   {
-    item: "Prices",
-    icon: icons.prices,
+    item: 'Prices',
+    icon: icons.PricesIcon,
   },
   {
-    item: "Wallet",
-    icon: icons.wallet,
+    item: 'Wallet',
+    icon: icons.WalletIcon,
   },
   {
-    item: "Portfolio",
-    icon: icons.portfolio,
+    item: 'Portfolio',
+    icon: icons.PortfolioIcon,
   },
   {
-    item: "Exchange",
-    icon: icons.exchange,
+    item: 'Exchange',
+    icon: icons.ExchangeIcon,
   },
   {
-    item: "Settings",
-    icon: icons.settings,
+    item: 'Settings',
+    icon: icons.SettingsIcon,
   },
-
 ];
 
-const MenuItem = styled.li`
-  height: 70px;
-  display: flex;
-  align-items: center;
-  padding: 0 0 0 40px;
-  font-size: 18px;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: -21px -6px 52px 0 rgba(0, 0, 0, .42)
-  }
-
-  img {
-    margin: 0 20px 0 0;
-  }
-`;
-
 class MenuContainer extends React.Component {
+
   renderMenuItems(items) {
+    const MenuItem = styled.li`
+      align-items: center;
+      color: #939393;
+      cursor: pointer;
+      display: flex;
+      font-size: 18px;
+      height: 70px;
+      padding: 0 0 0 40px;
+      transition: color .3s;
+
+      &:hover {
+        box-shadow: -21px -6px 52px 0 rgba(0, 0, 0, .42);
+        color: ${ props => props.theme.text };
+
+        .icon-wrapper {
+          color: #596DFB;
+          transition: color .3s;
+        }
+      }
+
+      .icon-wrapper {
+        color: #939393;
+        margin: 0 20px 0 0;
+      }
+    `;
+
     return (
-      <React.Fragment>
-        {items.map((item, i) => (
-          <MenuItem key={i}>
-            <img src={ item.icon } />
-            { item.item }
-          </MenuItem>
-        ))}
-      </React.Fragment>
+      <ThemeContext.Consumer>
+        { theme => (
+          items.map((item, i) => (
+            <MenuItem key={i} theme={theme}>
+              <div className="icon-wrapper">
+                { item.icon() }
+              </div>
+              { item.item }
+            </MenuItem>
+          ))
+        )}
+      </ThemeContext.Consumer>
     );
   }
 
