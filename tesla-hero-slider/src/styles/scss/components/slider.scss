@@ -1,0 +1,34 @@
+@import './../helpers/variables';
+
+/* Slider
+-------------------------------------------------------------- */
+.tesla-slider {
+  padding-top: 20px;
+
+  @media #{$media-md-up} {
+    padding-top: 40px;
+  }
+
+  @media #{$media-lg} {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 0;
+  }
+
+  @media #{$media-lg-xl} {
+    padding-top: 135px;
+  }
+
+  /* Mouse scroll
+  -------------------------------------------------------------- */
+  &__scroll{
+    order: 3;
+    width: 100%;
+
+    img{
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}

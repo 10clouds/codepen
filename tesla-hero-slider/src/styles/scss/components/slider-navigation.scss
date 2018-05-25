@@ -1,0 +1,73 @@
+@import './../helpers/variables';
+
+/* Slider Navigation
+-------------------------------------------------------------- */
+.tesla-slider-navigation {
+
+  @media #{$media-lg} {
+    order: 2;
+    width: 150px;
+  }
+
+  /* Slider Navigation List
+  -------------------------------------------------------------- */
+  &__list{
+    display: flex;
+    margin: 0;
+    justify-content: space-around;
+    text-align: center;
+
+    @media #{$media-sm-up} {
+      margin: 5px;
+    }
+
+    @media #{$media-lg} {
+      display: block;
+      order: 2;
+      text-align: right;
+    }
+  }
+
+  /* Slider Navigation List item
+  -------------------------------------------------------------- */
+  &__item{
+    display: inline-block;
+    padding: 0 5px;
+    text-transform: uppercase;
+    line-height: 1;
+    font-size: 1.2rem;
+
+    @media #{$media-sm-up} {
+      font-size: 1.5rem;
+      letter-spacing: 0.6px;
+    }
+
+    @media #{$media-lg} {
+      display: block;
+      margin-top: 90px;
+    }
+
+    @media #{$media-lg-xl} {
+      margin-top: 95px;
+    }
+
+    &:first-of-type{
+      margin-top: 0;
+    }
+  }
+
+  &__link{
+    &--active{
+      font-size: 1.2rem;
+      transition: font-size 0.3s linear , color 0.2s linear 0.8s;
+
+      @media #{$media-sm-up} {
+        font-size: 1.4rem;
+      }
+
+      @media #{$media-lg} {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+@import './../helpers/variables';
+
+/* Button
+-------------------------------------------------------------- */
+.button {
+  position: relative;
+  height: 55px;
+  width: 180px;
+  background: none;
+  color: $font-color;
+  font-size: 1.4rem;
+  font-weight: 300;
+  text-align: center;
+  border: 0;
+  cursor: pointer;
+
+  @media #{$media-md-up} {
+    font-size: 1.8rem;
+    width: 210px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+
+    &:before {
+      height: 100%;
+      opacity: 1;
+    }
+  }
+
+  &:before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    opacity: 0;
+    background-color: var(--btn-color);
+    transition: all 0.3s;
+    z-index: -1;
+  }
+
+  &__border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 55px;
+    width: 180px;
+    border: 1px solid var(--btn-color);
+    transition: all 0.6s ease-in-out;
+
+    &:after {
+      position: absolute;
+      content: '';
+      left: 50%;
+      top: 50%;
+      width: 150%;
+      height: 220%;
+      opacity: 0.3;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, var(--btn-color) 1%, transparent 80%);
+      z-index: -1;
+      transition: opacity 0.6s ease-in-out, background 0.6s linear 0.5s;
+    }
+
+    @media #{$media-md-up} {
+      width: 210px;
+    }
+
+    &--enter {
+      border: 1px solid transparent;
+
+      &:after {
+        opacity: 0;
+        background: transparent;
+      }
+    }
+
+    &--exit {
+      border: 1px solid transparent;
+
+      &:after {
+        opacity: 0.2;
+        background: transparent;
+      }
+    }
+  }
+}

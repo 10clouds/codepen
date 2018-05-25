@@ -1,0 +1,97 @@
+@import './../helpers/variables';
+
+/* Slide Params
+  -------------------------------------------------------------- */
+.tesla-slide-params {
+  $parent: &;
+  margin: 250px 0 30px;
+
+  @media #{$media-xs-small} {
+    margin-top: 350px;
+  }
+
+  @media #{$media-sm-up} {
+    margin-top: 130px;
+  }
+
+  @media #{$media-md-up} {
+    margin: 170px 0 20px;
+  }
+
+  @media #{$media-lg-xl} {
+    margin: 225px 0 80px;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+
+    @media #{$media-lg} {
+      padding-left: 10%; //to center - amount of width of right slider nav
+    }
+  }
+
+  &__item {
+    text-align: center;
+    width: 190px;
+
+
+    &:first-of-type{
+      #{$parent}__wrapper{
+        padding-left: 10px;
+        width: 150px;
+        text-align: left;
+
+        #{$parent}__value{
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+
+  &__wrapper{
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  &__value {
+    padding: 0 8px;
+    font-size: 3.1rem;
+    transition: opacity 0.05s ease-in;
+
+    @media #{$media-sm-up} {
+      font-size: 4.8rem;
+    }
+
+    &--enter {
+      opacity: 0.7;
+    }
+
+    &--exit {
+      opacity: 0;
+    }
+  }
+
+  &__prefix {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 2rem;
+
+    @media #{$media-sm-up} {
+      font-size: 3rem;
+    }
+  }
+
+  &__name {
+    margin-top: -5px;
+    font-size: 1.4rem;
+  }
+
+  &__sufix {
+    font-family: $headers-family;
+    letter-spacing: 0.9px;
+    font-size: initial;
+  }
+}

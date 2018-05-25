@@ -1,0 +1,59 @@
+
+/* Body, html
+-------------------------------------------------------------- */
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 22px;
+  line-height: 2.2rem;
+  font-family: $base-font-family;
+  color: $font-color;
+
+  @media #{$media-md-up} {
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 26px;
+    line-height: 2.6rem;
+  }
+
+  @media #{$media-lg-xl} {
+    font-size: 18px;
+    font-size: 1.8rem;
+  }
+}
+
+/* Headers
+-------------------------------------------------------------- */
+h1{
+  margin: 0;
+  font-size: 5.5rem;
+  line-height: 1;
+  font-family: $headers-family;
+  letter-spacing: 0.9px;
+  font-weight: 500;
+
+  @media #{$media-sm-up} {
+    font-size: 7rem;
+  }
+
+  @media #{$media-lg} {
+    font-size: 8rem;
+  }
+
+  @media #{$media-lg-xl} {
+    font-size: 9.2rem;
+  }
+}
+
+
+/* Text, Links
+-------------------------------------------------------------- */
+a{
+  text-decoration: none;
+  color: $font-color;
+}

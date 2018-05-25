@@ -1,5 +1,14 @@
 
 /.idea
 
+# dependencies
+/node_modules
+
 # misc
 .DS_Store
+
+#Files
+package-lock.json
+**/*.css
+tesla-hero-slider/src/registerServiceWorker.js
+*.test.js
