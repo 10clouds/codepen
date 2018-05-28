@@ -15,6 +15,7 @@ export const themes = {
     menuItemShadow: 'pink',
     changeThemeIcon: MoonIcon,
     changeThemeText: 'Dark',
+    changeThemeBackground: '#1b1d1f',
   },
   dark: {
     background: '#1b1d1f',
@@ -23,9 +24,10 @@ export const themes = {
     warning: '#d34583',
     accent: '#3d45a4',
     logo: logoLight,
-    menuItemShadow: 'rgba(0, 0, 0, 0.42)',
+    menuItemShadow: 'rgba(0, 0, 0, .42)',
     changeThemeIcon: SunIcon,
     changeThemeText: 'Light',
+    changeThemeBackground: '#f5f5f5',
   },
 };
 
