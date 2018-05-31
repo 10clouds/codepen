@@ -3,7 +3,15 @@ import styled from 'styled-components';
 import NavbarContainer from './NavbarContainer';
 import baseStyles from '../base-styles';
 import { ThemeContext, themes } from './../theme-context';
-import circle from "./../assets/circle.svg";
+import TableContainer from './TableContainer';
+
+const Wrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  color: ${props => props.theme.text};
+  display: flex;
+  align-items: stretch;
+`;
 
 const Circle = styled.div`
   height: 100px;
@@ -19,10 +27,8 @@ const Circle = styled.div`
 `;
 
 const Background = styled.div`
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  height: 100%;
+  width: 100%;
   background: ${props => props.color};
   z-index: ${props => props.zIndex};
   position: absolute;
@@ -54,20 +60,29 @@ class App extends React.Component {
         circleZIndex: '-2',
         bgTransform: false,
       });
-      console.log('end');
-
     }, 1000);
   }
 
   render() {
     baseStyles();
-    const bgColor = !this.state.bgTransform ? this.state.theme.background : this.state.theme.changeThemeBackground;
+    const {
+      theme,
+      scale,
+      bgZIndex,
+      circleZIndex,
+      bgTransform,
+    } = this.state;
+
+    const bgColor = !bgTransform ? theme.background : theme.changeThemeBackground;
 
     return (
-      <ThemeContext.Provider value={this.state.theme}>
-        <Background color={bgColor} zIndex={this.state.bgZIndex} />
-        <NavbarContainer toggleTheme={this.toggleTheme} />
-        <Circle theme={this.state.theme} scale={this.state.scale} zIndex={this.state.circleZIndex} />
+      <ThemeContext.Provider value={theme}>
+        <Wrapper theme={theme}>
+          <Background color={bgColor} zIndex={bgZIndex} />
+          <NavbarContainer toggleTheme={this.toggleTheme} />
+          <TableContainer />
+          <Circle theme={theme} scale={scale} zIndex={circleZIndex} />
+        </Wrapper>
       </ThemeContext.Provider>
     );
   }

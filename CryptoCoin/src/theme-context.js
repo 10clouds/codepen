@@ -16,6 +16,8 @@ export const themes = {
     changeThemeIcon: MoonIcon,
     changeThemeText: 'Dark',
     changeThemeBackground: '#1b1d1f',
+    barColor: '#f0f0f0',
+    border: '#e6e6e6',
   },
   dark: {
     background: '#1b1d1f',
@@ -28,6 +30,8 @@ export const themes = {
     changeThemeIcon: SunIcon,
     changeThemeText: 'Light',
     changeThemeBackground: '#f5f5f5',
+    barColor: '#2f3033',
+    border: '#2f3033',
   },
 };
 

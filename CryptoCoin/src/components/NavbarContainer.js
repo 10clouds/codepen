@@ -4,10 +4,10 @@ import MenuContainer from './Menu';
 import { ThemeContext } from './../theme-context';
 
 const Navbar = styled.div`
-  border: 1px solid magenta;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
   min-height: 100vh;
   padding: 40px 0 0;
   width: 294px;
