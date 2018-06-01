@@ -1,7 +1,7 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { ThemeContext } from './../theme-context';
-import Table from './Table';
+import * as React from 'react'
+import styled from 'styled-components'
+import { ThemeContext } from './../theme-context'
+import Table from './Table'
 
 const TableWrapper = styled.div`
   width: calc(100% - 294px);
@@ -12,7 +12,7 @@ const TableWrapper = styled.div`
   max-height: 100vh;
   overflow-y: scroll;
   transition: all 0;
-`;
+`
 
 const Filters = styled.div`
   height: 206px;
@@ -21,10 +21,9 @@ const Filters = styled.div`
   top: -100px;
   background: pink;
   opacity: .3;
-`;
+`
 
 class TableContainer extends React.Component {
-
   render() {
     return (
       <TableWrapper>
@@ -33,16 +32,8 @@ class TableContainer extends React.Component {
           table
         </Table>
       </TableWrapper>
-    );
+    )
   }
 }
 
-export default TableContainer;
-
-// ::-webkit-scrollbar              { /* 1 */ }
-// ::-webkit-scrollbar-button       { /* 2 */ }
-// ::-webkit-scrollbar-track        { /* 3 */ }
-// ::-webkit-scrollbar-track-piece  { /* 4 */ }
-// ::-webkit-scrollbar-thumb        { /* 5 */ }
-// ::-webkit-scrollbar-corner       { /* 6 */ }
-// ::-webkit-resizer
+export default TableContainer

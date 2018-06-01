@@ -1,9 +1,9 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import NavbarContainer from './NavbarContainer';
-import baseStyles from '../base-styles';
-import { ThemeContext, themes } from './../theme-context';
-import TableContainer from './TableContainer';
+import * as React from 'react'
+import styled from 'styled-components'
+import NavbarContainer from './NavbarContainer'
+import baseStyles from '../base-styles'
+import { ThemeContext, themes } from './../theme-context'
+import TableContainer from './TableContainer'
 
 const Wrapper = styled.div`
   height: 100%;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   color: ${props => props.theme.text};
   display: flex;
   align-items: stretch;
-`;
+`
 
 const Circle = styled.div`
   height: 100px;
@@ -24,7 +24,7 @@ const Circle = styled.div`
   left: 0;
   z-index: ${props => props.zIndex};
   transform: scale(${props => props.scale});
-`;
+`
 
 const Background = styled.div`
   height: 100%;
@@ -32,7 +32,7 @@ const Background = styled.div`
   background: ${props => props.color};
   z-index: ${props => props.zIndex};
   position: absolute;
-`;
+`
 
 class App extends React.Component {
 
@@ -51,7 +51,7 @@ class App extends React.Component {
       bgZIndex: '-2',
       circleZIndex: '-1',
       bgTransform: true,
-    }));
+    }))
 
     setTimeout(() => {
       this.setState({
@@ -59,21 +59,21 @@ class App extends React.Component {
         bgZIndex: '-1',
         circleZIndex: '-2',
         bgTransform: false,
-      });
-    }, 1000);
+      })
+    }, 1000)
   }
 
   render() {
-    baseStyles();
+    baseStyles()
     const {
       theme,
       scale,
       bgZIndex,
       circleZIndex,
       bgTransform,
-    } = this.state;
+    } = this.state
 
-    const bgColor = !bgTransform ? theme.background : theme.changeThemeBackground;
+    const bgColor = !bgTransform ? theme.background : theme.changeThemeBackground
 
     return (
       <ThemeContext.Provider value={theme}>
@@ -84,10 +84,8 @@ class App extends React.Component {
           <Circle theme={theme} scale={scale} zIndex={circleZIndex} />
         </Wrapper>
       </ThemeContext.Provider>
-    );
+    )
   }
 }
 
-export default App;
-
-// background-color: ${ this.state.theme.background };
+export default App

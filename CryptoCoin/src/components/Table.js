@@ -1,6 +1,6 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { ThemeContext } from './../theme-context';
+import * as React from 'react'
+import styled from 'styled-components'
+import { ThemeContext } from './../theme-context'
 
 const Data = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ const Data = styled.div`
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 100px repeat(10, 100px [col-start] 25px [col-end]) 100px;
   padding: 20px;
-`;
+`
 
 const Cell = styled.div`
   background-color: ${ props => props.theme.barColor };
@@ -31,7 +31,7 @@ const Cell = styled.div`
     margin-right: -10px;
     border-right: 10px solid ${ props => props.theme.barColor };
   }
-`;
+`
 
 const GapCell = styled.div`
   border-left: 2px solid #2f3033;
@@ -42,7 +42,7 @@ const GapCell = styled.div`
   &:nth-last-of-type(n + 1):nth-last-of-type(-n + 7) {
     border-bottom: 2px solid #2f3033;
   }
-`;
+`
 
 const HeaderCell = GapCell.extend`
   border-top: 2px solid #2f3033;
@@ -55,23 +55,31 @@ const HeaderCell = GapCell.extend`
   &:not(:first-of-type) {
     text-align: right;
   }
-`;
+`
 
 class Table extends React.Component {
 
   state = {
     coinsData: null,
     coinsList: null,
+    imgUrl: null,
   }
 
   componentDidMount() {
-    this.getNumbers();
+    this.getNumbers()
 
     fetch('https://min-api.cryptocompare.com/data/all/coinlist')
       .then( resp => resp.json())
       .then( data => data.Data)
       .then( coinsList => this.setState({ coinsList }))
-      .catch( err => console.log('Error!', err));
+      .catch( err => console.log('Error!', err))
+
+    fetch(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=BTC&tsym=USD`)
+      .then( resp => resp.json())
+      .then(data => data.Data[0].CoinInfo.ImageUrl)
+      .then( imgUrl => this.setState({ imgUrl }))
+      .catch( err => console.log('Error!', err))
+
 
     // setInterval(() => {
     //   console.log('ddd');
@@ -83,11 +91,11 @@ class Table extends React.Component {
     fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array')
       .then( resp => resp.json())
       .then( all => {
-        console.log(all.data);
-        return all.data;
+        console.log(all.data)
+        return all.data
       })
       .then( coinsData => this.setState({coinsData}))
-      .catch( err => console.log('Error!', err));
+      .catch( err => console.log('Error!', err))
   }
 
   renderHeader() {
@@ -104,23 +112,25 @@ class Table extends React.Component {
               <HeaderCell>Change<br/>(24h)%</HeaderCell>
               <HeaderCell>Price Graph<br/>(7d)</HeaderCell>
             </React.Fragment>
-          );
+          )
         }}
       </ThemeContext.Consumer>
-    );
+    )
   }
 
   renderIcon(symbol) {
-    const coin = this.state.coinsList ? this.state.coinsList[symbol] : null;
-    const coinId = coin ? coin.Id : null;
-    if (coinId) {
+    const coin = this.state.coinsList ? this.state.coinsList[symbol] : null
+    const coinId = coin ? coin.Id : null
 
-      fetch(`https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=${coinId}`)
-        .then ( resp => console.log(resp))
-        .catch( err => console.log('Error!', err));
-    }
+    console.log(this.state.imgUrl)
 
-    return <p>{ coinId }</p>;
+    return <img src={{url:this.state.imgUrl}} />
+
+    //return <img src={this.state.imgUrl} />;
+
+    // if (coinId) {
+
+    // }
 
   }
 
@@ -132,13 +142,13 @@ class Table extends React.Component {
           price,
           volume_24h,
           percent_change_24h
-        } = coinData.quotes.USD;
-        const { circulating_supply, symbol } = coinData;
+        } = coinData.quotes.USD
+        const { circulating_supply, symbol } = coinData
 
         return (
           <ThemeContext.Consumer>
             { theme => {
-              const color = percent_change_24h !== 0 ? (percent_change_24h > 0 ? theme.success : theme.warning) : theme.text;
+              const color = percent_change_24h !== 0 ? (percent_change_24h > 0 ? theme.success : theme.warning) : theme.text
               return (
                 <React.Fragment>
                   <Cell theme={ theme } left>
@@ -160,12 +170,12 @@ class Table extends React.Component {
                   <Cell theme={ theme }>graph</Cell>
                   { this.renderGap() }
                 </React.Fragment>
-              );
+              )
             }}
           </ThemeContext.Consumer>
-        );
+        )
       })
-    );
+    )
   }
 
   renderGap() {
@@ -179,7 +189,7 @@ class Table extends React.Component {
         <GapCell />
         <GapCell />
       </React.Fragment>
-    );
+    )
   }
 
   render() {
@@ -190,8 +200,8 @@ class Table extends React.Component {
            this.renderRow(this.state.coinsData)
         }
       </Data>
-    );
+    )
   }
 }
 
-export default Table;
+export default Table

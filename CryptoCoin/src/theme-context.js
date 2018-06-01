@@ -1,8 +1,8 @@
-import React from 'react';
-import logoDark from './assets/cc-logo--dark.svg';
-import logoLight from './assets/cc-logo--light.svg';
-import MoonIcon from './components/icons/MoonIcon';
-import SunIcon from './components/icons/SunIcon';
+import React from 'react'
+import logoDark from './assets/cc-logo--dark.svg'
+import logoLight from './assets/cc-logo--light.svg'
+import MoonIcon from './components/icons/MoonIcon'
+import SunIcon from './components/icons/SunIcon'
 
 export const themes = {
   light: {
@@ -33,8 +33,8 @@ export const themes = {
     barColor: '#2f3033',
     border: '#2f3033',
   },
-};
+}
 
 export const ThemeContext = React.createContext(
   themes.dark, // default value
-);
+)

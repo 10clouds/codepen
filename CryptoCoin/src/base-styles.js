@@ -1,5 +1,5 @@
-import { injectGlobal } from 'styled-components';
-import reset from 'styled-reset';
+import { injectGlobal } from 'styled-components'
+import reset from 'styled-reset'
 
 const baseStyles = () => injectGlobal`
   ${reset}
@@ -18,6 +18,6 @@ const baseStyles = () => injectGlobal`
   .container {
     padding: 0 50px;
   }
-`;
+`
 
-export default baseStyles;
+export default baseStyles

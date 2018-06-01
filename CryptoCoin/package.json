@@ -14,6 +14,7 @@
   "dependencies": {
     "assemble": "^0.3.83",
     "babel-plugin-transform-class-properties": "6.24.1",
+    "downshift": "^1.31.15",
     "grunt": "^0.4.5",
     "parcel-bundler": "1.8.1",
     "react": "^16.3.2",

@@ -1,7 +1,7 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import * as icons from './icons/icons.js';
-import { ThemeContext } from './../theme-context';
+import * as React from 'react'
+import styled from 'styled-components'
+import * as icons from './icons/icons.js'
+import { ThemeContext } from './../theme-context'
 
 const menuItems = [
   {
@@ -24,7 +24,7 @@ const menuItems = [
     item: 'Settings',
     icon: icons.SettingsIcon,
   },
-];
+]
 
 class MenuContainer extends React.Component {
 
@@ -53,7 +53,7 @@ class MenuContainer extends React.Component {
         color: #939393;
         margin: 0 20px 0 0;
       }
-    `;
+    `
 
     return (
       <ThemeContext.Consumer>
@@ -68,7 +68,7 @@ class MenuContainer extends React.Component {
           ))
         )}
       </ThemeContext.Consumer>
-    );
+    )
   }
 
   render() {
@@ -76,8 +76,8 @@ class MenuContainer extends React.Component {
       <ul>
         { this.renderMenuItems(menuItems) }
       </ul>
-    );
+    )
   }
 }
 
-export default MenuContainer;
+export default MenuContainer
