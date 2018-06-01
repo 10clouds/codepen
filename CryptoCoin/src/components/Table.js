@@ -12,23 +12,24 @@ const Data = styled.div`
 `;
 
 const Cell = styled.div`
-  background-color: ${props => props.theme.barColor};
+  background-color: ${ props => props.theme.barColor };
   display: flex;
   align-items: center;
   justify-content: ${ props => props.left ? 'flex-start' : 'flex-end' };
   text-align: ${ props => props.left ? 'left' : 'right' };
   padding: 20px;
-  color: ${ props => props.theme.text };
+  color: ${ props => props.color ? props.color : props.theme.text };
   font-size: 15px;
+  letter-spacing: 1.6px;
 
   &:nth-of-type(7n + 1) {
     margin-left: -5px;
-    border-left: 5px solid ${props => props.theme.barColor};
+    border-left: 5px solid ${ props => props.theme.barColor };
   }
 
   &:nth-of-type(7n + 7) {
     margin-right: -10px;
-    border-right: 10px solid ${props => props.theme.barColor};
+    border-right: 10px solid ${ props => props.theme.barColor };
   }
 `;
 
@@ -49,6 +50,7 @@ const HeaderCell = GapCell.extend`
   color: #939393;
   font-size: 14px;
   line-height: 1.43;
+  letter-spacing: 1.5px;
 
   &:not(:first-of-type) {
     text-align: right;
@@ -63,23 +65,29 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array').then( resp => {
-      resp.json()
-        .then( all => {
-          console.log(all.data);
-          return all.data;
-        })
-        .then( coinsData => this.setState({coinsData}))
-        .catch( err => console.log('Błąd!', err));
-    });
+    this.getNumbers();
 
     fetch('https://min-api.cryptocompare.com/data/all/coinlist')
-      .then( resp => resp.json()
-        .then( data => data.Data)
-        .then( coinsList => this.setState({ coinsList }))
-        .catch( err => console.log('Błąd!', err))
-      );
+      .then( resp => resp.json())
+      .then( data => data.Data)
+      .then( coinsList => this.setState({ coinsList }))
+      .catch( err => console.log('Error!', err));
 
+    // setInterval(() => {
+    //   console.log('ddd');
+    //   this.getNumbers();
+    // }, 10000);
+  }
+
+  getNumbers() {
+    fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array')
+      .then( resp => resp.json())
+      .then( all => {
+        console.log(all.data);
+        return all.data;
+      })
+      .then( coinsData => this.setState({coinsData}))
+      .catch( err => console.log('Error!', err));
   }
 
   renderHeader() {
@@ -88,7 +96,7 @@ class Table extends React.Component {
         { theme => {
           return (
             <React.Fragment>
-              <HeaderCell theme={theme}>Name</HeaderCell>
+              <HeaderCell theme={ theme }>Name</HeaderCell>
               <HeaderCell>Market Cap</HeaderCell>
               <HeaderCell>Price</HeaderCell>
               <HeaderCell>Volume<br/>(24h)</HeaderCell>
@@ -105,39 +113,51 @@ class Table extends React.Component {
   renderIcon(symbol) {
     const coin = this.state.coinsList ? this.state.coinsList[symbol] : null;
     const coinId = coin ? coin.Id : null;
-    // if (coinId) {
+    if (coinId) {
 
-    //   fetch(`https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=${coinId}`)
-    //     .then ( resp => console.log(resp)
+      fetch(`https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=${coinId}`)
+        .then ( resp => console.log(resp))
+        .catch( err => console.log('Error!', err));
+    }
 
-    //       // .then ( data => console.log(data))
-    //       .catch( err => console.log('Błąd!', err))
-    //     );
-    // }
+    return <p>{ coinId }</p>;
 
-    return <p>{coinId}</p>;
-    //, { mode: 'no-cors'}
   }
 
   renderRow(coinsData) {
     return (
       coinsData.map((coinData) => {
-        return(
+        const {
+          market_cap,
+          price,
+          volume_24h,
+          percent_change_24h
+        } = coinData.quotes.USD;
+        const { circulating_supply, symbol } = coinData;
+
+        return (
           <ThemeContext.Consumer>
             { theme => {
+              const color = percent_change_24h !== 0 ? (percent_change_24h > 0 ? theme.success : theme.warning) : theme.text;
               return (
                 <React.Fragment>
-                  <Cell theme={theme} left>
+                  <Cell theme={ theme } left>
                     { this.renderIcon(coinData.symbol) }
                     { coinData.name }
-
                   </Cell>
-                  <Cell theme={theme}>${ coinData.quotes.USD.market_cap }</Cell>
-                  <Cell theme={theme}>${ coinData.quotes.USD.price }</Cell>
-                  <Cell theme={theme}>${ coinData.quotes.USD.volume_24h }</Cell>
-                  <Cell theme={theme}>{ coinData.circulating_supply }</Cell>
-                  <Cell theme={theme}>{ coinData.quotes.USD.percent_change_24h }</Cell>
-                  <Cell theme={theme}>graph</Cell>
+                  <Cell theme={ theme }>${ market_cap.toLocaleString() }</Cell>
+                  <Cell theme={ theme }>${ price.toLocaleString() }</Cell>
+                  <Cell theme={ theme }>${ volume_24h.toLocaleString() }</Cell>
+                  <Cell theme={ theme }>
+                    { circulating_supply.toLocaleString() }
+                    &nbsp; { symbol }
+                  </Cell>
+                  <Cell
+                    theme={ theme }
+                    color={ color } >
+                    { percent_change_24h }%
+                  </Cell>
+                  <Cell theme={ theme }>graph</Cell>
                   { this.renderGap() }
                 </React.Fragment>
               );
