@@ -1,6 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
+import ReactChartkick, { LineChart, PieChart } from 'react-chartkick'
+import Chart from 'chart.js'
 
 const Data = styled.div`
   width: 100%;
@@ -30,6 +32,10 @@ const Cell = styled.div`
   &:nth-of-type(7n + 7) {
     margin-right: -10px;
     border-right: 10px solid ${ props => props.theme.barColor };
+  }
+
+  div {
+    max-height: 100%;
   }
 `
 
@@ -167,7 +173,11 @@ class Table extends React.Component {
                     color={ color } >
                     { percent_change_24h }%
                   </Cell>
-                  <Cell theme={ theme }>graph</Cell>
+                  <Cell theme={ theme }>
+
+                    <LineChart curve={ false } data={{'1': 2, '2': 5, '3': 4, '4': 1, '5': 7 }} />
+
+                  </Cell>
                   { this.renderGap() }
                 </React.Fragment>
               )

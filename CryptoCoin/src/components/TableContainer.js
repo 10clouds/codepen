@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import Table from './Table'
+import FiltersContainer from './Filters'
 
 const TableWrapper = styled.div`
   width: calc(100% - 294px);
@@ -14,20 +15,11 @@ const TableWrapper = styled.div`
   transition: all 0;
 `
 
-const Filters = styled.div`
-  height: 206px;
-  min-height: 206px;
-  position: sticky;
-  top: -100px;
-  background: pink;
-  opacity: .3;
-`
-
 class TableContainer extends React.Component {
   render() {
     return (
       <TableWrapper>
-        <Filters />
+        <FiltersContainer />
         <Table>
           table
         </Table>
