@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
-import ReactChartkick, { LineChart, PieChart } from 'react-chartkick'
-import Chart from 'chart.js'
+import { AreaChart, Area, ResponsiveContainer } from 'recharts'
+import x from './../coinsData'
 
 const Data = styled.div`
   width: 100%;
@@ -63,45 +63,66 @@ const HeaderCell = GapCell.extend`
   }
 `
 
+const data = [
+      {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
+      {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
+      {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
+      {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
+      {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
+      {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
+      {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
+]
+
 class Table extends React.Component {
 
   state = {
-    coinsData: null,
+    topTenList: null,
     coinsList: null,
-    imgUrl: null,
+    coins: null,
+    images: null,
   }
 
   componentDidMount() {
-    this.getNumbers()
+    this.getTopTenList()
 
-    fetch('https://min-api.cryptocompare.com/data/all/coinlist')
-      .then( resp => resp.json())
-      .then( data => data.Data)
-      .then( coinsList => this.setState({ coinsList }))
-      .catch( err => console.log('Error!', err))
+    //x.then( (x) => Promise.resolve(this.setState({ x: x})) )
 
-    fetch(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=BTC&tsym=USD`)
-      .then( resp => resp.json())
-      .then(data => data.Data[0].CoinInfo.ImageUrl)
-      .then( imgUrl => this.setState({ imgUrl }))
-      .catch( err => console.log('Error!', err))
-
-
-    // setInterval(() => {
-    //   console.log('ddd');
-    //   this.getNumbers();
-    // }, 10000);
-  }
-
-  getNumbers() {
     fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array')
       .then( resp => resp.json())
-      .then( all => {
-        console.log(all.data)
-        return all.data
+      .then( all => all.data )
+      .then( data => data.map( e => e.symbol))
+      .then( symbols => Promise.resolve(symbols.map( e => {
+        return (
+          fetch(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${e}&tsym=USD`)
+            .then( resp =>  resp.json() )
+            .then( data => data.Data[0].CoinInfo.ImageUrl )
+            .then( url => Promise.resolve(`https://www.cryptocompare.com/${url}`))
+            .catch( err => err )
+        )
       })
-      .then( coinsData => this.setState({coinsData}))
+      )
+      )
+      .then( images => this.setState({ images }) )
+      .catch( err => err)
+
+
+    // fetch('https://min-api.cryptocompare.com/data/all/coinlist')
+    //   .then( resp => resp.json())
+    //   .then( data => data.Data)
+    //   .then( coinsList => this.setState({ coinsList }))
+    //   .catch( err => console.log('Error!', err))
+
+  }
+
+  getTopTenList() {
+    fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array')
+      .then( resp => resp.json() )
+      .then( all => all.data )
+      .then( data => data.map( e => e.symbol))
+      .then( topTenList => this.setState({ topTenList }))
       .catch( err => console.log('Error!', err))
+
+
   }
 
   renderHeader() {
@@ -174,9 +195,11 @@ class Table extends React.Component {
                     { percent_change_24h }%
                   </Cell>
                   <Cell theme={ theme }>
-
-                    <LineChart curve={ false } data={{'1': 2, '2': 5, '3': 4, '4': 1, '5': 7 }} />
-
+                    <ResponsiveContainer height="100%" width="100%">
+                      <AreaChart data={ data } >
+                        <Area type='monotone' dataKey='uv' stroke='#8884d8' fill='#8884d8' />
+                      </AreaChart>
+                    </ResponsiveContainer>
                   </Cell>
                   { this.renderGap() }
                 </React.Fragment>
@@ -202,13 +225,28 @@ class Table extends React.Component {
     )
   }
 
+  renderIcons() {
+    if (this.state.images) {
+
+      return (
+        <div>
+          {this.state.images.map( e => <img src={e} /> )}
+      </div>
+    )
+  }
+  }
+
   render() {
+    console.log(this.state.images)
+
     return (
       <Data>
         { this.renderHeader() }
         { this.state.coinsData &&
            this.renderRow(this.state.coinsData)
         }
+        { this.renderIcons() }
+
       </Data>
     )
   }

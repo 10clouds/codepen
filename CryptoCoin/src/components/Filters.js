@@ -93,51 +93,32 @@ const Options = styled.div`
 
 class MenuContainer extends React.Component {
 
-  renderFilters(filters) {
-    const Filter = styled.div`
-      height: 40px;
-      padding: 0 20px;
-      border: 1px solid magenta;
-      display: inline-block;
-    `
-
-    return (
-      <ThemeContext.Consumer>
-        { theme => (
-          filters.map((filter, i) => (
-            <Filter key={i} theme={theme}>
-              { filter.name }
-            </Filter>
-          ))
-        )}
-      </ThemeContext.Consumer>
-    )
-  }
-
   state = {
-    dropdownVisible: false,
+    filters: filters,
   }
 
-  handleDropdownClick = () => {
-    const { dropdownVisible } = this.state
+  handleDropdownClick = (filterName) => {
     this.setState({
-      dropdownVisible: !dropdownVisible,
+      filters: this.state.filters.map( filter => {
+        if (filter.name === filterName) {
+          filter.active = !filter.active
+        }
+        return filter
+      })
     })
   }
 
-  renderStuff(filters) {
-    const { dropdownVisible } = this.state
-
+  renderFilters() {
     return (
       <ThemeContext.Consumer>
         {theme => {
           return (
-            filters.map( e => {
+            this.state.filters.map( e => {
               return (
-                <Select2 theme={theme} bg={ e.background } onClick={ this.handleDropdownClick }>
+                <Select2 theme={theme} bg={ e.background } onClick={ () => this.handleDropdownClick(e.name) }>
                   { e.name || e.options[0] }
-                  <Arrow theme={ theme } dropdownVisible={ dropdownVisible } />
-                  <Options theme={ theme } visible={ dropdownVisible } >
+                  <Arrow theme={ theme } dropdownVisible={ e.active } />
+                  <Options theme={ theme } visible={ e.active } >
                     <ul>
                       {/* TODO: jak nie renderowac pierwszej wartosci, jezeli brak name (usd) */}
                       { e.options.map( e => <li>{ e }</li>) }
@@ -155,8 +136,7 @@ class MenuContainer extends React.Component {
   render() {
     return (
       <FiltersWrapper>
-        {/* { this.renderFilters(filters) } */}
-        { this.renderStuff(filters) }
+        { this.renderFilters() }
       </FiltersWrapper>
     )
   }
