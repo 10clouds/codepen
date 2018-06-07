@@ -1,15 +1,25 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
-import { AreaChart, Area, ResponsiveContainer } from 'recharts'
-import x from './../coinsData'
+import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
+
+const topTenCoins = ['BTC', 'ETH', 'XRP', 'BCH', 'EOS', 'LTC', 'ADA', 'XLM', 'TRX', 'NEO']
+
+const graphEmptyData = topTenCoins.map( e => {
+  return (
+    {
+      symbol: e,
+      data: null
+    }
+  )}
+)
 
 const Data = styled.div`
   width: 100%;
   border: 2px dotted orange;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 100px repeat(10, 100px [col-start] 25px [col-end]) 100px;
+  grid-template-columns: repeat(2, 1fr) 140px repeat(2, 1fr) 120px 1fr;
+  grid-template-rows: 100px repeat(10, 100px [col-start] 25px [col-end]);
   padding: 20px;
 `
 
@@ -63,66 +73,99 @@ const HeaderCell = GapCell.extend`
   }
 `
 
-const data = [
-      {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-      {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-      {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-      {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-      {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-      {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-      {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
-]
+const Icon = styled.img`
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+  margin: 0 25px 0 0;
+  min-width: 35px;
+`
 
 class Table extends React.Component {
-
   state = {
-    topTenList: null,
-    coinsList: null,
-    coins: null,
-    images: null,
+    topTenData: null,
+    firstColumnData: null,
+    chartsData: graphEmptyData,
   }
 
   componentDidMount() {
-    this.getTopTenList()
-
-    //x.then( (x) => Promise.resolve(this.setState({ x: x})) )
-
-    fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array')
-      .then( resp => resp.json())
-      .then( all => all.data )
-      .then( data => data.map( e => e.symbol))
-      .then( symbols => Promise.resolve(symbols.map( e => {
-        return (
-          fetch(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${e}&tsym=USD`)
-            .then( resp =>  resp.json() )
-            .then( data => data.Data[0].CoinInfo.ImageUrl )
-            .then( url => Promise.resolve(`https://www.cryptocompare.com/${url}`))
-            .catch( err => err )
-        )
-      })
-      )
-      )
-      .then( images => this.setState({ images }) )
-      .catch( err => err)
-
-
-    // fetch('https://min-api.cryptocompare.com/data/all/coinlist')
-    //   .then( resp => resp.json())
-    //   .then( data => data.Data)
-    //   .then( coinsList => this.setState({ coinsList }))
-    //   .catch( err => console.log('Error!', err))
-
+    //this.getTopTenList()
+    this.getFirstColumnData()
+    this.getData()
+    topTenCoins.map( symbol => {
+      fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=6&aggregate=1`)
+        .then( resp => resp.json() )
+        .then( data => data.Data )
+        .then( data => Promise.all(data.map( (data) => {
+          return ( {price: data.close} )
+        })))
+        .then( info => this.setState({ chartsData: this.state.chartsData.map( coin => {
+          if (coin.symbol === symbol) coin.data = info
+          return coin
+        }
+        )}))
+        .catch( err => (err))
+    })
   }
 
   getTopTenList() {
     fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array')
-      .then( resp => resp.json() )
+      .then( resp => resp.json())
       .then( all => all.data )
       .then( data => data.map( e => e.symbol))
       .then( topTenList => this.setState({ topTenList }))
-      .catch( err => console.log('Error!', err))
+      .catch( err => null)
+  }
 
+  getFirstColumnData() {
+    fetch(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${topTenCoins}&tsym=USD`)
+      .then( resp => resp.json() )
+      .then( data => data.Data )
+      .then( data => data.map( coin => {
+        return (
+          {
+            name: coin.CoinInfo.FullName,
+            url: coin.CoinInfo.ImageUrl
+          }
+        )
+      }))
+      .then( firstColumnData => this.setState({ firstColumnData }) )
+      .catch( err => err)
+  }
 
+  getData() {
+    fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${topTenCoins}&tsyms=USD`)
+      .then( resp => resp.json() )
+      .then( data => Promise.resolve(data.RAW) )
+      .then( topTenData => this.setState({ topTenData}) )
+      .catch( err => err)
+  }
+
+  getchartsData(symbol) {
+    return (
+      fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=6&aggregate=1`)
+        .then( resp => resp.json() )
+        .then( data => data.Data )
+        .then( data => Promise.all(data.map( (data, i) => {
+          return ( {[i]: data.close} )
+        })))
+        .catch( err => console.log(err))
+    )
+  }
+
+  renderChart(coin) {
+    const chartData = this.state.chartsData.find( e => {
+      return e.symbol === coin
+    })
+
+    return (
+      <ResponsiveContainer height="100%" width="100%">
+        <AreaChart data={ chartData.data } >
+          <Area type='monotone' dataKey='price' stroke='#8884d8' fill='#8884d8' />
+          <YAxis hide={true} type="number" domain={['dataMin', 'dataMax']} />
+        </AreaChart>
+      </ResponsiveContainer>
+    )
   }
 
   renderHeader() {
@@ -145,69 +188,55 @@ class Table extends React.Component {
     )
   }
 
-  renderIcon(symbol) {
-    const coin = this.state.coinsList ? this.state.coinsList[symbol] : null
-    const coinId = coin ? coin.Id : null
+  renderRow() {
+    const { topTenData, firstColumnData } = this.state
 
-    console.log(this.state.imgUrl)
-
-    return <img src={{url:this.state.imgUrl}} />
-
-    //return <img src={this.state.imgUrl} />;
-
-    // if (coinId) {
-
-    // }
-
-  }
-
-  renderRow(coinsData) {
     return (
-      coinsData.map((coinData) => {
-        const {
-          market_cap,
-          price,
-          volume_24h,
-          percent_change_24h
-        } = coinData.quotes.USD
-        const { circulating_supply, symbol } = coinData
+      <React.Fragment>
+        { topTenCoins.map( (coin, index) => {
+          const {
+            MKTCAP,
+            PRICE,
+            VOLUME24HOUR,
+            SUPPLY,
+            CHANGEPCT24HOUR,
+            FROMSYMBOL
+          } = topTenData[coin].USD
 
-        return (
-          <ThemeContext.Consumer>
-            { theme => {
-              const color = percent_change_24h !== 0 ? (percent_change_24h > 0 ? theme.success : theme.warning) : theme.text
-              return (
-                <React.Fragment>
-                  <Cell theme={ theme } left>
-                    { this.renderIcon(coinData.symbol) }
-                    { coinData.name }
-                  </Cell>
-                  <Cell theme={ theme }>${ market_cap.toLocaleString() }</Cell>
-                  <Cell theme={ theme }>${ price.toLocaleString() }</Cell>
-                  <Cell theme={ theme }>${ volume_24h.toLocaleString() }</Cell>
-                  <Cell theme={ theme }>
-                    { circulating_supply.toLocaleString() }
-                    &nbsp; { symbol }
-                  </Cell>
-                  <Cell
-                    theme={ theme }
-                    color={ color } >
-                    { percent_change_24h }%
-                  </Cell>
-                  <Cell theme={ theme }>
-                    <ResponsiveContainer height="100%" width="100%">
-                      <AreaChart data={ data } >
-                        <Area type='monotone' dataKey='uv' stroke='#8884d8' fill='#8884d8' />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                  </Cell>
-                  { this.renderGap() }
-                </React.Fragment>
-              )
-            }}
-          </ThemeContext.Consumer>
-        )
-      })
+          return (
+            <ThemeContext.Consumer>
+              { theme => {
+                const color = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? theme.success : theme.warning) : theme.text
+                return (
+                  <React.Fragment>
+                    <Cell theme={ theme } left>
+                      <Icon src={`https://www.cryptocompare.com/${firstColumnData[index].url}`} />
+                      { firstColumnData[index].name }
+                    </Cell>
+                    <Cell theme={ theme }>${ MKTCAP.toLocaleString() }</Cell>
+                    <Cell theme={ theme }>${ PRICE.toLocaleString() }</Cell>
+                    <Cell theme={ theme }>${ VOLUME24HOUR.toLocaleString() }</Cell>
+                    <Cell theme={ theme }>
+                      { SUPPLY.toLocaleString() }
+                      &nbsp; { FROMSYMBOL }
+                    </Cell>
+                    <Cell
+                      theme={ theme }
+                      color={ color } >
+                      { CHANGEPCT24HOUR.toFixed(2) }%
+                    </Cell>
+                    <Cell theme={ theme }>
+                      { this.renderChart(coin) }
+                    </Cell>
+                    { this.renderGap() }
+                  </React.Fragment>
+                )
+              }}
+            </ThemeContext.Consumer>
+          )
+        })
+        }
+      </React.Fragment>
     )
   }
 
@@ -225,28 +254,15 @@ class Table extends React.Component {
     )
   }
 
-  renderIcons() {
-    if (this.state.images) {
-
-      return (
-        <div>
-          {this.state.images.map( e => <img src={e} /> )}
-      </div>
-    )
-  }
-  }
-
   render() {
-    console.log(this.state.images)
+   // console.log(this.state.topTenData, this.state.firstColumnData, this.state.chartsData)
 
     return (
       <Data>
         { this.renderHeader() }
-        { this.state.coinsData &&
-           this.renderRow(this.state.coinsData)
+        { this.state.topTenData && this.state.firstColumnData &&
+           this.renderRow()
         }
-        { this.renderIcons() }
-
       </Data>
     )
   }
