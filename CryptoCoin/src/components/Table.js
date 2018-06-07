@@ -5,14 +5,7 @@ import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 
 const topTenCoins = ['BTC', 'ETH', 'XRP', 'BCH', 'EOS', 'LTC', 'ADA', 'XLM', 'TRX', 'NEO']
 
-const graphEmptyData = topTenCoins.map( e => {
-  return (
-    {
-      symbol: e,
-      data: null
-    }
-  )}
-)
+const graphEmptyData = topTenCoins.map( e => ({ symbol: e, data: null }))
 
 const Data = styled.div`
   width: 100%;
@@ -93,7 +86,7 @@ class Table extends React.Component {
     this.getFirstColumnData()
     this.getData()
     topTenCoins.map( symbol => {
-      fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=6&aggregate=1`)
+      fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=13&aggregate=1`)
         .then( resp => resp.json() )
         .then( data => data.Data )
         .then( data => Promise.all(data.map( (data) => {
@@ -141,27 +134,34 @@ class Table extends React.Component {
       .catch( err => err)
   }
 
-  getchartsData(symbol) {
-    return (
-      fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=6&aggregate=1`)
-        .then( resp => resp.json() )
-        .then( data => data.Data )
-        .then( data => Promise.all(data.map( (data, i) => {
-          return ( {[i]: data.close} )
-        })))
-        .catch( err => console.log(err))
-    )
-  }
-
-  renderChart(coin) {
+  renderChart(coin, chartColors) {
     const chartData = this.state.chartsData.find( e => {
       return e.symbol === coin
     })
 
+    const def = chartColors.color === 'pink' ? (
+      <defs>
+        <linearGradient id="pink" x1="83.001%" x2="83.001%" y1="-208.062%" y2="100%">
+          <stop offset="0%" stopColor={ '#F171DF' } />
+          <stop offset="100%" stopColor={ '#D574E5' } stopOpacity="0" />
+        </linearGradient>
+      </defs>
+    ) : (
+      <defs>
+        <linearGradient id="blue" x1="83.001%" x2="83.001%" y1="-208.062%" y2="100%">
+          <stop offset="0%" stopColor={ '#546AFB' } />
+          <stop offset="100%" stopColor={ '#7B74E5' } stopOpacity="0" />
+        </linearGradient>
+      </defs>
+    )
+
+    const fill = chartColors.color === 'pink' ? 'url(#pink)' : 'url(#blue)'
+
     return (
       <ResponsiveContainer height="100%" width="100%">
         <AreaChart data={ chartData.data } >
-          <Area type='monotone' dataKey='price' stroke='#8884d8' fill='#8884d8' />
+          { def }
+          <Area type='linear' dataKey='price' stroke={ chartColors.stroke } fill={fill} />
           <YAxis hide={true} type="number" domain={['dataMin', 'dataMax']} />
         </AreaChart>
       </ResponsiveContainer>
@@ -180,7 +180,7 @@ class Table extends React.Component {
               <HeaderCell>Volume<br/>(24h)</HeaderCell>
               <HeaderCell>Circulating<br/>Supply</HeaderCell>
               <HeaderCell>Change<br/>(24h)%</HeaderCell>
-              <HeaderCell>Price Graph<br/>(7d)</HeaderCell>
+              <HeaderCell>Price Graph<br/>(14d)</HeaderCell>
             </React.Fragment>
           )
         }}
@@ -207,6 +207,8 @@ class Table extends React.Component {
             <ThemeContext.Consumer>
               { theme => {
                 const color = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? theme.success : theme.warning) : theme.text
+                const chartColors = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? {stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
+
                 return (
                   <React.Fragment>
                     <Cell theme={ theme } left>
@@ -226,7 +228,7 @@ class Table extends React.Component {
                       { CHANGEPCT24HOUR.toFixed(2) }%
                     </Cell>
                     <Cell theme={ theme }>
-                      { this.renderChart(coin) }
+                      { this.renderChart(coin, chartColors) }
                     </Cell>
                     { this.renderGap() }
                   </React.Fragment>
@@ -255,8 +257,6 @@ class Table extends React.Component {
   }
 
   render() {
-   // console.log(this.state.topTenData, this.state.firstColumnData, this.state.chartsData)
-
     return (
       <Data>
         { this.renderHeader() }
