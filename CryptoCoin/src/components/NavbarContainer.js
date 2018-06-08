@@ -9,13 +9,13 @@ const Navbar = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 40px 0 0;
-  width: 294px;
+  padding: 30px 0 0;
+  width: 220px;
 `
 
 const Logo = styled.img`
-  margin: 0 0 0 40px;
-  width: 174px;
+  margin: 0 0 0 30px;
+  width: 130px;
 `
 
 const MenuWrapper = styled.div`
@@ -23,7 +23,7 @@ const MenuWrapper = styled.div`
   flex-direction: column;
   flex: 1 0 auto;
   justify-content: space-between;
-  margin: 127px 0 0 0;
+  margin: 95px 0 0 0;
 `
 
 const ChangeView = styled.div`
@@ -31,10 +31,10 @@ const ChangeView = styled.div`
   color: #939393;
   cursor: pointer;
   display: flex;
-  font-size: 18px;
-  height: 30px;
-  margin-bottom: 40px;
-  padding: 0 0 0 40px;
+  font-size: 15px;
+  height: 23px;
+  margin-bottom: 30px;
+  padding: 0 0 0 30px;
 
   &:hover {
     color: ${ props => props.theme.text };
@@ -45,7 +45,7 @@ const ChangeView = styled.div`
   }
 
   .icon-wrapper {
-    margin: 0 20px 0 0;
+    margin: 0 15px 0 0;
     color: #939393;
   }
 `

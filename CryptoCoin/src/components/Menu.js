@@ -34,9 +34,9 @@ class MenuContainer extends React.Component {
       color: #939393;
       cursor: pointer;
       display: flex;
-      font-size: 18px;
-      height: 70px;
-      padding: 0 0 0 40px;
+      font-size: 14px;
+      height: 53px;
+      padding: 0 0 0 30px;
       transition: color .3s;
 
       &:hover {
@@ -51,7 +51,7 @@ class MenuContainer extends React.Component {
 
       .icon-wrapper {
         color: #939393;
-        margin: 0 20px 0 0;
+        margin: 0 15px 0 0;
       }
     `
 

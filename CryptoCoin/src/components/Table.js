@@ -9,11 +9,10 @@ const graphEmptyData = topTenCoins.map( e => ({ symbol: e, data: null }))
 
 const Data = styled.div`
   width: 100%;
-  border: 2px dotted orange;
   display: grid;
-  grid-template-columns: repeat(2, 1fr) 140px repeat(2, 1fr) 120px 1fr;
-  grid-template-rows: 100px repeat(10, 100px [col-start] 25px [col-end]);
-  padding: 20px;
+  grid-template-columns: repeat(2, 1fr) 140px repeat(2, 1fr) 90px 1fr;
+  grid-template-rows: 75px repeat(10, 75px [col-start] 19px [col-end]);
+  padding: 15px;
 `
 
 const Cell = styled.div`
@@ -22,19 +21,19 @@ const Cell = styled.div`
   align-items: center;
   justify-content: ${ props => props.left ? 'flex-start' : 'flex-end' };
   text-align: ${ props => props.left ? 'left' : 'right' };
-  padding: 20px;
+  padding: 15px;
   color: ${ props => props.color ? props.color : props.theme.text };
-  font-size: 15px;
+  font-size: 11px;
   letter-spacing: 1.6px;
 
   &:nth-of-type(7n + 1) {
-    margin-left: -5px;
-    border-left: 5px solid ${ props => props.theme.barColor };
+    margin-left: -4px;
+    border-left: 4px solid ${ props => props.theme.barColor };
   }
 
   &:nth-of-type(7n + 7) {
-    margin-right: -10px;
-    border-right: 10px solid ${ props => props.theme.barColor };
+    margin-right: -8px;
+    border-right: 8px solid ${ props => props.theme.barColor };
   }
 
   div {
@@ -43,21 +42,21 @@ const Cell = styled.div`
 `
 
 const GapCell = styled.div`
-  border-left: 2px solid #2f3033;
+  border-left: 2px solid ${ props => props.theme.tableGrid };
 
   &:nth-of-type(7n + 7) {
-    border-right: 2px solid #2f3033;
+    border-right: 2px solid ${ props => props.theme.tableGrid };
   }
   &:nth-last-of-type(n + 1):nth-last-of-type(-n + 7) {
-    border-bottom: 2px solid #2f3033;
+    border-bottom: 2px solid ${ props => props.theme.tableGrid };
   }
 `
 
 const HeaderCell = GapCell.extend`
-  border-top: 2px solid #2f3033;
-  padding: 16px;
+  border-top: 2px solid ${ props => props.theme.tableGrid };
+  padding: 12px;
   color: #939393;
-  font-size: 14px;
+  font-size: 10px;
   line-height: 1.43;
   letter-spacing: 1.5px;
 
@@ -67,11 +66,11 @@ const HeaderCell = GapCell.extend`
 `
 
 const Icon = styled.img`
-  height: 35px;
-  width: 35px;
+  height: 27px;
+  width: 27px;
   border-radius: 100%;
-  margin: 0 25px 0 0;
-  min-width: 35px;
+  margin: 0 19px 0 0;
+  min-width: 27px;
 `
 
 class Table extends React.Component {
@@ -175,12 +174,12 @@ class Table extends React.Component {
           return (
             <React.Fragment>
               <HeaderCell theme={ theme }>Name</HeaderCell>
-              <HeaderCell>Market Cap</HeaderCell>
-              <HeaderCell>Price</HeaderCell>
-              <HeaderCell>Volume<br/>(24h)</HeaderCell>
-              <HeaderCell>Circulating<br/>Supply</HeaderCell>
-              <HeaderCell>Change<br/>(24h)%</HeaderCell>
-              <HeaderCell>Price Graph<br/>(14d)</HeaderCell>
+              <HeaderCell theme={ theme } >Market Cap</HeaderCell>
+              <HeaderCell theme={ theme }>Price</HeaderCell>
+              <HeaderCell theme={ theme }>Volume<br/>(24h)</HeaderCell>
+              <HeaderCell theme={ theme }>Circulating<br/>Supply</HeaderCell>
+              <HeaderCell theme={ theme }>Change<br/>(24h)%</HeaderCell>
+              <HeaderCell theme={ theme }>Price Graph<br/>(14d)</HeaderCell>
             </React.Fragment>
           )
         }}
@@ -230,7 +229,7 @@ class Table extends React.Component {
                     <Cell theme={ theme }>
                       { this.renderChart(coin, chartColors) }
                     </Cell>
-                    { this.renderGap() }
+                    { this.renderGap(theme) }
                   </React.Fragment>
                 )
               }}
@@ -242,21 +241,23 @@ class Table extends React.Component {
     )
   }
 
-  renderGap() {
+  renderGap(theme) {
     return(
       <React.Fragment>
-        <GapCell />
-        <GapCell />
-        <GapCell />
-        <GapCell />
-        <GapCell />
-        <GapCell />
-        <GapCell />
+        <GapCell theme={ theme } />
+        <GapCell theme={ theme } />
+        <GapCell theme={ theme } />
+        <GapCell theme={ theme } />
+        <GapCell theme={ theme } />
+        <GapCell theme={ theme } />
+        <GapCell theme={ theme } />
       </React.Fragment>
     )
   }
 
   render() {
+    console.log(this.props)
+
     return (
       <Data>
         { this.renderHeader() }

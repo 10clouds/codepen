@@ -17,8 +17,8 @@ export const themes = {
     changeThemeText: 'Dark',
     changeThemeBackground: '#1b1d1f',
     barColor: '#f0f0f0',
-    border: '#e6e6e6',
     filterBackground: '#e6e6e6',
+    tableGrid: '#e6e6e6',
   },
   dark: {
     background: '#1b1d1f',
@@ -32,8 +32,8 @@ export const themes = {
     changeThemeText: 'Light',
     changeThemeBackground: '#f5f5f5',
     barColor: '#2f3033',
-    border: '#2f3033',
     filterBackground: '#26292c',
+    tableGrid: '#2f3033'
   },
 }
 

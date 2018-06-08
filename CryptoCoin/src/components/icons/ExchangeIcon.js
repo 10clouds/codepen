@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Icon = props => (
-  <svg width={32} height={33} viewBox="0 0 32 33" {...props}>
+  <svg width={24} height={25} viewBox="0 0 32 33" {...props}>
     <g fill="none" fillRule="evenodd">
       <path
         fill="currentColor"

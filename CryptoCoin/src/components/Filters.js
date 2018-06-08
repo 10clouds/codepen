@@ -47,21 +47,21 @@ const filters = [
 ]
 
 const FiltersWrapper = styled.div`
-  height: 206px;
-  min-height: 206px;
+  height: 155px;
+  min-height: 155px;
   position: sticky;
-  top: -100px;
+  top: -75px;
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
+  font-size: 11px;
 `
 
 const Select2 = styled.div`
-  /* border: 1px dotted magenta; */
   position: relative;
-  height: 50px;
-  padding: 0 25px;
+  height: 38px;
+  padding: 0 19px;
   display: flex;
   align-items: center;
   color: #939393;
@@ -79,7 +79,7 @@ const Arrow = styled.div`
   border-right: 5px solid transparent;
   border-top: ${ props => props.dropdownVisible ? null : '5px solid #939393' };
   border-bottom: ${ props => props.dropdownVisible ? '5px solid #939393' : null };
-  margin: 0 0 0 10px;
+  margin: 0 0 0 8px;
 `
 
 const Options = styled.div`
@@ -87,7 +87,7 @@ const Options = styled.div`
   display: ${ props => props.visible ? 'block' : 'none' };
   position: absolute;
   width: 100%;
-  top: 50px;
+  top: 38px;
   left: 0;
 `
 

@@ -5,8 +5,7 @@ import Table from './Table'
 import FiltersContainer from './Filters'
 
 const TableWrapper = styled.div`
-  width: calc(100% - 294px);
-  border: 1px solid pink;
+  width: calc(100% - 220px);
   vertical-align: top;
   display: flex;
   flex-direction: column;
