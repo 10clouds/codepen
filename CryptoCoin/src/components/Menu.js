@@ -26,7 +26,7 @@ const menuItems = [
   },
 ]
 
-class MenuContainer extends React.Component {
+class Menu extends React.Component {
 
   renderMenuItems(items) {
     const MenuItem = styled.li`
@@ -80,4 +80,4 @@ class MenuContainer extends React.Component {
   }
 }
 
-export default MenuContainer
+export default Menu

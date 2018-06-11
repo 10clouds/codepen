@@ -2,45 +2,53 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
-import Box from './Box'
 import DataRow from './DataRow'
 
 const topTenCoins = ['BTC', 'ETH', 'XRP', 'BCH', 'EOS', 'LTC', 'ADA', 'XLM', 'TRX', 'NEO']
 const graphEmptyData = topTenCoins.map( e => ({ symbol: e, data: null }))
 const delays = [.4, .32, .25, .18, .15, .12, .1, .1, .1, .1]
 const durations = [.58, .65, .71, .76, .78, .79, .8, .8, .8, .8]
+const cellWidths = {
+  name: 'calc(0.22 * (100% - 240px))',
+  cap: 'calc(0.19 * (100% - 240px))',
+  price: '120px',
+  volume: 'calc(0.17 * (100% - 240px))',
+  supply: 'calc(0.24 * (100% - 240px))',
+  change: '120px',
+  chart: 'calc(0.21 * (100% - 240px))',
+}
+const { name, cap, price, volume, supply, change, chart } = cellWidths
 
 const TableWrapper = styled.div`
-  width: 100%;
   padding: 15px;
+  width: 100%;
 `
 
 const Row = styled.div`
-  ${'' /* border: 1px solid magenta; */}
+  border-bottom: ${ props => props.borderBottom ? '2px' : '0px' } solid ${ props => props.theme.tableGrid };
   display: flex;
+  height: ${ props => props.height }px;
   justify-content:
   width: 100%;
-  height: ${ props => props.height }px;
 `
 
 const Cell = styled.div`
-  padding: 15px;
-  color: ${ props => props.color ? props.color : props.theme.text };
-  font-size: 11px;
-  letter-spacing: 1.6px;
-  ${'' /* border: 1px dashed pink; */}
-  width: ${ props => props.width };
-  height: 100%;
   align-items: center;
+  color: ${ props => props.color ? props.color : props.theme.text };
   display: flex;
+  font-size: 11px;
+  height: 100%;
   justify-content: ${ props => props.left ? 'flex-start' : 'flex-end' };
+  letter-spacing: 1.6px;
+  padding: 15px;
+  width: ${ props => props.width };
 
   div {
-    height: 100%;
-    width: 100%;
-    display: flex;
     align-items: center;
+    display: flex;
+    height: 100%;
     justify-content: ${ props => props.left ? 'flex-start' : 'flex-end' };
+    width: 100%;
   }
 `
 
@@ -48,21 +56,18 @@ const GapCell = styled.div`
   border-left: 2px solid ${ props => props.theme.tableGrid };
   width: ${ props => props.width };
 
-  &:nth-of-type(7n + 7) {
+  &:nth-of-type(7) {
     border-right: 2px solid ${ props => props.theme.tableGrid };
-  }
-  &:nth-last-of-type(n + 1):nth-last-of-type(-n + 7) {
-    border-bottom: 2px solid ${ props => props.theme.tableGrid };
   }
 `
 
 const HeaderCell = GapCell.extend`
   border-top: 2px solid ${ props => props.theme.tableGrid };
-  padding: 12px;
   color: #939393;
   font-size: 10px;
-  line-height: 1.43;
   letter-spacing: 1.5px;
+  line-height: 1.43;
+  padding: 12px;
 
   &:not(:first-of-type) {
     text-align: right;
@@ -70,11 +75,11 @@ const HeaderCell = GapCell.extend`
 `
 
 const Icon = styled.img`
-  height: 27px;
-  width: 27px;
   border-radius: 100%;
+  height: 27px;
   margin: 0 19px 0 0;
   min-width: 27px;
+  width: 27px;
 `
 
 class Table extends React.Component {
@@ -106,11 +111,11 @@ class Table extends React.Component {
 
   getTopTenList() {
     fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array')
-      .then( resp => resp.json())
+      .then( resp => resp.json() )
       .then( all => all.data )
-      .then( data => data.map( e => e.symbol))
-      .then( topTenList => this.setState({ topTenList }))
-      .catch( err => null)
+      .then( data => data.map( e => e.symbol) )
+      .then( topTenList => this.setState({ topTenList }) )
+      .catch( err => err )
   }
 
   getFirstColumnData() {
@@ -142,7 +147,7 @@ class Table extends React.Component {
       return e.symbol === coin
     })
     const chartColors = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? {stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
-
+    const fill = chartColors.color === 'pink' ? 'url(#pink)' : (chartColors.color === 'blue' ? 'url(#blue)' : 'url(#white)')
     const def = chartColors.color === 'pink' ? (
       <defs>
         <linearGradient id="pink" x1="83.001%" x2="83.001%" y1="-208.062%" y2="100%">
@@ -151,22 +156,29 @@ class Table extends React.Component {
         </linearGradient>
       </defs>
     ) : (
-      <defs>
-        <linearGradient id="blue" x1="83.001%" x2="83.001%" y1="-208.062%" y2="100%">
-          <stop offset="0%" stopColor={ '#546AFB' } />
-          <stop offset="100%" stopColor={ '#7B74E5' } stopOpacity="0" />
-        </linearGradient>
-      </defs>
+      chartColors.color === 'blue' ? (
+        <defs>
+          <linearGradient id="blue" x1="83.001%" x2="83.001%" y1="-208.062%" y2="100%">
+            <stop offset="0%" stopColor={ '#546AFB' } />
+            <stop offset="100%" stopColor={ '#7B74E5' } stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      ) : (
+        <defs>
+          <linearGradient id="white" x1="83.001%" x2="83.001%" y1="-208.062%" y2="100%">
+            <stop offset="0%" stopColor={ '#fff' } />
+            <stop offset="100%" stopColor={ '#fff' } stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      )
     )
-
-    const fill = chartColors.color === 'pink' ? 'url(#pink)' : 'url(#blue)'
 
     return (
       <ResponsiveContainer height="100%" width="100%">
         <AreaChart data={ chartData.data } >
           { def }
-          <Area type='linear' dataKey='price' stroke={ chartColors.stroke } fill={fill} />
-          <YAxis hide={true} type="number" domain={['dataMin', 'dataMax']} />
+          <Area type='linear' dataKey='price' stroke={ chartColors.stroke } fill={ fill } />
+          <YAxis hide={ true } type="number" domain={ ['dataMin', 'dataMax'] } />
         </AreaChart>
       </ResponsiveContainer>
     )
@@ -178,13 +190,13 @@ class Table extends React.Component {
         { theme => {
           return (
             <Row height={ 75 }>
-              <HeaderCell theme={ theme } width={ 'calc(0.22 * (100% - 210px))' } >Name</HeaderCell>
-              <HeaderCell theme={ theme } width={ 'calc(0.19 * (100% - 210px))' } >Market Cap</HeaderCell>
-              <HeaderCell theme={ theme } width={ '120px' } >Price</HeaderCell>
-              <HeaderCell theme={ theme } width={ 'calc(0.17 * (100% - 210px))' } >Volume<br/>(24h)</HeaderCell>
-              <HeaderCell theme={ theme } width={ 'calc(0.24 * (100% - 210px))' } >Circulating<br/>Supply</HeaderCell>
-              <HeaderCell theme={ theme } width={ '90px' } >Change<br/>(24h)%</HeaderCell>
-              <HeaderCell theme={ theme } width={ 'calc(0.21 * (100% - 210px))' } >Price Graph<br/>(14d)</HeaderCell>
+              <HeaderCell theme={ theme } width={ name }>Name</HeaderCell>
+              <HeaderCell theme={ theme } width={ cap }>Market Cap</HeaderCell>
+              <HeaderCell theme={ theme } width={ price }>Price</HeaderCell>
+              <HeaderCell theme={ theme } width={ volume }>Volume<br/>(24h)</HeaderCell>
+              <HeaderCell theme={ theme } width={ supply }>Circulating<br/>Supply</HeaderCell>
+              <HeaderCell theme={ theme } width={ change }>Change<br/>(24h)%</HeaderCell>
+              <HeaderCell theme={ theme } width={ chart }>Price Graph<br/>(14d)</HeaderCell>
             </Row>
           )
         }}
@@ -194,6 +206,7 @@ class Table extends React.Component {
 
   renderRow() {
     const { topTenData, firstColumnData } = this.state
+    const { barTransform, displayMask } = this.props
 
     return (
       <React.Fragment>
@@ -206,6 +219,7 @@ class Table extends React.Component {
             CHANGEPCT24HOUR,
             FROMSYMBOL
           } = topTenData[coin].USD
+          const isLastGap = index === topTenCoins.length - 1
 
           return (
             <ThemeContext.Consumer>
@@ -215,36 +229,36 @@ class Table extends React.Component {
                 return (
                   <React.Fragment>
                     <DataRow
-                      barTransform={ this.props.barTransform }
-                      displayMask={ this.props.displayMask}
+                      barTransform={ barTransform }
+                      displayMask={ displayMask}
                       delay={ delays[index] }
                       duration={ durations[index] }
                     >
-                      <Cell theme={ theme } left width={ 'calc(0.22* (100% - 210px))' }>
+                      <Cell theme={ theme } left width={ name }>
                         <Icon src={`https://www.cryptocompare.com/${firstColumnData[index].url}`} />
                         { firstColumnData[index].name }
                       </Cell>
-                      <Cell theme={ theme } width={ 'calc(0.19 * (100% - 210px))' }>
+                      <Cell theme={ theme } width={ cap }>
                         ${ MKTCAP.toLocaleString() }
                       </Cell>
-                      <Cell theme={ theme } width={ '120px' }>${ PRICE.toLocaleString() }</Cell>
-                      <Cell theme={ theme } width={ 'calc(0.17 * (100% - 210px))' }>${ VOLUME24HOUR.toLocaleString() }</Cell>
-                      <Cell theme={ theme } width={ 'calc(0.24 * (100% - 210px))' }>
+                      <Cell theme={ theme } width={ price }>${ PRICE.toLocaleString() }</Cell>
+                      <Cell theme={ theme } width={ volume }>${ VOLUME24HOUR.toLocaleString() }</Cell>
+                      <Cell theme={ theme } width={ supply }>
                         { SUPPLY.toLocaleString() }
-                        &nbsp; { FROMSYMBOL }
+                        &nbsp;{ FROMSYMBOL }
                       </Cell>
                       <Cell
                         theme={ theme }
                         color={ color }
-                        width={ '90px' }
+                        width={ change }
                       >
                         { CHANGEPCT24HOUR.toFixed(2) }%
                       </Cell>
-                      <Cell theme={ theme } width={ 'calc(0.21 * (100% - 210px))' }>
+                      <Cell theme={ theme } width={ chart }>
                         { this.renderChart(coin, CHANGEPCT24HOUR) }
                       </Cell>
                     </DataRow>
-                    { this.renderGap(theme) }
+                    { this.renderGap(theme, isLastGap) }
                   </React.Fragment>
                 )
               }}
@@ -256,16 +270,16 @@ class Table extends React.Component {
     )
   }
 
-  renderGap(theme) {
+  renderGap(theme, isLastGap) {
     return(
-      <Row height={19}>
-        <GapCell theme={ theme } width={ 'calc(0.22 * (100% - 210px))' } />
-        <GapCell theme={ theme } width={ 'calc(0.19 * (100% - 210px))' } />
-        <GapCell theme={ theme } width={ '120px' } />
-        <GapCell theme={ theme } width={ 'calc(0.17 * (100% - 210px))' } />
-        <GapCell theme={ theme } width={ 'calc(0.24 * (100% - 210px))' } />
-        <GapCell theme={ theme } width={ '90px' } />
-        <GapCell theme={ theme } width={ 'calc(0.21 * (100% - 210px))' } />
+      <Row theme={ theme } height={19} borderBottom={ isLastGap } >
+        <GapCell theme={ theme } width={ name } />
+        <GapCell theme={ theme } width={ cap } />
+        <GapCell theme={ theme } width={ price } />
+        <GapCell theme={ theme } width={ volume } />
+        <GapCell theme={ theme } width={ supply } />
+        <GapCell theme={ theme } width={ change } />
+        <GapCell theme={ theme } width={ chart } />
       </Row>
     )
   }

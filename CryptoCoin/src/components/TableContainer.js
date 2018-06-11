@@ -1,25 +1,23 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { ThemeContext } from './../theme-context'
 import Table from './Table'
-import FiltersContainer from './Filters'
-import Box from './Box'
+import Filters from './Filters'
 
 const TableWrapper = styled.div`
-  width: calc(100% - 220px);
-  vertical-align: top;
   display: flex;
   flex-direction: column;
   max-height: 100vh;
   overflow-y: scroll;
   transition: all 0;
+  vertical-align: top;
+  width: calc(100% - 220px);
 `
 
 class TableContainer extends React.Component {
   render() {
     return (
       <TableWrapper>
-        <FiltersContainer />
+        <Filters />
         <Table barTransform={ this.props.barTransform } displayMask={ this.props.displayMask} />
       </TableWrapper>
     )

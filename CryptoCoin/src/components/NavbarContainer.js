@@ -1,13 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import MenuContainer from './Menu'
+import Menu from './Menu'
 import { ThemeContext } from './../theme-context'
 
 const Navbar = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
   min-height: 100vh;
   padding: 30px 0 0;
   width: 220px;
@@ -45,8 +44,8 @@ const ChangeView = styled.div`
   }
 
   .icon-wrapper {
-    margin: 0 15px 0 0;
     color: #939393;
+    margin: 0 15px 0 0;
   }
 `
 
@@ -83,7 +82,7 @@ class NavbarContainer extends React.Component {
       <Navbar>
         { this.renderLogo() }
         <MenuWrapper>
-          <MenuContainer />
+          <Menu />
           { this.renderChangeView() }
         </MenuWrapper>
       </Navbar>

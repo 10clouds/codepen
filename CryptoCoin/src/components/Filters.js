@@ -46,52 +46,52 @@ const filters = [
 ]
 
 const FiltersWrapper = styled.div`
+  align-items: flex-end;
+  display: flex;
+  font-size: 11px;
   height: 155px;
+  justify-content: space-around;
   min-height: 155px;
+  padding-bottom: 15px;
   position: sticky;
   top: -75px;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  padding-bottom: 15px;
-  font-size: 11px;
 `
 
-const Select2 = styled.div`
-  position: relative;
-  height: 38px;
-  padding: 0 19px;
-  display: flex;
+const Select = styled.div`
   align-items: center;
-  color: #939393;
   background-color: ${ props => props.bg ? props.theme.filterBackground : null };
   box-shadow: ${ props => props.bg ? '1px 3px 22px 0 rgba(0, 0, 0, .48)' : null };
+  color: #939393;
+  display: flex;
+  height: 38px;
+  padding: 0 19px;
+  position: relative;
+
   &:hover {
     background-color: ${ props => props.bg ? props.theme.accent : null };
   }
 `
 
 const Arrow = styled.div`
-  width: 0;
-  height: 0;
+  border-bottom: ${ props => props.dropdownVisible ? '5px solid #939393' : null };
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: ${ props => props.dropdownVisible ? null : '5px solid #939393' };
-  border-bottom: ${ props => props.dropdownVisible ? '5px solid #939393' : null };
+  height: 0;
   margin: 0 0 0 8px;
+  width: 0;
 `
 
 const Options = styled.div`
   border: 1px dotted pink;
   display: ${ props => props.visible ? 'block' : 'none' };
-  position: absolute;
-  width: 100%;
-  top: 38px;
   left: 0;
+  position: absolute;
+  top: 38px;
+  width: 100%;
 `
 
-class MenuContainer extends React.Component {
-
+class Filters extends React.Component {
   state = {
     filters: filters,
   }
@@ -114,7 +114,7 @@ class MenuContainer extends React.Component {
           return (
             this.state.filters.map( e => {
               return (
-                <Select2 theme={theme} bg={ e.background } onClick={ () => this.handleDropdownClick(e.name) }>
+                <Select theme={theme} bg={ e.background } onClick={ () => this.handleDropdownClick(e.name) }>
                   { e.name || e.options[0] }
                   <Arrow theme={ theme } dropdownVisible={ e.active } />
                   <Options theme={ theme } visible={ e.active } >
@@ -123,7 +123,7 @@ class MenuContainer extends React.Component {
                       { e.options.map( e => <li>{ e }</li>) }
                     </ul>
                   </Options>
-                </Select2>
+                </Select>
               )
             })
           )
@@ -141,4 +141,4 @@ class MenuContainer extends React.Component {
   }
 }
 
-export default MenuContainer
+export default Filters

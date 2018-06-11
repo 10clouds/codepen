@@ -6,32 +6,32 @@ import { ThemeContext, themes } from './../theme-context'
 import TableContainer from './TableContainer'
 
 const Wrapper = styled.div`
-  height: 100%;
-  width: 100%;
+  align-items: stretch;
   color: ${props => props.theme.text};
   display: flex;
-  align-items: stretch;
+  height: 100%;
+  width: 100%;
 `
 
 const Circle = styled.div`
-  height: 100px;
-  width: 100px;
-  background: ${props => props.theme.background};
-  transition: transform 2s ease-in;
+  background: ${ props => props.theme.background };
   border-radius: 100%;
-  position: absolute;
   bottom: 0;
+  height: 100px;
   left: 0;
-  z-index: ${props => props.zIndex};
-  transform: scale(${props => props.scale});
+  position: absolute;
+  transform: scale(${ props => props.scale });
+  transition: transform 2s ease-in;
+  width: 100px;
+  z-index: ${ props => props.zIndex };
 `
 
 const Background = styled.div`
+  background: ${ props => props.color };
   height: 100%;
-  width: 100%;
-  background: ${props => props.color};
-  z-index: ${props => props.zIndex};
   position: absolute;
+  width: 100%;
+  z-index: ${ props => props.zIndex };
 `
 
 class App extends React.Component {
@@ -87,12 +87,16 @@ class App extends React.Component {
     const bgColor = !bgTransform ? theme.background : theme.changeThemeBackground
 
     return (
-      <ThemeContext.Provider value={theme}>
-        <Wrapper theme={theme}>
-          <Background color={bgColor} zIndex={bgZIndex} />
-          <NavbarContainer toggleTheme={this.toggleTheme} />
-          <TableContainer barTransform={ this.state.barTransform } displayMask={ this.state.displayMask}/>
-          <Circle theme={theme} scale={scale} zIndex={circleZIndex} />
+      <ThemeContext.Provider value={ theme }>
+        <Wrapper theme={ theme }>
+          <Background color={ bgColor } zIndex={ bgZIndex } />
+          <NavbarContainer toggleTheme={ this.toggleTheme } />
+          <TableContainer barTransform={ this.state.barTransform } displayMask={ this.state.displayMask }/>
+          <Circle
+            theme={ theme }
+            scale={ scale }
+            zIndex={ circleZIndex }
+          />
         </Wrapper>
       </ThemeContext.Provider>
     )
