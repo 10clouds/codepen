@@ -19,6 +19,8 @@ export const themes = {
     barColor: '#f0f0f0',
     filterBackground: '#e6e6e6',
     tableGrid: '#e6e6e6',
+
+    oppositeBarColor: '#2f3033',
   },
   dark: {
     background: '#1b1d1f',
@@ -33,7 +35,9 @@ export const themes = {
     changeThemeBackground: '#f5f5f5',
     barColor: '#2f3033',
     filterBackground: '#26292c',
-    tableGrid: '#2f3033'
+    tableGrid: '#2f3033',
+
+    oppositeBarColor: '#f0f0f0',
   },
 }
 

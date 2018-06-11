@@ -1,7 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
-import 'react-select/dist/react-select.css'
 
 const filters = [
   {

@@ -17,7 +17,7 @@ const Circle = styled.div`
   height: 100px;
   width: 100px;
   background: ${props => props.theme.background};
-  transition: transform 1s ease-in;
+  transition: transform 2s ease-in;
   border-radius: 100%;
   position: absolute;
   bottom: 0;
@@ -42,6 +42,8 @@ class App extends React.Component {
     bgZIndex: '-1',
     circleZIndex: '-2',
     bgTransform: false,
+    barTransform: '-100%',
+    displayMask: false,
   }
 
   toggleTheme = () => {
@@ -51,7 +53,16 @@ class App extends React.Component {
       bgZIndex: '-2',
       circleZIndex: '-1',
       bgTransform: true,
+      barTransform: 0,
+      displayMask: true,
     }))
+
+    setTimeout( () => {
+      this.setState({
+        barTransform: '-100%',
+        displayMask: false,
+      })
+    }, 1100)
 
     setTimeout(() => {
       this.setState({
@@ -60,7 +71,7 @@ class App extends React.Component {
         circleZIndex: '-2',
         bgTransform: false,
       })
-    }, 1000)
+    }, 2000)
   }
 
   render() {
@@ -80,7 +91,7 @@ class App extends React.Component {
         <Wrapper theme={theme}>
           <Background color={bgColor} zIndex={bgZIndex} />
           <NavbarContainer toggleTheme={this.toggleTheme} />
-          <TableContainer />
+          <TableContainer barTransform={ this.state.barTransform } displayMask={ this.state.displayMask}/>
           <Circle theme={theme} scale={scale} zIndex={circleZIndex} />
         </Wrapper>
       </ThemeContext.Provider>

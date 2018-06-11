@@ -15,6 +15,7 @@
     "assemble": "^0.3.83",
     "babel-plugin-transform-class-properties": "6.24.1",
     "chart.js": "^2.7.2",
+    "classnames": "^2.2.6",
     "downshift": "^1.31.15",
     "grunt": "^0.4.5",
     "parcel-bundler": "1.8.1",

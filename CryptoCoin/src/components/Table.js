@@ -2,47 +2,51 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
+import Box from './Box'
+import DataRow from './DataRow'
 
 const topTenCoins = ['BTC', 'ETH', 'XRP', 'BCH', 'EOS', 'LTC', 'ADA', 'XLM', 'TRX', 'NEO']
-
 const graphEmptyData = topTenCoins.map( e => ({ symbol: e, data: null }))
+const delays = [.4, .32, .25, .18, .15, .12, .1, .1, .1, .1]
+const durations = [.58, .65, .71, .76, .78, .79, .8, .8, .8, .8]
 
-const Data = styled.div`
+const TableWrapper = styled.div`
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr) 140px repeat(2, 1fr) 90px 1fr;
-  grid-template-rows: 75px repeat(10, 75px [col-start] 19px [col-end]);
   padding: 15px;
 `
 
-const Cell = styled.div`
-  background-color: ${ props => props.theme.barColor };
+const Row = styled.div`
+  ${'' /* border: 1px solid magenta; */}
   display: flex;
-  align-items: center;
-  justify-content: ${ props => props.left ? 'flex-start' : 'flex-end' };
-  text-align: ${ props => props.left ? 'left' : 'right' };
+  justify-content:
+  width: 100%;
+  height: ${ props => props.height }px;
+`
+
+const Cell = styled.div`
   padding: 15px;
   color: ${ props => props.color ? props.color : props.theme.text };
   font-size: 11px;
   letter-spacing: 1.6px;
-
-  &:nth-of-type(7n + 1) {
-    margin-left: -4px;
-    border-left: 4px solid ${ props => props.theme.barColor };
-  }
-
-  &:nth-of-type(7n + 7) {
-    margin-right: -8px;
-    border-right: 8px solid ${ props => props.theme.barColor };
-  }
+  ${'' /* border: 1px dashed pink; */}
+  width: ${ props => props.width };
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: ${ props => props.left ? 'flex-start' : 'flex-end' };
 
   div {
-    max-height: 100%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: ${ props => props.left ? 'flex-start' : 'flex-end' };
   }
 `
 
 const GapCell = styled.div`
   border-left: 2px solid ${ props => props.theme.tableGrid };
+  width: ${ props => props.width };
 
   &:nth-of-type(7n + 7) {
     border-right: 2px solid ${ props => props.theme.tableGrid };
@@ -133,10 +137,11 @@ class Table extends React.Component {
       .catch( err => err)
   }
 
-  renderChart(coin, chartColors) {
+  renderChart(coin, CHANGEPCT24HOUR) {
     const chartData = this.state.chartsData.find( e => {
       return e.symbol === coin
     })
+    const chartColors = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? {stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
 
     const def = chartColors.color === 'pink' ? (
       <defs>
@@ -172,15 +177,15 @@ class Table extends React.Component {
       <ThemeContext.Consumer>
         { theme => {
           return (
-            <React.Fragment>
-              <HeaderCell theme={ theme }>Name</HeaderCell>
-              <HeaderCell theme={ theme } >Market Cap</HeaderCell>
-              <HeaderCell theme={ theme }>Price</HeaderCell>
-              <HeaderCell theme={ theme }>Volume<br/>(24h)</HeaderCell>
-              <HeaderCell theme={ theme }>Circulating<br/>Supply</HeaderCell>
-              <HeaderCell theme={ theme }>Change<br/>(24h)%</HeaderCell>
-              <HeaderCell theme={ theme }>Price Graph<br/>(14d)</HeaderCell>
-            </React.Fragment>
+            <Row height={ 75 }>
+              <HeaderCell theme={ theme } width={ 'calc(0.22 * (100% - 210px))' } >Name</HeaderCell>
+              <HeaderCell theme={ theme } width={ 'calc(0.19 * (100% - 210px))' } >Market Cap</HeaderCell>
+              <HeaderCell theme={ theme } width={ '120px' } >Price</HeaderCell>
+              <HeaderCell theme={ theme } width={ 'calc(0.17 * (100% - 210px))' } >Volume<br/>(24h)</HeaderCell>
+              <HeaderCell theme={ theme } width={ 'calc(0.24 * (100% - 210px))' } >Circulating<br/>Supply</HeaderCell>
+              <HeaderCell theme={ theme } width={ '90px' } >Change<br/>(24h)%</HeaderCell>
+              <HeaderCell theme={ theme } width={ 'calc(0.21 * (100% - 210px))' } >Price Graph<br/>(14d)</HeaderCell>
+            </Row>
           )
         }}
       </ThemeContext.Consumer>
@@ -206,29 +211,39 @@ class Table extends React.Component {
             <ThemeContext.Consumer>
               { theme => {
                 const color = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? theme.success : theme.warning) : theme.text
-                const chartColors = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? {stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
 
                 return (
                   <React.Fragment>
-                    <Cell theme={ theme } left>
-                      <Icon src={`https://www.cryptocompare.com/${firstColumnData[index].url}`} />
-                      { firstColumnData[index].name }
-                    </Cell>
-                    <Cell theme={ theme }>${ MKTCAP.toLocaleString() }</Cell>
-                    <Cell theme={ theme }>${ PRICE.toLocaleString() }</Cell>
-                    <Cell theme={ theme }>${ VOLUME24HOUR.toLocaleString() }</Cell>
-                    <Cell theme={ theme }>
-                      { SUPPLY.toLocaleString() }
-                      &nbsp; { FROMSYMBOL }
-                    </Cell>
-                    <Cell
-                      theme={ theme }
-                      color={ color } >
-                      { CHANGEPCT24HOUR.toFixed(2) }%
-                    </Cell>
-                    <Cell theme={ theme }>
-                      { this.renderChart(coin, chartColors) }
-                    </Cell>
+                    <DataRow
+                      barTransform={ this.props.barTransform }
+                      displayMask={ this.props.displayMask}
+                      delay={ delays[index] }
+                      duration={ durations[index] }
+                    >
+                      <Cell theme={ theme } left width={ 'calc(0.22* (100% - 210px))' }>
+                        <Icon src={`https://www.cryptocompare.com/${firstColumnData[index].url}`} />
+                        { firstColumnData[index].name }
+                      </Cell>
+                      <Cell theme={ theme } width={ 'calc(0.19 * (100% - 210px))' }>
+                        ${ MKTCAP.toLocaleString() }
+                      </Cell>
+                      <Cell theme={ theme } width={ '120px' }>${ PRICE.toLocaleString() }</Cell>
+                      <Cell theme={ theme } width={ 'calc(0.17 * (100% - 210px))' }>${ VOLUME24HOUR.toLocaleString() }</Cell>
+                      <Cell theme={ theme } width={ 'calc(0.24 * (100% - 210px))' }>
+                        { SUPPLY.toLocaleString() }
+                        &nbsp; { FROMSYMBOL }
+                      </Cell>
+                      <Cell
+                        theme={ theme }
+                        color={ color }
+                        width={ '90px' }
+                      >
+                        { CHANGEPCT24HOUR.toFixed(2) }%
+                      </Cell>
+                      <Cell theme={ theme } width={ 'calc(0.21 * (100% - 210px))' }>
+                        { this.renderChart(coin, CHANGEPCT24HOUR) }
+                      </Cell>
+                    </DataRow>
                     { this.renderGap(theme) }
                   </React.Fragment>
                 )
@@ -243,28 +258,26 @@ class Table extends React.Component {
 
   renderGap(theme) {
     return(
-      <React.Fragment>
-        <GapCell theme={ theme } />
-        <GapCell theme={ theme } />
-        <GapCell theme={ theme } />
-        <GapCell theme={ theme } />
-        <GapCell theme={ theme } />
-        <GapCell theme={ theme } />
-        <GapCell theme={ theme } />
-      </React.Fragment>
+      <Row height={19}>
+        <GapCell theme={ theme } width={ 'calc(0.22 * (100% - 210px))' } />
+        <GapCell theme={ theme } width={ 'calc(0.19 * (100% - 210px))' } />
+        <GapCell theme={ theme } width={ '120px' } />
+        <GapCell theme={ theme } width={ 'calc(0.17 * (100% - 210px))' } />
+        <GapCell theme={ theme } width={ 'calc(0.24 * (100% - 210px))' } />
+        <GapCell theme={ theme } width={ '90px' } />
+        <GapCell theme={ theme } width={ 'calc(0.21 * (100% - 210px))' } />
+      </Row>
     )
   }
 
   render() {
-    console.log(this.props)
-
     return (
-      <Data>
+      <TableWrapper>
         { this.renderHeader() }
         { this.state.topTenData && this.state.firstColumnData &&
            this.renderRow()
         }
-      </Data>
+      </TableWrapper>
     )
   }
 }

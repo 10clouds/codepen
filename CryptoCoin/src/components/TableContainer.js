@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import Table from './Table'
 import FiltersContainer from './Filters'
+import Box from './Box'
 
 const TableWrapper = styled.div`
   width: calc(100% - 220px);
@@ -19,9 +20,7 @@ class TableContainer extends React.Component {
     return (
       <TableWrapper>
         <FiltersContainer />
-        <Table>
-          table
-        </Table>
+        <Table barTransform={ this.props.barTransform } displayMask={ this.props.displayMask} />
       </TableWrapper>
     )
   }
