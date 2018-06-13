@@ -10,7 +10,7 @@ export const themes = {
     text: '#333333',
     success: '#22cd9a',
     warning: '#e85b99',
-    accent: 'blue', //?
+    accent: '#5368FB', //?
     logo: logoDark,
     menuItemShadow: 'pink',
     changeThemeIcon: MoonIcon,

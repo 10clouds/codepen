@@ -11,6 +11,7 @@ const TableWrapper = styled.div`
   transition: all 0;
   vertical-align: top;
   width: calc(100% - 220px);
+  padding-right: 10px;
 `
 
 class TableContainer extends React.Component {

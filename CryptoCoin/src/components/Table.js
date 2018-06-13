@@ -3,20 +3,8 @@ import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 import DataRow from './DataRow'
+import { topTenCoins, graphEmptyData, delays, durations, cellWidths } from './../constants'
 
-const topTenCoins = ['BTC', 'ETH', 'XRP', 'BCH', 'EOS', 'LTC', 'ADA', 'XLM', 'TRX', 'NEO']
-const graphEmptyData = topTenCoins.map( e => ({ symbol: e, data: null }))
-const delays = [.4, .32, .25, .18, .15, .12, .1, .1, .1, .1]
-const durations = [.58, .65, .71, .76, .78, .79, .8, .8, .8, .8]
-const cellWidths = {
-  name: 'calc(0.22 * (100% - 240px))',
-  cap: 'calc(0.19 * (100% - 240px))',
-  price: '120px',
-  volume: 'calc(0.17 * (100% - 240px))',
-  supply: 'calc(0.24 * (100% - 240px))',
-  change: '120px',
-  chart: 'calc(0.21 * (100% - 240px))',
-}
 const { name, cap, price, volume, supply, change, chart } = cellWidths
 
 const TableWrapper = styled.div`
@@ -204,7 +192,7 @@ class Table extends React.Component {
     )
   }
 
-  renderRow() {
+  renderRows() {
     const { topTenData, firstColumnData } = this.state
     const { barTransform, displayMask } = this.props
 
@@ -289,7 +277,7 @@ class Table extends React.Component {
       <TableWrapper>
         { this.renderHeader() }
         { this.state.topTenData && this.state.firstColumnData &&
-           this.renderRow()
+           this.renderRows()
         }
       </TableWrapper>
     )

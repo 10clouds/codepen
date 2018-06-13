@@ -1,33 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import * as icons from './icons/icons.js'
 import { ThemeContext } from './../theme-context'
-
-const menuItems = [
-  {
-    item: 'Prices',
-    icon: icons.PricesIcon,
-  },
-  {
-    item: 'Wallet',
-    icon: icons.WalletIcon,
-  },
-  {
-    item: 'Portfolio',
-    icon: icons.PortfolioIcon,
-  },
-  {
-    item: 'Exchange',
-    icon: icons.ExchangeIcon,
-  },
-  {
-    item: 'Settings',
-    icon: icons.SettingsIcon,
-  },
-]
+import { menuItems } from './../constants'
 
 class Menu extends React.Component {
-
   renderMenuItems(items) {
     const MenuItem = styled.li`
       align-items: center;

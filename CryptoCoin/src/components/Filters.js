@@ -1,60 +1,19 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
-
-const filters = [
-  {
-    name: 'ALL',
-    options: ['aaa', 'sss', 'ddd', 'fff'],
-    background: false,
-  },
-  {
-    name: 'COINS',
-    options: ['qqq', 'www', 'eee', 'rrr'],
-    background: false,
-  },
-  {
-    name: 'TOKENS',
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: false,
-  },
-  {
-    name: null,
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
-  },
-  {
-    name: 'MARKET CAP',
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
-  },
-  {
-    name: 'TREND VOLUME',
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
-  },
-  {
-    name: 'TRENDING',
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
-  },
-  {
-    name: 'TOOLS',
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
-  },
-]
+import { filters } from './../constants'
 
 const FiltersWrapper = styled.div`
   align-items: flex-end;
   display: flex;
   font-size: 11px;
   height: 155px;
-  justify-content: space-around;
+  justify-content: flex-end;
   min-height: 155px;
-  padding-bottom: 15px;
+  padding: 0 15px 15px 0;
   position: sticky;
   top: -75px;
+
 `
 
 const Select = styled.div`
@@ -66,10 +25,11 @@ const Select = styled.div`
   height: 38px;
   padding: 0 19px;
   position: relative;
+  margin: 0 0 0 30px;
 
-  &:hover {
+  ${'' /* &:hover {
     background-color: ${ props => props.bg ? props.theme.accent : null };
-  }
+  } */}
 `
 
 const Arrow = styled.div`

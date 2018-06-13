@@ -8,8 +8,15 @@ const Row = styled.div`
   height: 75px;
   overflow: hidden;
   position: relative;
-  width: 100%;
   z-index: 1;
+  transform: scale(1.00);
+  transition: transform .15s ease-in;
+  margin: 0 -5px;
+  box-shadow: 1px 3px 91px 0 rgba(0, 0, 0, 0.39);
+
+  &:hover {
+    transform: scale(1.015, 1.1);
+  }
 `
 
 const Background = styled.div`
