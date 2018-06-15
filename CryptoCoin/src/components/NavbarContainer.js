@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import Menu from './Menu'
 import { ThemeContext } from './../theme-context'
+import PropTypes from 'prop-types'
 
 const Navbar = styled.div`
   display: flex;
@@ -10,6 +11,8 @@ const Navbar = styled.div`
   min-height: 100vh;
   padding: 30px 0 0;
   width: 220px;
+
+  position: fixed;
 `
 
 const Logo = styled.img`
@@ -50,6 +53,11 @@ const ChangeView = styled.div`
 `
 
 class NavbarContainer extends React.Component {
+  static propTypes = {
+    bgColor: PropTypes.string,
+    zIndex: PropTypes.string,
+  }
+
   renderLogo () {
     return (
       <ThemeContext.Consumer>

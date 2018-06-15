@@ -3,28 +3,28 @@ import * as icons from './components/icons/icons.js'
 const filters = [
   {
     name: null,
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: 'accent',
+    options: ['USD', 'EUR', 'BTC', 'ETH'],
+    selected: 'USD',
   },
   {
     name: 'MARKET CAP',
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
+    options: ['ALL', 'COINS', 'TOKENS'],
+    selected: null,
   },
   {
-    name: 'TREND VOLUME',
+    name: 'TRADE VOLUME',
     options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
+    selected: null,
   },
   {
     name: 'TRENDING',
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
+    options: ['GAINERS AND LOOSERS', 'RECENTLY ADDED'],
+    selected: null,
   },
   {
     name: 'TOOLS',
     options: ['zzz', 'xxx', 'ccc', 'vvv'],
-    background: true,
+    selected: null,
   },
 ]
 

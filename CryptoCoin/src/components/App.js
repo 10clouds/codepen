@@ -19,19 +19,23 @@ const Circle = styled.div`
   bottom: 0;
   height: 100px;
   left: 0;
-  position: absolute;
+  /* position: absolute; */
   transform: scale(${ props => props.scale });
   transition: transform 2s ease-in;
   width: 100px;
   z-index: ${ props => props.zIndex };
+
+  position: fixed;
 `
 
 const Background = styled.div`
   background: ${ props => props.color };
   height: 100%;
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
   z-index: ${ props => props.zIndex };
+
+  position: fixed;
 `
 
 class App extends React.Component {

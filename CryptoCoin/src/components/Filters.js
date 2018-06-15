@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import { filters } from './../constants'
+import { lighten } from 'polished'
 
 const FiltersWrapper = styled.div`
   align-items: flex-end;
@@ -13,19 +14,38 @@ const FiltersWrapper = styled.div`
   padding: 0 15px 15px 0;
   position: sticky;
   top: -75px;
-
+  z-index: 6;
 `
 
 const Select = styled.div`
   align-items: center;
-  background-color: ${ props => props.bg ? props.theme.filterBackground : null };
-  box-shadow: ${ props => props.bg ? '1px 3px 22px 0 rgba(0, 0, 0, .48)' : null };
+  background-color: ${ props => props.theme.filterBackground };
+  box-shadow: 1px 3px 22px 0 rgba(0, 0, 0, .48);
   color: #939393;
   display: flex;
   height: 38px;
-  padding: 0 19px;
+  padding: 0 35px;
   position: relative;
   margin: 0 0 0 30px;
+  z-index: +1;
+
+    ul {
+      background-color: ${ props => props.theme.filterBackground };
+      width: 100%;
+      box-shadow: 1px 3px 22px 0 rgba(0, 0, 0, .48);
+
+      li {
+        height: 45px;
+        padding: 0 35px;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          box-shadow: 1px 3px 22px 0 rgba(0, 0, 0, .48);
+          color: ${lighten(0.3, '#939393')};
+        }
+      }
+    }
 
   ${'' /* &:hover {
     background-color: ${ props => props.bg ? props.theme.accent : null };
@@ -43,7 +63,6 @@ const Arrow = styled.div`
 `
 
 const Options = styled.div`
-  border: 1px dotted pink;
   display: ${ props => props.visible ? 'block' : 'none' };
   left: 0;
   position: absolute;
@@ -67,20 +86,24 @@ class Filters extends React.Component {
     })
   }
 
+  handleOptionClick(e) {
+    console.log(e.target)
+  }
+
   renderFilters() {
     return (
       <ThemeContext.Consumer>
         {theme => {
           return (
-            this.state.filters.map( e => {
+            this.state.filters.map( filter => {
               return (
-                <Select theme={theme} bg={ e.background } onClick={ () => this.handleDropdownClick(e.name) }>
-                  { e.name || e.options[0] }
-                  <Arrow theme={ theme } dropdownVisible={ e.active } />
-                  <Options theme={ theme } visible={ e.active } >
+                <Select theme={ theme } onClick={ () => this.handleDropdownClick(filter.name) }>
+                  { filter.name || filter.options[0] }
+                  <Arrow dropdownVisible={ filter.active } />
+                  <Options theme={ theme } visible={ filter.active } >
                     <ul>
                       {/* TODO: jak nie renderowac pierwszej wartosci, jezeli brak name (usd) */}
-                      { e.options.map( e => <li>{ e }</li>) }
+                      { filter.options.map( option => <li onClick={ e => this.handleOptionClick(e) }>{ option }</li> )}
                     </ul>
                   </Options>
                 </Select>
@@ -92,9 +115,14 @@ class Filters extends React.Component {
     )
   }
 
+  fn = () => {
+    this.props.callback("aaaaa")
+  }
+
   render() {
     return (
       <FiltersWrapper>
+        { this.fn() }
         { this.renderFilters() }
       </FiltersWrapper>
     )

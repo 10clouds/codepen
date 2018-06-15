@@ -4,6 +4,7 @@ import { ThemeContext } from './../theme-context'
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 import DataRow from './DataRow'
 import { topTenCoins, graphEmptyData, delays, durations, cellWidths } from './../constants'
+import PropTypes from 'prop-types'
 
 const { name, cap, price, volume, supply, change, chart } = cellWidths
 
@@ -50,7 +51,7 @@ const GapCell = styled.div`
 `
 
 const HeaderCell = GapCell.extend`
-  border-top: 2px solid ${ props => props.theme.tableGrid };
+  border-top: 1px solid ${ props => props.theme.tableGrid };
   color: #939393;
   font-size: 10px;
   letter-spacing: 1.5px;
@@ -71,6 +72,12 @@ const Icon = styled.img`
 `
 
 class Table extends React.Component {
+
+  static propTypes = {
+    barTransform: PropTypes.string ,
+    displayMask: PropTypes.bool,
+  }
+
   state = {
     topTenData: null,
     firstColumnData: null,
@@ -79,6 +86,7 @@ class Table extends React.Component {
 
   componentDidMount() {
     //this.getTopTenList()
+
     this.getFirstColumnData()
     this.getData()
     topTenCoins.map( symbol => {
@@ -98,7 +106,7 @@ class Table extends React.Component {
   }
 
   getTopTenList() {
-    fetch('https://api.coinmarketcap.com/v2/ticker/?limit=10&structure=array')
+    fetch('https://api.coinmarketcap.com/v2/ticker/?limit=15&structure=array')
       .then( resp => resp.json() )
       .then( all => all.data )
       .then( data => data.map( e => e.symbol) )
