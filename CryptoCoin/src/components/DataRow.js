@@ -12,7 +12,7 @@ const Row = styled.div`
   transform: scale(1.00);
   transition: transform .15s ease-in;
   margin: 0 -5px;
-  box-shadow: 1px 3px 91px 0 rgba(0, 0, 0, 0.39);
+  box-shadow: 1px 3px 68px 0 rgba(0, 0, 0, 0.39);
 
   &:hover {
     transform: scale(1.015, 1.1);
@@ -60,12 +60,12 @@ class DataRow extends React.Component {
 
   render() {
     const classname = cn({
-      'transform': this.props.barTransform === 0
+      'transform': this.props.barTransform === '0'
     })
 
     return (
       <ThemeContext.Consumer>
-        {theme => {
+        {({ theme }) => {
           return (
             <Row theme={ theme } >
               <Background theme={ theme } />

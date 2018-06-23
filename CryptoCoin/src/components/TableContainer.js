@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Table from './Table'
 import Filters from './Filters'
 import PropTypes from 'prop-types'
+import { ThemeContext } from './../theme-context'
 
 const TableWrapper = styled.div`
   display: flex;
@@ -23,19 +24,25 @@ class TableContainer extends React.Component {
   }
 
   state = {
-    currency: 'USD',
-  }
-
-  callback = ( childData ) => {
-    console.log(childData)
-
+    //currency: 'USD',
   }
 
   render() {
+
     return (
       <TableWrapper>
         <Filters callback={ this.callback } />
-        <Table barTransform={ this.props.barTransform } displayMask={ this.props.displayMask} />
+        <ThemeContext.Consumer>
+          {({ selectedFilters }) => {
+            return (
+              <Table
+                barTransform={ this.props.barTransform }
+                displayMask={ this.props.displayMask }
+                selectedFilters={ selectedFilters }
+              />
+            )
+          }}
+        </ThemeContext.Consumer>
       </TableWrapper>
     )
   }

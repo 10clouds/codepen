@@ -33,7 +33,7 @@ class Menu extends React.Component {
 
     return (
       <ThemeContext.Consumer>
-        { theme => (
+        {({ theme }) => (
           items.map((item, i) => (
             <MenuItem key={i} theme={theme}>
               <div className="icon-wrapper">

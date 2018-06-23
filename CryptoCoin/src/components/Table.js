@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 import DataRow from './DataRow'
-import { topTenCoins, graphEmptyData, delays, durations, cellWidths } from './../constants'
+import { topTenCoins, delays, durations, cellWidths, currencySymbols } from './../constants'
 import PropTypes from 'prop-types'
 
 const { name, cap, price, volume, supply, change, chart } = cellWidths
@@ -76,73 +76,90 @@ class Table extends React.Component {
   static propTypes = {
     barTransform: PropTypes.string ,
     displayMask: PropTypes.bool,
+    selectedFilters: PropTypes.object,
   }
 
   state = {
     topTenData: null,
-    firstColumnData: null,
-    chartsData: graphEmptyData,
+    selectedFilters: this.props.selectedFilters,
   }
 
-  componentDidMount() {
-    //this.getTopTenList()
+  renderRows2(firstColumnData, topTenData, theme, chartsData, selectedFilters, marketCapType) {
+    const { barTransform, displayMask } = this.props
+    const currency = selectedFilters.currency
+    const currencySymbol = currencySymbols[Object.keys(currencySymbols).find( (e) => e === currency )]
 
-    this.getFirstColumnData()
-    this.getData()
-    topTenCoins.map( symbol => {
-      fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=13&aggregate=1`)
-        .then( resp => resp.json() )
-        .then( data => data.Data )
-        .then( data => Promise.all(data.map( (data) => {
-          return ( {price: data.close} )
-        })))
-        .then( info => this.setState({ chartsData: this.state.chartsData.map( coin => {
-          if (coin.symbol === symbol) coin.data = info
-          return coin
-        }
-        )}))
-        .catch( err => (err))
-    })
+    return (
+      <React.Fragment>
+        { marketCapType.map( (coin, index) => {
+
+          const {
+            MKTCAP,
+            PRICE,
+            VOLUME24HOUR,
+            SUPPLY,
+            CHANGEPCT24HOUR,
+            FROMSYMBOL
+          } = topTenData[coin][currency]
+          const isLastGap = index === marketCapType.length - 1
+          const color = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? theme.success : theme.warning) : theme.text
+
+          return (
+            <React.Fragment>
+              <DataRow
+                barTransform={ barTransform }
+                displayMask={ displayMask}
+                delay={ delays[index] }
+                duration={ durations[index] }
+              >
+                <Cell theme={ theme } left width={ name }>
+                  <Icon src={`https://www.cryptocompare.com/${firstColumnData[index].url}`} />
+                  { firstColumnData[index].name }
+                </Cell>
+                <Cell theme={ theme } width={ cap }>
+                  { currencySymbol } { MKTCAP.toLocaleString() }
+                </Cell>
+                <Cell theme={ theme } width={ price }>{ currencySymbol } { PRICE.toLocaleString() }</Cell>
+                <Cell theme={ theme } width={ volume }>{ currencySymbol } { VOLUME24HOUR.toLocaleString() }</Cell>
+                <Cell theme={ theme } width={ supply }>
+                  { SUPPLY.toLocaleString() }
+                  &nbsp;{ FROMSYMBOL }
+                </Cell>
+                <Cell
+                  theme={ theme }
+                  color={ color }
+                  width={ change }
+                >
+                  { CHANGEPCT24HOUR.toFixed(2) }%
+                </Cell>
+                <Cell theme={ theme } width={ chart }>
+                  { this.renderChart(coin, CHANGEPCT24HOUR, chartsData) }
+                </Cell>
+              </DataRow>
+              { this.renderGap(theme, isLastGap) }
+
+            </React.Fragment>
+          )
+        })}
+
+      </React.Fragment>
+    )
   }
 
-  getTopTenList() {
-    fetch('https://api.coinmarketcap.com/v2/ticker/?limit=15&structure=array')
-      .then( resp => resp.json() )
-      .then( all => all.data )
-      .then( data => data.map( e => e.symbol) )
-      .then( topTenList => this.setState({ topTenList }) )
-      .catch( err => err )
-  }
+  // getTopTenList() {
+  //   fetch('https://api.coinmarketcap.com/v2/ticker/?limit=15&structure=array')
+  //     .then( resp => resp.json() )
+  //     .then( all => all.data )
+  //     .then( data => data.map( e => e.symbol) )
+  //     .then( topTenList => this.setState({ topTenList }) )
+  //     .catch( err => err )
+  // }
 
-  getFirstColumnData() {
-    fetch(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${topTenCoins}&tsym=USD`)
-      .then( resp => resp.json() )
-      .then( data => data.Data )
-      .then( data => data.map( coin => {
-        return (
-          {
-            name: coin.CoinInfo.FullName,
-            url: coin.CoinInfo.ImageUrl
-          }
-        )
-      }))
-      .then( firstColumnData => this.setState({ firstColumnData }) )
-      .catch( err => err)
-  }
-
-  getData() {
-    fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${topTenCoins}&tsyms=USD`)
-      .then( resp => resp.json() )
-      .then( data => Promise.resolve(data.RAW) )
-      .then( topTenData => this.setState({ topTenData}) )
-      .catch( err => err)
-  }
-
-  renderChart(coin, CHANGEPCT24HOUR) {
-    const chartData = this.state.chartsData.find( e => {
+  renderChart(coin, CHANGEPCT24HOUR, chartsData) {
+    const chartData = chartsData.find( e => {
       return e.symbol === coin
     })
-    const chartColors = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? {stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
+    const chartColors = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? { stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
     const fill = chartColors.color === 'pink' ? 'url(#pink)' : (chartColors.color === 'blue' ? 'url(#blue)' : 'url(#white)')
     const def = chartColors.color === 'pink' ? (
       <defs>
@@ -183,7 +200,7 @@ class Table extends React.Component {
   renderHeader() {
     return (
       <ThemeContext.Consumer>
-        { theme => {
+        {({ theme }) => {
           return (
             <Row height={ 75 }>
               <HeaderCell theme={ theme } width={ name }>Name</HeaderCell>
@@ -197,72 +214,6 @@ class Table extends React.Component {
           )
         }}
       </ThemeContext.Consumer>
-    )
-  }
-
-  renderRows() {
-    const { topTenData, firstColumnData } = this.state
-    const { barTransform, displayMask } = this.props
-
-    return (
-      <React.Fragment>
-        { topTenCoins.map( (coin, index) => {
-          const {
-            MKTCAP,
-            PRICE,
-            VOLUME24HOUR,
-            SUPPLY,
-            CHANGEPCT24HOUR,
-            FROMSYMBOL
-          } = topTenData[coin].USD
-          const isLastGap = index === topTenCoins.length - 1
-
-          return (
-            <ThemeContext.Consumer>
-              { theme => {
-                const color = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? theme.success : theme.warning) : theme.text
-
-                return (
-                  <React.Fragment>
-                    <DataRow
-                      barTransform={ barTransform }
-                      displayMask={ displayMask}
-                      delay={ delays[index] }
-                      duration={ durations[index] }
-                    >
-                      <Cell theme={ theme } left width={ name }>
-                        <Icon src={`https://www.cryptocompare.com/${firstColumnData[index].url}`} />
-                        { firstColumnData[index].name }
-                      </Cell>
-                      <Cell theme={ theme } width={ cap }>
-                        ${ MKTCAP.toLocaleString() }
-                      </Cell>
-                      <Cell theme={ theme } width={ price }>${ PRICE.toLocaleString() }</Cell>
-                      <Cell theme={ theme } width={ volume }>${ VOLUME24HOUR.toLocaleString() }</Cell>
-                      <Cell theme={ theme } width={ supply }>
-                        { SUPPLY.toLocaleString() }
-                        &nbsp;{ FROMSYMBOL }
-                      </Cell>
-                      <Cell
-                        theme={ theme }
-                        color={ color }
-                        width={ change }
-                      >
-                        { CHANGEPCT24HOUR.toFixed(2) }%
-                      </Cell>
-                      <Cell theme={ theme } width={ chart }>
-                        { this.renderChart(coin, CHANGEPCT24HOUR) }
-                      </Cell>
-                    </DataRow>
-                    { this.renderGap(theme, isLastGap) }
-                  </React.Fragment>
-                )
-              }}
-            </ThemeContext.Consumer>
-          )
-        })
-        }
-      </React.Fragment>
     )
   }
 
@@ -284,9 +235,16 @@ class Table extends React.Component {
     return (
       <TableWrapper>
         { this.renderHeader() }
-        { this.state.topTenData && this.state.firstColumnData &&
-           this.renderRows()
-        }
+        <ThemeContext.Consumer >
+          {({ theme, firstColumnData, topTenData, chartsData, selectedFilters, marketCapType }) => {
+            return (
+              topTenData && chartsData ?
+                this.renderRows2(firstColumnData, topTenData, theme, chartsData, selectedFilters, marketCapType) :
+                null
+            )
+          }}
+        </ThemeContext.Consumer>
+
       </TableWrapper>
     )
   }

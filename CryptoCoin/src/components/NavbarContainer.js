@@ -61,7 +61,7 @@ class NavbarContainer extends React.Component {
   renderLogo () {
     return (
       <ThemeContext.Consumer>
-        {theme => {
+        {({ theme }) => {
           return <Logo src={ theme.logo } alt="CryptoCoin" />
         }}
       </ThemeContext.Consumer>
@@ -71,7 +71,7 @@ class NavbarContainer extends React.Component {
   renderChangeView() {
     return (
       <ThemeContext.Consumer>
-        { theme => {
+        {({ theme }) => {
           return (
             <ChangeView onClick={ this.props.toggleTheme } theme={ theme }>
               <div className="icon-wrapper">
