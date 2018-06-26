@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
-import { filters2 } from './../constants'
+import { filters } from './../constants'
 import { lighten } from 'polished'
 
 const FiltersWrapper = styled.div`
@@ -73,15 +73,15 @@ const Options = styled.div`
 
 class Filters extends React.Component {
   state = {
-    filters2: filters2,
+    filters
   }
 
   handleDropdownClick = (filterName) => {
-    const tempFilters = this.state.filters2
+    const tempFilters = this.state.filters
     tempFilters[filterName].active = !tempFilters[filterName].active
 
     this.setState({
-      filters2: tempFilters
+      filters: tempFilters
     })
   }
 
@@ -90,19 +90,19 @@ class Filters extends React.Component {
       <ThemeContext.Consumer>
         {({ theme, handleFilterOptionSelect }) => {
           return (
-            Object.keys(this.state.filters2).map( filter => {
+            Object.keys(this.state.filters).map( filter => {
               return (
                 <Select
                   key={ filter }
                   onClick={ () => this.handleDropdownClick(filter) }
                   theme={ theme }
                 >
-                  { this.state.filters2[filter].name }
+                  { this.state.filters[filter].name }
                   <Arrow dropdownVisible={ filter.active } />
-                  <Options theme={ theme } visible={ this.state.filters2[filter].active } >
+                  <Options theme={ theme } visible={ this.state.filters[filter].active } >
                     <ul>
                       {
-                        this.state.filters2[filter].options.map( option => {
+                        this.state.filters[filter].options.map( option => {
                           return (
                             <li
                               key={ option }

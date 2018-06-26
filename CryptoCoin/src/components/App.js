@@ -4,7 +4,7 @@ import NavbarContainer from './NavbarContainer'
 import baseStyles from '../base-styles'
 import { ThemeContext, themes } from './../theme-context'
 import TableContainer from './TableContainer'
-import { filters2, topTenCoins, topTenTokens } from './../constants'
+import { filters, topTenCoins, topTenTokens } from './../constants'
 
 const Wrapper = styled.div`
   align-items: stretch;
@@ -48,34 +48,47 @@ class App extends React.Component {
     firstColumnData: [],
     chartsData: null,
     marketCapType: topTenCoins,
-    currency: 'USD'
+    currency: 'USD',
+    rowData: [],
   }
 
   async componentDidMount() {
-    const firstColumnData = await this.getFirstColumnData(this.state.marketCapType)
-    const topTenData = await this.getData(this.state.currency, this.state.marketCapType)
+    const { marketCapType, currency } = this.state
+    const firstColumnData = await this.getFirstColumnData(marketCapType)
+    const topTenData = await this.getData(currency, marketCapType)
+    const graphEmptyData = marketCapType.map( e => ({ symbol: e, data: null }))
+    const chartsData = await this.getChartsData(marketCapType, graphEmptyData, currency)
+    const rowDataObj = firstColumnData
+
+    this.createRowDataObj(rowDataObj, topTenData, currency, chartsData)
+
     this.setState({
       firstColumnData,
-      topTenData
+      topTenData,
+      chartsData,
+      rowDataObj
     })
+  }
 
-    const graphEmptyData = this.state.marketCapType.map( e => ({ symbol: e, data: null }))
+  createRowDataObj(rowDataObj, topTenData, currency, chartsData) {
+    rowDataObj.map( obj => {
+      const {
+        MKTCAP,
+        PRICE,
+        VOLUME24HOUR,
+        SUPPLY,
+        CHANGEPCT24HOUR,
+        FROMSYMBOL
+      } = topTenData[obj.symbol][currency]
 
-    //TODO: filters
-    Promise.all(this.state.marketCapType.map( symbol => {
-      fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=${this.state.currency}&limit=13&aggregate=1`)
-        .then( resp => resp.json() )
-        .then( data => data.Data )
-        .then( data => data.map( (data) => {
-          return { price: data.close }
-        }))
-        .then( info => this.setState({ chartsData: graphEmptyData.map( coin => {
-          if (coin.symbol === symbol) coin.data = info
-          return coin
-        }
-        ) }))
-        .catch( err => err )
-    }))
+      obj.marketCap = MKTCAP
+      obj.price = PRICE
+      obj.volume = VOLUME24HOUR
+      obj.supply = SUPPLY
+      obj.change = CHANGEPCT24HOUR
+      obj.fromSymbol = FROMSYMBOL
+      obj.chartData = chartsData.find( e => e.symbol === obj.symbol ).data
+    })
   }
 
   toggleTheme = () => {
@@ -106,16 +119,18 @@ class App extends React.Component {
     }, 2000)
   }
 
-
   async handleFilterOptionSelect(filter, option) {
     if ( filter === 'marketCap' ) {
       const marketCapType = option === 'TOKENS' ? topTenTokens : topTenCoins
-
       const graphEmptyData = marketCapType.map( e => ({ symbol: e, data: null }))
-      const currency = this.state.currency ? this.state.currency : 'USD'
+      const currency = this.state.currency
       const firstColumnData = await this.getFirstColumnData(marketCapType)
       const topTenData = await this.getData(currency, marketCapType)
-      const chartsData = await this.getChartsData(marketCapType, graphEmptyData)
+      const chartsData = await this.getChartsData(marketCapType, graphEmptyData, currency)
+
+      const rowDataObj = firstColumnData
+
+      this.createRowDataObj(rowDataObj, topTenData, currency, chartsData)
 
       this.setState({
         [filter]: option,
@@ -123,31 +138,71 @@ class App extends React.Component {
         topTenData,
         marketCapType,
         chartsData,
+        rowDataObj,
       })
     }
 
     if ( filter === 'currency' ) {
-      const marketCapType = this.state.marketCap ? this.state.marketCap : topTenCoins
+      const marketCapType = this.state.marketCapType
       const topTenData = await this.getData(option, marketCapType)
+      const graphEmptyData = marketCapType.map( e => ({ symbol: e, data: null }))
+      const chartsData = await this.getChartsData(marketCapType, graphEmptyData, option)
+
+      const rowDataObj = this.state.firstColumnData
+
+      this.createRowDataObj(rowDataObj, topTenData, option, chartsData)
+
       this.setState({
         [filter]: option,
-        topTenData
+        topTenData,
+        chartsData,
+        rowDataObj,
       })
+    }
 
-      this.state.marketCapType.map( symbol => {
-        fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=13&aggregate=1`)
-          .then( resp => resp.json() )
-          .then( data => data.Data )
-          .then( data => Promise.all(data.map( (data) => {
-            return { price: data.close }
-          })))
-          .then( info => this.setState({ chartsData: this.state.chartsData.map( coin => {
-            if (coin.symbol === symbol) coin.data = info
-            return coin
-          }
-          ) }))
-          .catch( err => (err))
-      })
+    if ( filter === 'sort' ) {
+
+
+      //   default:
+      //     console.log('Sorry, we are out of ' + expr + '.');
+      // }
+
+      // switch (option) {
+      //   case 'PRICE': {
+      //     const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+      //       return b.price - a.price
+      //     })
+      //     this.setState({ rowDataObj })
+      //     break
+      // }
+
+
+      if ( option === 'PRICE' ) {
+        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+          return b.price - a.price
+        })
+        this.setState({ rowDataObj })
+      } else if ( option === 'MARKET CAP' ) {
+        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+          return b.marketCap - a.marketCap
+        })
+        this.setState({ rowDataObj })
+      } else if ( option === 'VOLUME' ) {
+        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+          return b.volume - a.volume
+        })
+        this.setState({ rowDataObj })
+      } else if ( option === 'CIRCULATING SUPPLY' ) {
+        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+          return b.supply - a.supply
+        })
+        this.setState({ rowDataObj })
+      } else if ( option === 'CHANGE' ) {
+        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+          return b.change - a.change
+        })
+        this.setState({ rowDataObj })
+      }
     }
   }
 
@@ -158,6 +213,7 @@ class App extends React.Component {
       .then( data => data.map( coin => {
         return (
           {
+            symbol: coin.CoinInfo.Name,
             name: coin.CoinInfo.FullName,
             url: coin.CoinInfo.ImageUrl
           }
@@ -167,9 +223,9 @@ class App extends React.Component {
       .catch( err => err )
   }
 
-  getChartsData(marketCapType, graphEmptyData) {
+  getChartsData(marketCapType, graphEmptyData, currency) {
     return Promise.all(marketCapType.map( (symbol, index) => {
-      return fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=USD&limit=13&aggregate=1`)
+      return fetch(`https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=${currency}&limit=13&aggregate=1`)
         .then( resp => resp.json() )
         .then( data => data.Data )
         .then( data => data.map( (data) => {
@@ -179,7 +235,7 @@ class App extends React.Component {
           graphEmptyData[index].data = info
           return graphEmptyData[index]
         })
-        .then( x => x )
+        .then( chartData => chartData )
         .catch( err => err )
     }))
   }
@@ -204,12 +260,15 @@ class App extends React.Component {
 
     const bgColor = !bgTransform ? theme.background : theme.changeThemeBackground
 
-    const selectedFilters = Object.keys(filters2).reduce( (accumulator, currentValue) => {
-      const filter = filters2[currentValue]
+    const selectedFilters = Object.keys(filters).reduce( (accumulator, currentValue) => {
+      const filter = filters[currentValue]
       return Object.assign({}, accumulator, {
         [currentValue] : this.state[currentValue] ? this.state[currentValue] : filter.options[0]
       })
     }, {} )
+
+    //console.log(this.state.chartsData)
+
 
     return (
       <ThemeContext.Provider value={{
@@ -219,7 +278,8 @@ class App extends React.Component {
         firstColumnData: this.state.firstColumnData,
         topTenData: this.state.topTenData,
         chartsData: this.state.chartsData,
-        marketCapType: this.state.marketCapType
+        marketCapType: this.state.marketCapType,
+        rowDataObj: this.state.rowDataObj
       }}>
         <Wrapper theme={ theme }>
           <Background color={ bgColor } zIndex={ bgZIndex } />

@@ -12,6 +12,8 @@ class Menu extends React.Component {
       display: flex;
       font-size: 14px;
       height: 53px;
+      letter-spacing: 1.43px;
+      margin-bottom: 10px;
       padding: 0 0 0 30px;
       transition: color .3s;
 
@@ -27,7 +29,7 @@ class Menu extends React.Component {
 
       .icon-wrapper {
         color: #939393;
-        margin: 0 15px 0 0;
+        margin: 0 25px 0 0;
       }
     `
 

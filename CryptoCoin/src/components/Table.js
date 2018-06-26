@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 import DataRow from './DataRow'
-import { topTenCoins, delays, durations, cellWidths, currencySymbols } from './../constants'
+import { delays, durations, cellWidths, currencySymbols } from './../constants'
 import PropTypes from 'prop-types'
 
-const { name, cap, price, volume, supply, change, chart } = cellWidths
+const { nameWidth, capWidth, priceWidth, volumeWidth, supplyWidth, changeWidth, chartWidth } = cellWidths
 
 const TableWrapper = styled.div`
   padding: 15px;
@@ -84,25 +84,28 @@ class Table extends React.Component {
     selectedFilters: this.props.selectedFilters,
   }
 
-  renderRows2(firstColumnData, topTenData, theme, chartsData, selectedFilters, marketCapType) {
+  renderRows(rowDataObj, selectedFilters, theme, marketCapType) {
     const { barTransform, displayMask } = this.props
     const currency = selectedFilters.currency
-    const currencySymbol = currencySymbols[Object.keys(currencySymbols).find( (e) => e === currency )]
+    const currencySymbol = currencySymbols[Object.keys(currencySymbols).find( e => e === currency )]
 
     return (
       <React.Fragment>
-        { marketCapType.map( (coin, index) => {
-
+        { rowDataObj.map( obj => obj.symbol ).map( (coin, index) => {
           const {
-            MKTCAP,
-            PRICE,
-            VOLUME24HOUR,
-            SUPPLY,
-            CHANGEPCT24HOUR,
-            FROMSYMBOL
-          } = topTenData[coin][currency]
+            name,
+            url,
+            marketCap,
+            price,
+            volume,
+            supply,
+            change,
+            fromSymbol,
+            chartData,
+          } = rowDataObj.find( e => e.symbol === coin )
+
           const isLastGap = index === marketCapType.length - 1
-          const color = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? theme.success : theme.warning) : theme.text
+          const color = change !== 0 ? (change > 0 ? theme.success : theme.warning) : theme.text
 
           return (
             <React.Fragment>
@@ -112,36 +115,34 @@ class Table extends React.Component {
                 delay={ delays[index] }
                 duration={ durations[index] }
               >
-                <Cell theme={ theme } left width={ name }>
-                  <Icon src={`https://www.cryptocompare.com/${firstColumnData[index].url}`} />
-                  { firstColumnData[index].name }
+                <Cell theme={ theme } left width={ nameWidth }>
+                  <Icon src={`https://www.cryptocompare.com/${url}`} />
+                  { name }
                 </Cell>
-                <Cell theme={ theme } width={ cap }>
-                  { currencySymbol } { MKTCAP.toLocaleString() }
+                <Cell theme={ theme } width={ capWidth }>
+                  { currencySymbol } { marketCap.toLocaleString() }
                 </Cell>
-                <Cell theme={ theme } width={ price }>{ currencySymbol } { PRICE.toLocaleString() }</Cell>
-                <Cell theme={ theme } width={ volume }>{ currencySymbol } { VOLUME24HOUR.toLocaleString() }</Cell>
-                <Cell theme={ theme } width={ supply }>
-                  { SUPPLY.toLocaleString() }
-                  &nbsp;{ FROMSYMBOL }
+                <Cell theme={ theme } width={ priceWidth }>{ currencySymbol } { price.toLocaleString() }</Cell>
+                <Cell theme={ theme } width={ volumeWidth }>{ currencySymbol } { volume.toLocaleString() }</Cell>
+                <Cell theme={ theme } width={ supplyWidth }>
+                  { supply.toLocaleString() }
+                  &nbsp;{ fromSymbol }
                 </Cell>
                 <Cell
                   theme={ theme }
                   color={ color }
-                  width={ change }
+                  width={ changeWidth }
                 >
-                  { CHANGEPCT24HOUR.toFixed(2) }%
+                  { change.toFixed(2) }%
                 </Cell>
-                <Cell theme={ theme } width={ chart }>
-                  { this.renderChart(coin, CHANGEPCT24HOUR, chartsData) }
+                <Cell theme={ theme } width={ chartWidth }>
+                  { this.renderChart(coin, change, chartData) }
                 </Cell>
               </DataRow>
               { this.renderGap(theme, isLastGap) }
-
             </React.Fragment>
           )
         })}
-
       </React.Fragment>
     )
   }
@@ -155,11 +156,8 @@ class Table extends React.Component {
   //     .catch( err => err )
   // }
 
-  renderChart(coin, CHANGEPCT24HOUR, chartsData) {
-    const chartData = chartsData.find( e => {
-      return e.symbol === coin
-    })
-    const chartColors = CHANGEPCT24HOUR !== 0 ? (CHANGEPCT24HOUR > 0 ? { stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
+  renderChart(coin, change, chartData) {
+    const chartColors = change !== 0 ? (change > 0 ? { stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
     const fill = chartColors.color === 'pink' ? 'url(#pink)' : (chartColors.color === 'blue' ? 'url(#blue)' : 'url(#white)')
     const def = chartColors.color === 'pink' ? (
       <defs>
@@ -188,7 +186,7 @@ class Table extends React.Component {
 
     return (
       <ResponsiveContainer height="100%" width="100%">
-        <AreaChart data={ chartData.data } >
+        <AreaChart data={ chartData } >
           { def }
           <Area type='linear' dataKey='price' stroke={ chartColors.stroke } fill={ fill } />
           <YAxis hide={ true } type="number" domain={ ['dataMin', 'dataMax'] } />
@@ -203,13 +201,13 @@ class Table extends React.Component {
         {({ theme }) => {
           return (
             <Row height={ 75 }>
-              <HeaderCell theme={ theme } width={ name }>Name</HeaderCell>
-              <HeaderCell theme={ theme } width={ cap }>Market Cap</HeaderCell>
-              <HeaderCell theme={ theme } width={ price }>Price</HeaderCell>
-              <HeaderCell theme={ theme } width={ volume }>Volume<br/>(24h)</HeaderCell>
-              <HeaderCell theme={ theme } width={ supply }>Circulating<br/>Supply</HeaderCell>
-              <HeaderCell theme={ theme } width={ change }>Change<br/>(24h)%</HeaderCell>
-              <HeaderCell theme={ theme } width={ chart }>Price Graph<br/>(14d)</HeaderCell>
+              <HeaderCell theme={ theme } width={ nameWidth }>Name</HeaderCell>
+              <HeaderCell theme={ theme } width={ capWidth }>Market Cap</HeaderCell>
+              <HeaderCell theme={ theme } width={ priceWidth }>Price</HeaderCell>
+              <HeaderCell theme={ theme } width={ volumeWidth }>Volume<br/>(24h)</HeaderCell>
+              <HeaderCell theme={ theme } width={ supplyWidth }>Circulating<br/>Supply</HeaderCell>
+              <HeaderCell theme={ theme } width={ changeWidth }>Change<br/>(24h)%</HeaderCell>
+              <HeaderCell theme={ theme } width={ chartWidth }>Price Graph<br/>(14d)</HeaderCell>
             </Row>
           )
         }}
@@ -220,13 +218,13 @@ class Table extends React.Component {
   renderGap(theme, isLastGap) {
     return(
       <Row theme={ theme } height={19} borderBottom={ isLastGap } >
-        <GapCell theme={ theme } width={ name } />
-        <GapCell theme={ theme } width={ cap } />
-        <GapCell theme={ theme } width={ price } />
-        <GapCell theme={ theme } width={ volume } />
-        <GapCell theme={ theme } width={ supply } />
-        <GapCell theme={ theme } width={ change } />
-        <GapCell theme={ theme } width={ chart } />
+        <GapCell theme={ theme } width={ nameWidth } />
+        <GapCell theme={ theme } width={ capWidth } />
+        <GapCell theme={ theme } width={ priceWidth } />
+        <GapCell theme={ theme } width={ volumeWidth } />
+        <GapCell theme={ theme } width={ supplyWidth } />
+        <GapCell theme={ theme } width={ changeWidth } />
+        <GapCell theme={ theme } width={ chartWidth } />
       </Row>
     )
   }
@@ -236,12 +234,8 @@ class Table extends React.Component {
       <TableWrapper>
         { this.renderHeader() }
         <ThemeContext.Consumer >
-          {({ theme, firstColumnData, topTenData, chartsData, selectedFilters, marketCapType }) => {
-            return (
-              topTenData && chartsData ?
-                this.renderRows2(firstColumnData, topTenData, theme, chartsData, selectedFilters, marketCapType) :
-                null
-            )
+          {({ theme, selectedFilters, marketCapType, rowDataObj }) => {
+            return rowDataObj ? this.renderRows(rowDataObj, selectedFilters, theme, marketCapType) : null
           }}
         </ThemeContext.Consumer>
 
