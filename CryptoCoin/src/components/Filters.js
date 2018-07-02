@@ -12,8 +12,6 @@ const FiltersWrapper = styled.div`
   justify-content: flex-end;
   min-height: 155px;
   padding: 0 15px 15px 0;
-  position: sticky;
-  top: -75px;
   z-index: 6;
 `
 
@@ -29,6 +27,7 @@ const Select = styled.div`
   margin: 0 0 0 30px;
   z-index: +1;
   cursor: pointer;
+  width: 190px;
 
     ul {
       background-color: ${ props => props.theme.filterBackground };

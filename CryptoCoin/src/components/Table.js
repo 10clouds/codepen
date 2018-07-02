@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { ThemeContext } from './../theme-context'
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts'
 import DataRow from './DataRow'
-import { delays, durations, cellWidths, currencySymbols } from './../constants'
+import { delays, durations, cellWidths, currencySymbols, headerData } from './../constants'
 import PropTypes from 'prop-types'
 
 const { nameWidth, capWidth, priceWidth, volumeWidth, supplyWidth, changeWidth, chartWidth } = cellWidths
@@ -17,8 +17,13 @@ const Row = styled.div`
   border-bottom: ${ props => props.borderBottom ? '2px' : '0px' } solid ${ props => props.theme.tableGrid };
   display: flex;
   height: ${ props => props.height }px;
-  justify-content:
   width: 100%;
+
+  &.header {
+    background-image: linear-gradient(to right,  rgba(0,0,0, .0) , ${ props => props.theme.tableGrid } 5%, ${ props => props.theme.tableGrid } 95%, rgba(0,0,0, .0) 100% );
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+  }
 `
 
 const Cell = styled.div`
@@ -44,6 +49,8 @@ const Cell = styled.div`
 const GapCell = styled.div`
   border-left: 2px solid ${ props => props.theme.tableGrid };
   width: ${ props => props.width };
+  transform: scale(1, 5);
+  transform-origin: center bottom;
 
   &:nth-of-type(7) {
     border-right: 2px solid ${ props => props.theme.tableGrid };
@@ -51,15 +58,26 @@ const GapCell = styled.div`
 `
 
 const HeaderCell = GapCell.extend`
-  border-top: 1px solid ${ props => props.theme.tableGrid };
   color: #939393;
   font-size: 10px;
   letter-spacing: 1.5px;
   line-height: 1.43;
   padding: 12px;
+  border-image: linear-gradient(to top, ${ props => props.theme.tableGrid }, rgba(0,0,0, .0)) 2 100%;
+  transform: scale(1, 1);
 
   &:not(:first-of-type) {
     text-align: right;
+  }
+
+  &:before {
+    content: '';
+    display: ${ props => props.sortActive ? 'block' : 'none' };
+    position: absolute;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #939393;
+    margin-top: 5px;
   }
 `
 
@@ -88,6 +106,7 @@ class Table extends React.Component {
     const { barTransform, displayMask } = this.props
     const currency = selectedFilters.currency
     const currencySymbol = currencySymbols[Object.keys(currencySymbols).find( e => e === currency )]
+    let rowAnimationDelay = 0
 
     return (
       <React.Fragment>
@@ -106,14 +125,17 @@ class Table extends React.Component {
 
           const isLastGap = index === marketCapType.length - 1
           const color = change !== 0 ? (change > 0 ? theme.success : theme.warning) : theme.text
+          rowAnimationDelay = rowAnimationDelay + 1
+          console.log(rowAnimationDelay)
 
           return (
-            <React.Fragment>
+            <React.Fragment key={ coin }>
               <DataRow
                 barTransform={ barTransform }
                 displayMask={ displayMask}
                 delay={ delays[index] }
                 duration={ durations[index] }
+                rowAnimationDelay={ rowAnimationDelay }
               >
                 <Cell theme={ theme } left width={ nameWidth }>
                   <Icon src={`https://www.cryptocompare.com/${url}`} />
@@ -146,15 +168,6 @@ class Table extends React.Component {
       </React.Fragment>
     )
   }
-
-  // getTopTenList() {
-  //   fetch('https://api.coinmarketcap.com/v2/ticker/?limit=15&structure=array')
-  //     .then( resp => resp.json() )
-  //     .then( all => all.data )
-  //     .then( data => data.map( e => e.symbol) )
-  //     .then( topTenList => this.setState({ topTenList }) )
-  //     .catch( err => err )
-  // }
 
   renderChart(coin, change, chartData) {
     const chartColors = change !== 0 ? (change > 0 ? { stroke:'#546AFB', color: 'blue' } : { stroke: '#F171DF', color: 'pink' } ) : { stroke:'#fff', color: 'white' }
@@ -195,23 +208,21 @@ class Table extends React.Component {
     )
   }
 
-  renderHeader() {
+  renderHeader(theme, sortBy) {
+
     return (
-      <ThemeContext.Consumer>
-        {({ theme }) => {
+      <Row className="header" height={ 75 } theme={ theme } >
+        { headerData.map( e => {
           return (
-            <Row height={ 75 }>
-              <HeaderCell theme={ theme } width={ nameWidth }>Name</HeaderCell>
-              <HeaderCell theme={ theme } width={ capWidth }>Market Cap</HeaderCell>
-              <HeaderCell theme={ theme } width={ priceWidth }>Price</HeaderCell>
-              <HeaderCell theme={ theme } width={ volumeWidth }>Volume<br/>(24h)</HeaderCell>
-              <HeaderCell theme={ theme } width={ supplyWidth }>Circulating<br/>Supply</HeaderCell>
-              <HeaderCell theme={ theme } width={ changeWidth }>Change<br/>(24h)%</HeaderCell>
-              <HeaderCell theme={ theme } width={ chartWidth }>Price Graph<br/>(14d)</HeaderCell>
-            </Row>
+            <HeaderCell
+              theme={ theme }
+              width={ e.width }
+              dangerouslySetInnerHTML={ e.title }
+              sortActive={ sortBy === e.sortOption }
+            />
           )
-        }}
-      </ThemeContext.Consumer>
+        })}
+      </Row>
     )
   }
 
@@ -231,15 +242,16 @@ class Table extends React.Component {
 
   render() {
     return (
-      <TableWrapper>
-        { this.renderHeader() }
-        <ThemeContext.Consumer >
-          {({ theme, selectedFilters, marketCapType, rowDataObj }) => {
-            return rowDataObj ? this.renderRows(rowDataObj, selectedFilters, theme, marketCapType) : null
-          }}
-        </ThemeContext.Consumer>
-
-      </TableWrapper>
+      <ThemeContext.Consumer >
+        {({ theme, selectedFilters, marketCapType, rowDataObj }) => {
+          return (
+            <TableWrapper>
+              { this.renderHeader(theme, selectedFilters.sort) }
+              { rowDataObj ? this.renderRows(rowDataObj, selectedFilters, theme, marketCapType) : null }
+            </TableWrapper>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 }

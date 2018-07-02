@@ -127,10 +127,9 @@ class App extends React.Component {
       const firstColumnData = await this.getFirstColumnData(marketCapType)
       const topTenData = await this.getData(currency, marketCapType)
       const chartsData = await this.getChartsData(marketCapType, graphEmptyData, currency)
-
       const rowDataObj = firstColumnData
 
-      this.createRowDataObj(rowDataObj, topTenData, currency, chartsData)
+      this.createRowDataObj(firstColumnData, topTenData, currency, chartsData)
 
       this.setState({
         [filter]: option,
@@ -143,12 +142,11 @@ class App extends React.Component {
     }
 
     if ( filter === 'currency' ) {
-      const marketCapType = this.state.marketCapType
+      const { marketCapType, firstColumnData } = this.state
       const topTenData = await this.getData(option, marketCapType)
       const graphEmptyData = marketCapType.map( e => ({ symbol: e, data: null }))
       const chartsData = await this.getChartsData(marketCapType, graphEmptyData, option)
-
-      const rowDataObj = this.state.firstColumnData
+      const rowDataObj = firstColumnData
 
       this.createRowDataObj(rowDataObj, topTenData, option, chartsData)
 
@@ -161,50 +159,21 @@ class App extends React.Component {
     }
 
     if ( filter === 'sort' ) {
-
-
-      //   default:
-      //     console.log('Sorry, we are out of ' + expr + '.');
-      // }
-
-      // switch (option) {
-      //   case 'PRICE': {
-      //     const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
-      //       return b.price - a.price
-      //     })
-      //     this.setState({ rowDataObj })
-      //     break
-      // }
-
-
-      if ( option === 'PRICE' ) {
-        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
-          return b.price - a.price
-        })
-        this.setState({ rowDataObj })
-      } else if ( option === 'MARKET CAP' ) {
-        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
-          return b.marketCap - a.marketCap
-        })
-        this.setState({ rowDataObj })
-      } else if ( option === 'VOLUME' ) {
-        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
-          return b.volume - a.volume
-        })
-        this.setState({ rowDataObj })
-      } else if ( option === 'CIRCULATING SUPPLY' ) {
-        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
-          return b.supply - a.supply
-        })
-        this.setState({ rowDataObj })
-      } else if ( option === 'CHANGE' ) {
-        const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
-          return b.change - a.change
-        })
-        this.setState({ rowDataObj })
-      }
+      this.setState(
+        { [filter]: option },
+        () => this.handleSort(this.state.sort)
+      )
     }
   }
+
+  // getTopTenList() {
+  //   fetch('https://api.coinmarketcap.com/v2/ticker/?limit=15&structure=array')
+  //     .then( resp => resp.json() )
+  //     .then( all => all.data )
+  //     .then( data => data.map( e => e.symbol) )
+  //     .then( topTenList => this.setState({ topTenList }) )
+  //     .catch( err => err )
+  // }
 
   getFirstColumnData(marketCapType) {
     return fetch(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${marketCapType}&tsym=USD`)
@@ -248,6 +217,50 @@ class App extends React.Component {
       .catch( err => err)
   }
 
+  sortDirection() {
+
+  }
+
+  handleSort(option) {
+    switch (option) {
+    case 'PRICE': {
+      const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+        return b.price - a.price
+      })
+      this.setState({ rowDataObj })
+      break
+    }
+    case 'MARKET CAP': {
+      const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+        return b.marketCap - a.marketCap
+      })
+      this.setState({ rowDataObj })
+      break
+    }
+    case 'VOLUME': {
+      const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+        return b.volume - a.volume
+      })
+      this.setState({ rowDataObj })
+      break
+    }
+    case 'CIRCULATING SUPPLY': {
+      const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+        return b.supply - a.supply
+      })
+      this.setState({ rowDataObj })
+      break
+    }
+    case 'CHANGE': {
+      const rowDataObj = this.state.rowDataObj.sort( (a, b) => {
+        return b.change - a.change
+      })
+      this.setState({ rowDataObj })
+      break
+    }
+    }
+  }
+
   render() {
     baseStyles()
     const {
@@ -256,6 +269,8 @@ class App extends React.Component {
       bgZIndex,
       circleZIndex,
       bgTransform,
+      marketCapType,
+      rowDataObj
     } = this.state
 
     const bgColor = !bgTransform ? theme.background : theme.changeThemeBackground
@@ -267,19 +282,13 @@ class App extends React.Component {
       })
     }, {} )
 
-    //console.log(this.state.chartsData)
-
-
     return (
       <ThemeContext.Provider value={{
-        theme,
         handleFilterOptionSelect: this.handleFilterOptionSelect.bind(this),
+        marketCapType,
+        rowDataObj,
         selectedFilters,
-        firstColumnData: this.state.firstColumnData,
-        topTenData: this.state.topTenData,
-        chartsData: this.state.chartsData,
-        marketCapType: this.state.marketCapType,
-        rowDataObj: this.state.rowDataObj
+        theme,
       }}>
         <Wrapper theme={ theme }>
           <Background color={ bgColor } zIndex={ bgZIndex } />

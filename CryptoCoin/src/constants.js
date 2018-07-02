@@ -17,10 +17,10 @@ const filters = {
   //   name: 'TRENDING',
   //   options: ['GAINERS AND LOOSERS', 'RECENTLY ADDED'],
   // },
-  tools: {
-    name: 'TOOLS',
-    options: ['zzz', 'xxx', 'ccc', 'vvv'],
-  },
+  // tools: {
+  //   name: 'TOOLS',
+  //   options: ['zzz', 'xxx', 'ccc', 'vvv'],
+  // },
 }
 
 const menuItems = [
@@ -73,4 +73,42 @@ const cellWidths = {
   chartWidth: 'calc(0.22 * (100% - 240px))',
 }
 
-export { filters, menuItems, topTenCoins, graphEmptyData, delays, durations, cellWidths, currencySymbols, topTenTokens }
+const headerData = [
+  {
+    title: { __html: 'Name' },
+    width: cellWidths.nameWidth,
+    sortOption: null,
+  },
+  {
+    title: { __html: 'Market Cap' },
+    width: cellWidths.capWidth,
+    sortOption: 'MARKET CAP',
+  },
+  {
+    title: { __html: 'Price' },
+    width: cellWidths.priceWidth,
+    sortOption: 'PRICE',
+  },
+  {
+    title: { __html: 'Volume<br/>(24h)' },
+    width: cellWidths.volumeWidth,
+    sortOption: 'VOLUME',
+  },
+  {
+    title: { __html: 'Circulating<br/>Supply' },
+    width: cellWidths.supplyWidth,
+    sortOption: 'CIRCULATING SUPPLY',
+  },
+  {
+    title: { __html: 'Change<br/>(24h)%' },
+    width: cellWidths.changeWidth,
+    sortOption: 'CHANGE',
+  },
+  {
+    title: { __html: 'Price Graph<br/>(14d)' },
+    width: cellWidths.nameWidth,
+    sortOption: null,
+  },
+]
+
+export { filters, menuItems, topTenCoins, graphEmptyData, delays, durations, cellWidths, currencySymbols, topTenTokens, headerData }
